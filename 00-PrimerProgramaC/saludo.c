@@ -1,3 +1,4 @@
+/*Este programa saluda por pantalla*/
 #include <stdio.h>
 
 int main (void)

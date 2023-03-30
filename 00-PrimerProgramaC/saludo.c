@@ -1,4 +1,4 @@
-/*Este programa saluda por pantalla*/
+/*Este programa saluda por pantalla 2023*/
 #include <stdio.h>
 
 int main (void)

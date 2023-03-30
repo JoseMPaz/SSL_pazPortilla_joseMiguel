@@ -4,7 +4,7 @@
 
 int main (void)
 {
-	/*Utilizo puts porque no le dare formato a lo que imprimiré*/
+	/*Utilizo puts y no printf ya que utiliza menos recursos y no necesito agregar formato al texto*/
 	puts (SALUDO);
 	return 0;
 }

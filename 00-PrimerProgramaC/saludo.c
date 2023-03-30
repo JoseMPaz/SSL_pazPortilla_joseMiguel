@@ -4,6 +4,7 @@
 
 int main (void)
 {
+	/*Utilizo puts porque no le dare formato a lo que imprimiré*/
 	puts (SALUDO);
 	return 0;
 }

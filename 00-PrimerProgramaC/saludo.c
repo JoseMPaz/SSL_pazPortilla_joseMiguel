@@ -1,6 +1,6 @@
-/*Este programa saluda por pantalla a la materia SSL*/
+/*Este programa saluda por pantalla a la materia SSL en distintos idiomas*/
 #include <stdio.h>
-#define SALUDO "Hola Sintaxis y Semántica de los Lenguajes"
+#include "idioma.h"
 
 int main (void)
 {

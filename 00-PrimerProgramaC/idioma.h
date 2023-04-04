@@ -15,4 +15,16 @@
 #include "frances.h"
 #endif
 
+#ifdef IDIOMA_ALEMAN
+#include "aleman.h"
+#endif
+
+#ifdef IDIOMA_SUECO
+#include "sueco.h"
+#endif
+
+#ifdef IDIOMA_JAPONES
+#include "japones.h"
+#endif
+
 #endif

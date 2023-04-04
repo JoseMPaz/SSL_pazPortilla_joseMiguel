@@ -5,6 +5,9 @@
 
 /*#define IDIOMA_CASTELLANO*/
 /*#define IDIOMA_INGLES*/
-#define IDIOMA_FRANCES
+/*#define IDIOMA_FRANCES*/
+/*#define IDIOMA_SUECO*/
+#define IDIOMA_ALEMAN
+/*#define IDIOMA_JAPONES*/
 
 #endif

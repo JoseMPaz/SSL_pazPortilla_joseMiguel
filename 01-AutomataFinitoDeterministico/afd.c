@@ -20,19 +20,22 @@ void procesar_archivo (FILE * ptr_archivo_entrada, FILE * ptr_archivo_salida)
 		q_actual = tabla_de_transiciones[(int)q_anterior][Columna(c)];
 		if (q_actual != INICIAL)
 		{
+			contador++;
 			fprintf (ptr_archivo_salida,"%c",c);
 		}
 		else
 		{
+			for (i=0;i<(15-contador);i++)
+					fprintf (ptr_archivo_salida,"%c",' ');
 			if (q_anterior == DECIMAL)
-				fprintf (ptr_archivo_salida,"%15s%c", "DECIMAL",'\n');
+				fprintf (ptr_archivo_salida,"%s%c", "DECIMAL",'\n');
 			else if (q_anterior == CERO_OCTAL || q_anterior == OCTAL)
-				fprintf (ptr_archivo_salida,"%15s%c", "OCTAL",'\n');
+				fprintf (ptr_archivo_salida,"%s%c", "OCTAL",'\n');
 			else if (q_anterior == HEXADECIMAL)
-				fprintf (ptr_archivo_salida,"%15s%c", "HEXADECIMAL",'\n');
+				fprintf (ptr_archivo_salida,"%s%c", "HEXADECIMAL",'\n');
 			else
-				fprintf (ptr_archivo_salida,"%15s%c", "NO RECONOCIDA",'\n');
-				
+				fprintf (ptr_archivo_salida,"%s%c", "NO RECONOCIDA",'\n');
+			contador = 0;
 			q_anterior = q_actual;
 		}
 		c = fgetc (ptr_archivo_entrada);
@@ -58,37 +61,3 @@ int Columna (char c)
 		
 	return 6;
 }
-
-/*q = Q0;
-		while (c != DELIMITADOR && c != SALTO_DE_LINEA && c != RETORNO_DE_CARRO && c != FIN_DE_CADENA && c != EOF)
-		{
-			q = tabla_de_transiciones[q][Columna(c)];
-			if (q == Q6)
-			{
-				fprintf (ptr_archivo_salida,"%c",c);
-				fprintf (ptr_archivo_salida,"%15s%c", "NO RECONOCIDA",'\n');
-				c = fgetc (ptr_archivo_entrada);
-				while (c != DELIMITADOR && c != SALTO_DE_LINEA && c != RETORNO_DE_CARRO && c != FIN_DE_CADENA)
-				{
-					fprintf (ptr_archivo_salida,"%c",c);
-					c = fgetc (ptr_archivo_entrada);
-				}
-				break;
-			}
-			else
-			{
-				fprintf (ptr_archivo_salida,"%c",c);
-				c = fgetc (ptr_archivo_entrada);	
-			}
-		}
-		if (q == Q0 || q == Q6 || q == Q3 )
-			fprintf (ptr_archivo_salida,"%15s%c", "NO RECONOCIDA",'\n');
-		if (q == Q2)
-			fprintf (ptr_archivo_salida,"%15s%c", "DECIMAL",'\n');
-		if (q == Q5 || q == Q1)
-			fprintf (ptr_archivo_salida,"%15s%c", "OCTAL",'\n');
-		if (q == Q4)
-			fprintf (ptr_archivo_salida,"%15s%c", "HEXADECIMAL",'\n');
-		
-		c = fgetc (ptr_archivo_entrada);*/
-

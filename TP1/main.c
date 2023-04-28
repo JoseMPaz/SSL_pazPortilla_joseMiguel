@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "afd.h"
 
 typedef enum
@@ -7,7 +6,7 @@ typedef enum
 	False = 0
 }bool_t;
 
-bool_t verificar_argumentos_lineas_comandos (int argc, char * argv[]);
+bool_t verificar_argumentos_linea_comando (int argc, char * argv[]);
 bool_t abrir_archivo (FILE ** ptr_archivo, char * nombre_archivo,char * modo_apertura);
 void cerrar_archivo (FILE ** ptr_archivo);
 
@@ -16,7 +15,7 @@ int main (int argc, char * argv[])
 {
 	FILE * ptr_archivo_entrada, * ptr_archivo_salida;
 
-	if (verificar_argumentos_lineas_comandos (argc,argv) == False)
+	if (verificar_argumentos_linea_comando (argc,argv) == False)
 	{
 		puts ("Error de ingreso de argumentos, ingresar: ./tp1 <nombre_archivo_entrada> <_nombre_archivo_salida>");
 		return 1;
@@ -43,7 +42,7 @@ int main (int argc, char * argv[])
 	return 0;
 }
 
-bool_t verificar_argumentos_lineas_comandos (int argc, char * argv[])
+bool_t verificar_argumentos_linea_comando (int argc, char * argv[])
 {
 	if (argc != 3)
 		return False;

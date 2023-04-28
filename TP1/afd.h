@@ -9,16 +9,16 @@
 
 typedef enum
 {
-	Q0 = 0,
-	Q1 = 1,
-	Q2 = 2,
-	Q3 = 3,
-	Q4 = 4,
-	Q5 = 5,
-	Q6 = 6
+	INICIAL = 0,
+	DECIMAL = 1,
+	CERO_OCTAL = 2,
+	OCTAL = 3,
+	HEXADECIMAL_INCONCLUSO = 4,
+	HEXADECIMAL = 5,
+	OTRO_ASCII = 6
 }estado_t;
 
 void procesar_archivo (FILE * ptr_archivo_entrada, FILE * ptr_archivo_salida);
-int Columna (int c);
+int Columna (char c);
 
 #endif

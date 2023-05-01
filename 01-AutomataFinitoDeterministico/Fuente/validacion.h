@@ -2,6 +2,9 @@
 #define _VALIDACION_H_
 
 #include <stdio.h>
+#include "idioma.h"
+
+#define SALTO_DE_LINEA '\n'
 
 typedef enum
 {

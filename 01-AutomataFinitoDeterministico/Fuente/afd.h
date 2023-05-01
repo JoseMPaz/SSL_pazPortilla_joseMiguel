@@ -3,16 +3,14 @@
 
 #include <stdio.h>
 #include <ctype.h>
+#include "idioma.h"
+
 #define DELIMITADOR ','
 #define SALTO_DE_LINEA '\n'
 #define RETORNO_DE_CARRO '\r'
 #define FIN_DE_CADENA '\0'
 #define ESPACIO ' '
 #define POSICION_INICIO_TIPO_NUMERO 15
-#define NUMERO_DECIMAL "DECIMAL"
-#define NUMERO_OCTAL "OCTAL"
-#define NUMERO_HEXADECIMAL "HEXADECIMAL"
-#define NUMERO_NO_RECONOCIDO "NO RECONOCIDA"
 #define CERO '0'
 #define UNO '1'
 #define SIETE '7'

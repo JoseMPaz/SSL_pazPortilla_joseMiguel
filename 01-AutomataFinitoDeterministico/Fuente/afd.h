@@ -16,8 +16,7 @@
 #define SIETE '7'
 #define OCHO '8'
 #define NUEVE '9'
-#define X_MINUSCULA 'x'
-#define X_MAYUSCULA 'X'
+#define LETRA_X 'X'
 #define LETRA_A 'A'
 #define LETRA_F 'F'
 #define CANTIDAD_DE_ESTADOS 7

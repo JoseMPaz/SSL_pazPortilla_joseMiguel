@@ -29,7 +29,7 @@ int asignar_columna (char caracter)
 		return 2;
 	if ( (toupper (caracter) >= LETRA_A) && (toupper (caracter) <= LETRA_F) )
 		return 3;
-	if (caracter == X_MINUSCULA || caracter == X_MAYUSCULA)
+	if (toupper (caracter) == LETRA_X)
 		return 4;
 	if (caracter == DELIMITADOR ||caracter ==SALTO_DE_LINEA ||caracter ==RETORNO_DE_CARRO ||caracter == FIN_DE_CADENA)
 		return 5;

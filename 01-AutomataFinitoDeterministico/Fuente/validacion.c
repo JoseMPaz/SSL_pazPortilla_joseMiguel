@@ -1,7 +1,11 @@
 #include "validacion.h"
 
+/*Verifica que se ingresen 2 argumentos seguido del nombre del ejecutable*/
 bool_t verificar_argumentos_linea_comando (int argc, const char * argv[])
 {
+	/*En caso de que argv con cuenta con los 3 elemento
+	nombre del ejecutable, nombre del archivo de entrada y 
+	nombre del archivo de salidademite un mesaje de error y retorna un estado falso*/
 	if (argc != 3)
 	{
 		puts (ERROR_CANTIDAD_ARGUMENTOS);
@@ -10,6 +14,8 @@ bool_t verificar_argumentos_linea_comando (int argc, const char * argv[])
 	return True;
 }
 
+/*Verifica que se pueda abrir el archivo en el modo de apertura solicitado,
+en caso no poder emite un mensaje de error y devuelve falso*/
 bool_t abrir_archivo (FILE ** ptr_archivo, const char * nombre_archivo, const char * modo_apertura)
 {
 	if ((*ptr_archivo = fopen (nombre_archivo, modo_apertura)) == NULL)
@@ -20,6 +26,7 @@ bool_t abrir_archivo (FILE ** ptr_archivo, const char * nombre_archivo, const ch
 	return True;
 }
 
+/*Cierra el flujo hacia un archivo abierto*/
 void cerrar_archivo (FILE ** ptr_archivo)
 {
 	fclose (*ptr_archivo);

@@ -22,6 +22,7 @@
 #define CANTIDAD_DE_ESTADOS 7
 #define CANTIDAD_DE_COLUMNAS 7
 
+/*Estados del automata*/
 typedef enum
 {
 	INICIAL = 0,
@@ -33,10 +34,13 @@ typedef enum
 	OTRO_ASCII = 6
 }estado_t;
 
-void procesar_archivo (FILE * ptr_archivo_entrada, FILE * ptr_archivo_salida);
+/*Prototipo de funciones*/
+void automata_finito_deterministico_multiple (FILE * ptr_archivo_entrada, FILE * ptr_archivo_salida);
 int asignar_columna (char caracter);
-estado_t actualizar_estado (estado_t estado_anterior, char caracter);
-void escribir_caracter (FILE ** ptr_archivo_salida, int * contador_caracteres, char caracter, estado_t * estado_actual, estado_t * estado_anterior);
-void escribir_tipo_de_numero (FILE ** ptr_archivo_salida, int * contador_caracteres, estado_t * estado_actual, estado_t * estado_anterior);
+estado_t funcion_de_transicion (estado_t estado_anterior, char caracter);
+void escribir_caracter (FILE ** ptr_archivo_salida, int * contador_caracteres, char caracter);
+void escribir_tipo_de_numero (FILE ** ptr_archivo_salida, int * contador_caracteres, estado_t  estado_anterior);
+void actualizar_estado (estado_t * estado_anterior, estado_t  estado_actual);
+void escribir_etiqueta (estado_t estado_anterior, FILE ** ptr_archivo_salida);
 
 #endif

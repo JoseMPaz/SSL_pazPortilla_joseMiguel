@@ -16,8 +16,8 @@ void agregar_elemento_a_lista (Lista * lista, void * dato)
 		lista->cabeza = nodo;
 	else
 	{
-		for (tmp = lista->cabeza; tmp->siguiente != NULL; tmp = tmp->siguiente);
-		tmp->siguiente = nodo;
+		for (tmp = lista->cabeza; tmp->sig != NULL; tmp = tmp->sig);
+		tmp->sig = nodo;
 	}
 	(lista->tamano)++;
 	return;
@@ -27,8 +27,10 @@ void mostrar_lista (Lista lista, void (*pf) (void * un_dato))
 {
 	Nodo * tmp;
 	
-	for (tmp = lista.cabeza; tmp != NULL; tmp = tmp->siguiente)
-		(*pf)(tmp->dato);
+	for (tmp = lista.cabeza; tmp != NULL; tmp = tmp->sig)
+		(*pf)(tmp->info);
 
 	return;
 }
+
+

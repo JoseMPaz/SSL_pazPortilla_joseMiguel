@@ -6,9 +6,9 @@
 
 typedef struct Nodo
 {
-	void * dato;
-	struct Nodo * siguiente;
+	void * info;
+	struct Nodo * sig;
 }Nodo;
 
-void agregar_elemento_a_nodo (Nodo ** nodo, void * un_dato);
+void agregar_elemento_a_nodo (Nodo ** nodo, void * dato);
 #endif

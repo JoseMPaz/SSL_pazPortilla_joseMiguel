@@ -1,37 +1,31 @@
 #include "lista.h"
 #include <stdlib.h>
-#include "identificador.h"
+#include "cadena_repeticion.h"
+#include "constante.h"
 
 void imprimir_entero (void * dato);
 
 int main (void)
 {
 	int * dato;
-	Lista lista_enteros;
+	Lista lista_constantes;
+	constante_t constante;
 
-	inicializar_lista (&lista_enteros);	
+	inicializar_lista (&lista_constantes);	
+
 	
-	dato = (int *) malloc (1*sizeof (int));
-	*dato = 5;	
-	agregar_elemento_a_lista (&lista_enteros, (int *) dato);
+	agregar_constante (&constante,5);
+	agregar_elemento_a_lista (&lista_constantes, (constante_t) constante);
 	
-	dato = (int *) malloc (1*sizeof (int));
-	*dato = 7;
-	agregar_elemento_a_lista (&lista_enteros, (int *) dato);
+	agregar_constante (&constante,7);
+	agregar_elemento_a_lista (&lista_constantes, (constante_t) constante);
 	
-	dato = (int *) malloc (1*sizeof (int));
-	*dato = 3;
-	agregar_elemento_a_lista (&lista_enteros, (int *) dato);
+	agregar_constante (&constante,2);
+	agregar_elemento_a_lista (&lista_constantes, (constante_t) constante);
 	
-	mostrar_lista (lista_enteros, imprimir_entero);
+	mostrar_lista (lista_constantes, imprimir_constante);
 	
 	return 0;
 }
 
-void imprimir_entero (void * dato)
-{
-	int * dato_entero = (int *) dato; 
-	printf ("%d\n", *dato_entero);
 
-	return;
-}

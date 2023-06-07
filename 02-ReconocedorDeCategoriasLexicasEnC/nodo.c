@@ -1,9 +1,9 @@
 #include "nodo.h"
 
-void agregar_elemento_a_nodo (Nodo ** nodo, void * un_dato)
+void agregar_elemento_a_nodo (Nodo ** nodo, void * dato)
 {
 	*nodo = (Nodo *) malloc (1*sizeof(Nodo));
-	(*nodo)->dato = un_dato;
-	(*nodo)->siguiente = NULL;
+	(*nodo)->info = dato;
+	(*nodo)->sig = NULL;
 	return;
 }	

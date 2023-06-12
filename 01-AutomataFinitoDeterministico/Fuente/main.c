@@ -1,14 +1,16 @@
 /* TP 1: Automata Finito Deterministico
-Autor: Paz Portilla Jose Miguel*/
+Grupo: 11*/
 
 /*Bibliotecas utilizadas*/
 #include <stdlib.h>
 #include "validacion.h"
 #include "afd.h"
 
-/* argv es la dirección de una vector que contiene los argumento(es decir palabras, tipo [char *]) que espera recibir el programa al momento de su ejecución.
+/* argv es la dirección de una vector que contiene los argumento(es decir palabras, 
+tipo [char *]) que espera recibir el programa al momento de su ejecución.
 argc es un entero que indica cantidad de argumento contenidas en el vector argv.
-Cuando un programa no espera recibir argumento, entonces la cantidad de argumentos solo es 1(argc == 1) y en un primer elemento del vector
+Cuando un programa no espera recibir argumento, 
+entonces la cantidad de argumentos solo es 1(argc == 1) y en un primer elemento del vector
 solo contendra el nombre del ejecutable(arg[0] == "nombre_del_ejecutable").
           ________________________
          |                        |
@@ -49,9 +51,13 @@ int main (int argc, const char * argv[])
 
 	if (/*Se verifica que se ingresaron 3 argumentos para no caer desbordamientos*/
 		verificar_argumentos_linea_comando (argc,argv) == False 
-		/*Abre el archivo de entrada en modo lectura, en caso de no poder hacerlo muestra un mensaje del error y retorna el estado como falso*/
+		/*Abre el archivo de entrada en modo lectura, 
+		en caso de no poder hacerlo muestra un mensaje del error 
+		y retorna el estado como falso*/
 	|| abrir_archivo (&ptr_archivo_entrada,argv[1],"r") == False 
-	/*Abre el archivo de salida en modo escritura, en caso de no poder hacerlo muestra un mensaje del error y retorna el estado como falso*/
+	/*Abre el archivo de salida en modo escritura, 
+	en caso de no poder hacerlo muestra un mensaje del error y 
+	retorna el estado como falso*/
 	|| (estado_apertura = abrir_archivo (&ptr_archivo_salida,argv[2],"w")) == False)
 	{
 		/*Si no logra el archivo de salida*/

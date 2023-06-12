@@ -14,7 +14,7 @@ solo contendra el nombre del ejecutable(arg[0] == "nombre_del_ejecutable").
          |                        |
 argv:    |"nombre_del_ejecutable" |    ----> argc == 1
          |________________________|
-                 arg[0]
+                 argv[0]
   
 En nuestro trabajo practico valor a utilizar 2 argumentos por linea de comando más para indicarle al programa
 el nombre del archivo a procesar(que llamaremos entrada.txt) 
@@ -26,7 +26,7 @@ el vector de argumento contendra la siguiente informacion
         |                      |                            |                            |
 argv:   |        "tp1"         |        "entrada.txt"       |       "salidad.txt"        |         ----> argc == 3
         |______________________|____________________________|____________________________|          |
-                arg[0]                   arg[1]                     argv[2]
+                argv[0]                   argv[1]                     argv[2]
 
 Este programa se puede configurar en varios idiomas, 
 basta con retirar el comentario del idioma que se quiere utilizar y comentar el que se utiliza actualmente en el archivo "configuracion.h"

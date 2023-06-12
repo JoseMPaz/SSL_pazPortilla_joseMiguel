@@ -1,15 +1,5 @@
 /* TP 1: Automata Finito Deterministico
-
-Grupo: 11
-
-Integrantes:
-_Mazzieri Pedro
-_AlanocaFranco
-_Chaparro Matias
-_Herrera Carlos
-_Zani Matias
-_Paz Portilla Jose Miguel
-*/
+Autor: Paz Portilla Jose Miguel*/
 
 /*Bibliotecas utilizadas*/
 #include <stdlib.h>

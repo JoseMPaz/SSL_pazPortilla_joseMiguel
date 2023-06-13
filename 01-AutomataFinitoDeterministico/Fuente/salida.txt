@@ -10,3 +10,4 @@
 120            DECIMAL
                NO RECONOCIDA
 gjdldlj.4      NO RECONOCIDA
+0XD            HEXADECIMAL

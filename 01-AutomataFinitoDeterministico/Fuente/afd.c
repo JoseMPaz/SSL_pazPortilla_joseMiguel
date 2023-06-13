@@ -98,7 +98,7 @@ int asignar_columna (char caracter)
 		return 3;
 	if (toupper (caracter) == LETRA_X)
 		return 4;
-	if (caracter == DELIMITADOR ||caracter ==SALTO_DE_LINEA ||caracter ==RETORNO_DE_CARRO ||caracter == FIN_DE_CADENA)
+	if (caracter == DELIMITADOR || caracter == SALTO_DE_LINEA || caracter == RETORNO_DE_CARRO|| caracter == FIN_DE_CADENA)
 		return 5;
 		
 	return 6;

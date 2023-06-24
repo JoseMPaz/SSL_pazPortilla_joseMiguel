@@ -2,7 +2,7 @@
 #Ademas se puede ver las dependencias de bibliotecas entre los fuentes
 
 #Etiqueto a CC con el nombre del compilador, es decir gcc
-CC = g++
+CC = gcc
 
 #Etiqueto a CFLAGS con algunas bandera utiles como 
 #-ansi para validar que se este compilando segun su estandar

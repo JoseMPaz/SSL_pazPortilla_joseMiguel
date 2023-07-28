@@ -1,6 +1,5 @@
+//Programa de prueba
+/* Materia:SSL
+Grupo:11 */
 #include <stdio.h>
-int main(void)
-{
-	printf("%s\n","Hola Mundo!");
-	return 0;
-}
+#define SALUDO "Hola mundo"

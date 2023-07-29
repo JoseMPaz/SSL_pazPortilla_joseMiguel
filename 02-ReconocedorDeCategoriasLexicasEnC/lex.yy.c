@@ -745,7 +745,7 @@ YY_DECL
 		}
 
 	{
-#line 43 "escaner.l"
+#line 45 "escaner.l"
 
 #line 751 "lex.yy.c"
 
@@ -806,53 +806,53 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 44 "escaner.l"
+#line 46 "escaner.l"
 ;
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 45 "escaner.l"
+#line 47 "escaner.l"
 {printf("Se encontro comentario de una linea: %s\n", yytext);} 
 	YY_BREAK
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
-#line 46 "escaner.l"
+#line 48 "escaner.l"
 {printf("Se encontro comentario multilineas: %s\n", yytext);} 
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 47 "escaner.l"
+#line 49 "escaner.l"
 {printf("Se incluye una biblioteca con la instruccion: %s\n", yytext);} 
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 48 "escaner.l"
+#line 50 "escaner.l"
 {printf("Se definira una constante con la instruccion: %s\n", yytext);}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 49 "escaner.l"
+#line 51 "escaner.l"
 {printf("Cadena de caracteres: %s\n", yytext);}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 50 "escaner.l"
+#line 52 "escaner.l"
 {printf("Se encontro la biblioteca: %s\n", yytext);}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 51 "escaner.l"
+#line 53 "escaner.l"
 {printf("Se encontro la macro: %s\n", yytext);}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 52 "escaner.l"
+#line 54 "escaner.l"
 {printf("Ninguna regla para: %s\n", yytext);}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 54 "escaner.l"
+#line 56 "escaner.l"
 ECHO;
 	YY_BREAK
 #line 859 "lex.yy.c"
@@ -1860,7 +1860,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 54 "escaner.l"
+#line 56 "escaner.l"
 
 /**************** FIN REGLAS ******************/
 

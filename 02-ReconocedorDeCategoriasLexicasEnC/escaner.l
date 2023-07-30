@@ -1,4 +1,5 @@
 %option noyywrap
+
 /**************** INICIO DEFINICIONES ******************/
 %{
 // Inclusion de Bibliotecas
@@ -7,17 +8,12 @@
 // Definicion de Variables Globales 
 int acum = 0;
 %}
-
 CARACTER_ESPACIO		[" "]
 LETRA						[a-zA-z]
 DIGITO_HEXADECIMAL 	[0-9A-Fa-f]
 DIGITO_DECIMAL	  		[0-9]
 DIGITO_OCTAL			[0-7]
 GUION_BAJO				"_"
-INICIO_COMENTARIO 	["/*"]
-FIN_COMENTARIO 	["*/"]
-OPERADOR_MENOR ["<"]
-OPERADOR_MAYOR [">"]
 
 
 CONSTANTE_DECIMAL 						[1-9]{DIGITO_DECIMAL} 
@@ -28,30 +24,49 @@ CONSTANTE_LITERAL_CADENA				\"[^\n"]*\"
 FUNCION_PRINCIPAL							["main"]
 PALABRAS_RESERVADAS     				["printf"]
 CONSTANTE_CADENA_DE_CARACTERES		\"[^\n"]*\"
+CONSTANTE_CARACTER						\'.\'
 
-CONSTANTE_ENTERA -?[1-9][0-9]{0,4}
-CONSTANTE_REAL -?[0-9]{0,6}{OPERADOR_PUNTO}[0-9]{0,6}
-INCLUCION_DE_BIBLIOTECA "#include"
-DEFINICION_DE_CONSTANTE "#define"
-COMENTARIO_DE_UNA_LINEA \/\/.*
-COMENTARIO_MULTILINEAS \/\*([^*]|(\*+[^*/]))*\*+\/
-BIBLIOTECA {OPERADOR_MENOR}{IDENTIFICADOR}".h"{OPERADOR_MAYOR}
-MACRO ["A-Z"][A-Z0-9]*
-		
+CONSTANTE_ENTERA 					-?[1-9][0-9]{0,4}
+CONSTANTE_REAL 					-?[0-9]{0,6}{"."}[0-9]{0,6}
+COMENTARIO_DE_UNA_LINEA 		\/\/.*
+COMENTARIO_MULTILINEAS 			\/\*([^*]|(\*+[^*/]))*\*+\/
+
+
+OPERADORES_Y_CARACTERES_DE_PUNTUACION					["+"]|["-"]|["*"]|["/"]|["."]|[","]|[";"]|["<"]|[">"]|["("]|[")"]|"\#"|">="|"<="
+PALABRAS_RESERVADAS_TIPOS_DE_DATO     					"void"|"char"|"int"|"float"|"double"
+PALABRAS_RESERVADAS_DIRECTIVAS_PREPROCESAMIENTO		"include"|"define"|"ifndef"|"ifdef"|"endif"
+PALABRAS_RESERVADAS_ESTRUCTURA_DE_CONTROL				"goto"|"if"|"else"|"for"|"do"|"while"|"switch"|"case"|"break"|"continue"|"default"|"return"
+PALABRAS_RESERVADAS_MODIFICADOR_ALMACENAMIENTO		"auto"|"register"|"extern"|"static"
+PALABRAS_RESERVADAS_MODIFICADOR_TIPO_DE_DATO			"const"|"volatile"
+PALABRAS_RESERVADAS_MODIFICADOR_VARIABLE_NUMERICA	"long"|"short"|"signed"|"unsigned"
+PALABRAS_RESERVADAS_TIPOS_DE_DATO_COMPUESTOS			"enum"|"struct"|"union"
+PALABRAS_RESERVADAS_MANIPULACION_DE_MEMORIA			"malloc"|"calloc"|"realloc"|"free"
+PALABRAS_RESERVADAS_ENTRADA_SALIDA_DE_DATOS			"printf"|"fprintf"|"scanf"|"fscanf"|"getchar"|"fgets"
+PALABRAS_RESERVADAS_PUNTO_ENTRADA_PROGRAMA			"main"
 
 /**************** FIN DEFINICIONES ******************/
 
 /**************** INICIO REGLAS ******************/
 %%
-{CARACTER_ESPACIO} ;
-{COMENTARIO_DE_UNA_LINEA} {printf("Se encontro comentario de una linea: %s\n", yytext);} 
-{COMENTARIO_MULTILINEAS} {printf("Se encontro comentario multilineas: %s\n", yytext);} 
-{INCLUCION_DE_BIBLIOTECA} {printf("Se incluye una biblioteca con la instruccion: %s\n", yytext);} 
-{DEFINICION_DE_CONSTANTE} {printf("Se definira una constante con la instruccion: %s\n", yytext);}
-{CONSTANTE_CADENA_DE_CARACTERES} {printf("Cadena de caracteres: %s\n", yytext);}
-{BIBLIOTECA} {printf("Se encontro la biblioteca: %s\n", yytext);}
-{MACRO} {printf("Se encontro la macro: %s\n", yytext);}
-. {printf("Ninguna regla para: %s\n", yytext);}
+{OPERADORES_Y_CARACTERES_DE_PUNTUACION}					{printf("OPERADORES_Y_CARACTERES_DE_PUNTUACION: %s\n", yytext);} 
+{PALABRAS_RESERVADAS_TIPOS_DE_DATO}							{printf("PALABRAS_RESERVADAS_TIPOS_DE_DATO: %s\n", yytext);} 
+{PALABRAS_RESERVADAS_DIRECTIVAS_PREPROCESAMIENTO}		{printf("PALABRAS_RESERVADAS_DIRECTIVAS_PREPROCESAMIENTO: %s\n", yytext);} 
+{PALABRAS_RESERVADAS_ESTRUCTURA_DE_CONTROL}				{printf("PALABRAS_RESERVADAS_ESTRUCTURA_DE_CONTROL: %s\n", yytext);} 
+{PALABRAS_RESERVADAS_MODIFICADOR_ALMACENAMIENTO}		{printf("PALABRAS_RESERVADAS_MODIFICADOR_ALMACENAMIENTO: %s\n", yytext);}
+{PALABRAS_RESERVADAS_MODIFICADOR_TIPO_DE_DATO}			{printf("PALABRAS_RESERVADAS_MODIFICADOR_TIPO_DE_DATO: %s\n", yytext);}
+{PALABRAS_RESERVADAS_MODIFICADOR_VARIABLE_NUMERICA}	{printf("PALABRAS_RESERVADAS_MODIFICADOR_VARIABLE_NUMERICA: %s\n", yytext);}
+{PALABRAS_RESERVADAS_TIPOS_DE_DATO_COMPUESTOS}			{printf("PALABRAS_RESERVADAS_TIPOS_DE_DATO_COMPUESTOS: %s\n", yytext);}
+{PALABRAS_RESERVADAS_MANIPULACION_DE_MEMORIA}			{printf("PALABRAS_RESERVADAS_MANIPULACION_DE_MEMORIA: %s\n", yytext);}
+{PALABRAS_RESERVADAS_ENTRADA_SALIDA_DE_DATOS}			{printf("PALABRAS_RESERVADAS_ENTRADA_SALIDA_DE_DATOS: %s\n", yytext);}
+{PALABRAS_RESERVADAS_PUNTO_ENTRADA_PROGRAMA}				{printf("PALABRAS_RESERVADAS_PUNTO_ENTRADA_PROGRAMA: %s\n", yytext);}	
+{CARACTER_ESPACIO} 												;
+{CONSTANTE_CARACTER} 											{printf("CONSTANTE_CARACTER: %s\n", yytext);}
+{IDENTIFICADOR} 													{printf("IDENTIFICADOR: %s\n", yytext);} 
+{COMENTARIO_DE_UNA_LINEA} 										{printf("COMENTARIO_DE_UNA_LINEA: %s\n", yytext);} 
+{COMENTARIO_MULTILINEAS}										{printf("COMENTARIO_MULTILINEAS: %s\n", yytext);} 
+{CONSTANTE_CADENA_DE_CARACTERES} 							{printf("CONSTANTE_CADENA_DE_CARACTERES: %s\n", yytext);}
+
+. 																		{printf("Ninguna regla para: %s\n", yytext);}
 
 %%
 /**************** FIN REGLAS ******************/

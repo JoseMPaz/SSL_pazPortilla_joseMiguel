@@ -29,8 +29,6 @@ Modificadores de tipo de variable numerica: long, short, signed,   unsigned,
 Punteros: typedef, sizeof, 
 Definir tipos de datos compuestos:  enum,  union, struct, 
 Funciones para manipular memoria: malloc, calloc, realloc, free
-Funciones de entrada y salida de datos: printf, scanf, fprintf, 
+Funciones de entrada y salida de datos: printf, scanf, fprintf, fscanf, fgets, 
 
-operadores y caracteres de puntiacion:
-"." "," ";" "?" ":" "+" "-" "*" "/" "(" ")" "[" "]" "{" "} "|" "^" "!" "=" < <= > >= == != # || & && -> 
   

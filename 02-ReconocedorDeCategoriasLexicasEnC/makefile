@@ -1,15 +1,14 @@
 TARGET = tp2.exe
 CC = gcc
 CFLAGS = -g
-SRCS = escaner.l mis_funciones.c
-HEADERS = mis_funciones.h
-OBJS = $(SRCS:.c=.o) lex.yy.o
 all: tp2.exe
-$(TARGET):lex.yy.o mis_funciones.o
-	$(CC) $(CFLAGS) -o tp2.exe lex.yy.o mis_funciones.o
-mis_funciones.o: mis_funciones.c mis_funciones.h
-	$(CC) $(CFLAGS) -o mis_funciones.o -c mis_funciones.c
-lex.yy.o: lex.yy.c mis_funciones.h
+$(TARGET):lex.yy.o lista.o palabra_entero.o
+	$(CC) $(CFLAGS) -o tp2.exe lex.yy.o lista.o palabra_entero.o
+palabra_entero.o: palabra_entero.c palabra_entero.h
+	$(CC) $(CFLAGS) -o palabra_entero.o -c palabra_entero.c
+lista.o: lista.c lista.h
+	$(CC) $(CFLAGS) -o lista.o -c lista.c
+lex.yy.o: lex.yy.c
 	$(CC) $(CFLAGS) -o lex.yy.o -c lex.yy.c
 lex.yy.c: escaner.l
 	flex escaner.l

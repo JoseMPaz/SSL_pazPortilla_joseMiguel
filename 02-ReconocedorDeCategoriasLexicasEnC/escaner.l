@@ -31,10 +31,10 @@ FUNCION_PRINCIPAL							["main"]
 PALABRAS_RESERVADAS     				["printf"]
 CONSTANTE_CADENA_DE_CARACTERES		\"[^\n"]*\"
 CONSTANTE_CARACTER						\'.\'
-CONSTANTE_ENTERA 					-?[1-9][0-9]{0,4}
-CONSTANTE_REAL 					-?[0-9]{0,6}{"."}[0-9]{0,6}
-COMENTARIO_DE_UNA_LINEA 		\/\/.*
-COMENTARIO_MULTILINEAS 			\/\*([^*]|(\*+[^*/]))*\*+\/
+CONSTANTE_ENTERA 							-?[1-9][0-9]{0,4}
+CONSTANTE_REAL 							-?[0-9]{0,6}{"."}[0-9]{0,6}
+COMENTARIO_DE_UNA_LINEA 				\/\/.*
+COMENTARIO_MULTILINEAS 					\/\*([^*]|(\*+[^*/]))*\*+\/
 
 
 OPERADORES_Y_CARACTERES_DE_PUNTUACION					["+"]|["-"]|["*"]|["/"]|["."]|[","]|[";"]|["<"]|[">"]|["("]|[")"]|"\#"|">="|"<="|"\{"|"\}"
@@ -94,7 +94,7 @@ int main(void)
 
 	yylex();
 	
-	puts ("PALABRAS RESERVADAS:");
+	//puts ("PALABRAS RESERVADAS:");
 	//pf_imprimir = imprimir_palabra_reservada;
 	//imprimir(lista_palabras_reservadas,pf_imprimir);
     /* Acciónes posteriores a la ejecución del analizador léxico, 

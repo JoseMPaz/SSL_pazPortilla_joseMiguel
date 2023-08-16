@@ -16,6 +16,7 @@ nodo_cadena_entero_t * identificadores = NULL;
 nodo_cadena_entero_t * literales_cadena = NULL;
 nodo_cadena_entero_t * palabras_reservadas = NULL;
 nodo_enteros_t * octales = NULL;
+nodo_enteros_t * hexadecimales = NULL;
 
 //nodo_t * lista_palabras_reservadas = NULL;
 //palabra_reservada_t * palabra_reservada;
@@ -25,7 +26,7 @@ int numero_de_linea = 1;
 
 %}
 CARACTER_ESPACIO		[" "]
-LETRA						[a-zA-z]
+LETRA						[a-zA-Z]
 DIGITO_HEXADECIMAL 	[0-9A-Fa-f]
 DIGITO_DECIMAL	  		[0-9]
 DIGITO_OCTAL			[0-7]
@@ -33,8 +34,9 @@ GUION_BAJO				"_"
 BASURA					[ \t]+
 VACIO						""
 
-CONSTANTE_DECIMAL 						[1-9]{DIGITO_DECIMAL} 
+CONSTANTE_DECIMAL 						[1-9]{DIGITO_DECIMAL}* 
 CONSTANTE_OCTAL							0{DIGITO_OCTAL}* 
+CONSTANTE_HEXADECIMAL					0[xX]{DIGITO_HEXADECIMAL}+
 IDENTIFICADOR								({LETRA}|{GUION_BAJO})({LETRA}|{DIGITO_DECIMAL}|GUION_BAJO)*
 OPERADOR_O_CARACTER_DE_PUNTUACION 	"<"|">"|";"|"."
 CONSTANTE_LITERAL_CADENA				\"[^\n"]*\"	
@@ -48,7 +50,7 @@ COMENTARIO_DE_UNA_LINEA 				\/\/.*
 COMENTARIO_MULTILINEAS 					\/\*([^*]|(\*+[^*/]))*\*+\/
 
 
-OPERADORES_Y_CARACTERES_DE_PUNTUACION					["+"]|["-"]|["*"]|["/"]|["."]|[","]|[";"]|["<"]|[">"]|["("]|[")"]|">="|"<="|"\{"|"\}"
+OPERADORES_Y_CARACTERES_DE_PUNTUACION					["+"]|["-"]|["*"]|["/"]|["."]|[","]|[";"]|["<"]|[">"]|["("]|[")"]|">="|"<="|"\{"|"\}"|"\]"
 PALABRAS_RESERVADAS_TIPOS_DE_DATO     					"int"|"char"|"float"|"double"|"void"
 PALABRAS_RESERVADAS_DIRECTIVAS_PREPROCESAMIENTO		\#(include|define|ifndef|ifdef)(.*)|\#endif
 PALABRAS_RESERVADAS_ESTRUCTURA_DE_CONTROL				"goto"|"if"|"else"|"for"|"do"|"while"|"switch"|"case"|"break"|"continue"|"default"|"return"
@@ -107,13 +109,18 @@ PALABRAS_RESERVADAS_PUNTO_ENTRADA_PROGRAMA			"main"
 																		strcpy (cadena_entero.cadena,yytext); cadena_entero.entero = yyleng - 2;
 																		agregar_cadena_entero_ordenado_sin_repeticion (&literales_cadena, cadena_entero, 
 																		accion, criterio);}
-{CONSTANTE_OCTAL}													{printf("CONSTANTE_OCTAL: %s\n", yytext);
+{CONSTANTE_OCTAL}													{printf("CONSTANTE_OCTAL: %s que en decimal es %d\n" , 
+																		yytext, convertir_cadena_octal_a_entero(yytext));
 																		agregar_enteros_al_final_con_repeticion (&octales,
-																		convertir_cadena_octal_a_entero(yytext));}	
+																		convertir_cadena_octal_a_entero(yytext));}
+{CONSTANTE_DECIMAL}												{printf("CONSTANTE_DECIMAL: %s\n", yytext);}
+{CONSTANTE_HEXADECIMAL}											{printf("CONSTANTE_HEXADECIMAL: %s\n", yytext);
+																		}
 {VACIO}																;
 {BASURA}																;
-.																		{printf("NO_RECONOCIDA: %s\t", yytext);printf("%s%d\n","En la linea: ", yylineno);}
 \n																		{numero_de_linea++;}
+.																		{printf("NO_RECONOCIDA: %s\t", yytext);printf("%s%d\n","En la linea: ", yylineno);}
+
 
 
 
@@ -142,7 +149,10 @@ int main(void)
 	eliminar_lista_cadena_entero(palabras_reservadas);
 	
 	imprimir_enteros(octales,"CONSTANTES OCTALES");
-	eliminar_lista_enteros(octales);
+	//eliminar_lista_enteros(octales);
+	
+	//imprimir_enteros(hexadecimales,"CONSTANTES HEXADECIMALES");
+	//eliminar_lista_enteros(hexadecimales);
 	
 	fclose(yyin);
 

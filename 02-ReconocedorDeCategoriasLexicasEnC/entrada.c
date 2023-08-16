@@ -31,8 +31,7 @@ int main (void) $
 	fgets(SALUDO);
 	fgets("Hola mundo");
 	fgets("Hi");
-	@
-	AVECES ZORRO BURRO
+	@ AVECES ZORRO BURRO
 	hola zuricate
 	return 0;
 }

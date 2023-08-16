@@ -66,85 +66,66 @@ PALABRAS_RESERVADAS_PUNTO_ENTRADA_PROGRAMA			"main"
 
 /**************** INICIO REGLAS ******************/
 %%
-{OPERADORES_Y_CARACTERES_DE_PUNTUACION}					{printf("OPERADORES_Y_CARACTERES_DE_PUNTUACION: %s\n", yytext);
-																		accion = agregar_uno_a_entero;
+{OPERADORES_Y_CARACTERES_DE_PUNTUACION}					{accion = agregar_uno_a_entero;
 																		strcpy (cadena_entero.cadena,yytext);
 																		cadena_entero.entero=1;
 																		agregar_cadena_entero_sin_repeticion (&operadores_y_caracteres_de_puntuacion, 	
 																															cadena_entero, accion);} 
-{PALABRAS_RESERVADAS_DIRECTIVAS_PREPROCESAMIENTO}		{printf("PALABRAS_RESERVADAS_DIRECTIVAS_PREPROCESAMIENTO: %s\n", yytext);
-																		strcpy (cadena_entero.cadena,yytext); 	
+{PALABRAS_RESERVADAS_DIRECTIVAS_PREPROCESAMIENTO}		{strcpy (cadena_entero.cadena,yytext); 	
 																		cadena_entero.entero=(int)DIRECTIVA_DE_PREPROCESAMIENTO;											  
 																		agregar_cadena_entero_al_final_con_repeticion(&palabras_reservadas, cadena_entero);}  
-{PALABRAS_RESERVADAS_PUNTO_ENTRADA_PROGRAMA}				{printf("PALABRAS_RESERVADAS_PUNTO_ENTRADA_PROGRAMA: %s\n", yytext);
-																		strcpy (cadena_entero.cadena,yytext); 	
+{PALABRAS_RESERVADAS_PUNTO_ENTRADA_PROGRAMA}				{strcpy (cadena_entero.cadena,yytext); 	
 																		cadena_entero.entero=(int)PUNTO_DE_ENTRADA_AL_PROGRAMA;
 																		agregar_cadena_entero_al_final_con_repeticion(&palabras_reservadas, cadena_entero);}
-{PALABRAS_RESERVADAS_ESTRUCTURA_DE_CONTROL}				{printf("PALABRAS_RESERVADAS_ESTRUCTURA_DE_CONTROL: %s\n", yytext);
-																		strcpy (cadena_entero.cadena,yytext); 
+{PALABRAS_RESERVADAS_ESTRUCTURA_DE_CONTROL}				{strcpy (cadena_entero.cadena,yytext); 
 																		cadena_entero.entero=(int)ESTRUCTURA_DE_CONTROL;
 																		agregar_cadena_entero_al_final_con_repeticion(&palabras_reservadas, cadena_entero);} 
-{PALABRAS_RESERVADAS_MODIFICADOR_ALMACENAMIENTO}		{printf("PALABRAS_RESERVADAS_MODIFICADOR_ALMACENAMIENTO: %s\n", yytext);
-																		strcpy (cadena_entero.cadena,yytext); 	
+{PALABRAS_RESERVADAS_MODIFICADOR_ALMACENAMIENTO}		{strcpy (cadena_entero.cadena,yytext); 	
 																		cadena_entero.entero=(int)MODIFICADOR_DE_ALMACENAMIENTO;
 																		agregar_cadena_entero_al_final_con_repeticion(&palabras_reservadas, cadena_entero);}
-{PALABRAS_RESERVADAS_MODIFICADOR_TIPO_DE_DATO}			{printf("PALABRAS_RESERVADAS_MODIFICADOR_TIPO_DE_DATO: %s\n", yytext);
-																		strcpy (cadena_entero.cadena,yytext); 	
+{PALABRAS_RESERVADAS_MODIFICADOR_TIPO_DE_DATO}			{strcpy (cadena_entero.cadena,yytext); 	
 																		cadena_entero.entero=(int)MODIFICADOR_DE_TIPO_DE_DATO;
 																		agregar_cadena_entero_al_final_con_repeticion(&palabras_reservadas, cadena_entero);}
-{PALABRAS_RESERVADAS_MODIFICADOR_VARIABLE_NUMERICA}	{printf("PALABRAS_RESERVADAS_MODIFICADOR_VARIABLE_NUMERICA: %s\n", yytext);
-																		strcpy (cadena_entero.cadena,yytext); 	
+{PALABRAS_RESERVADAS_MODIFICADOR_VARIABLE_NUMERICA}	{strcpy (cadena_entero.cadena,yytext); 	
 																		cadena_entero.entero=(int)MODIFICADOR_VARIABLE_NUMERICA;
 																		agregar_cadena_entero_al_final_con_repeticion(&palabras_reservadas, cadena_entero);}
-{PALABRAS_RESERVADAS_TIPOS_DE_DATO_COMPUESTOS}			{printf("PALABRAS_RESERVADAS_TIPOS_DE_DATO_COMPUESTOS: %s\n", yytext);
-																		strcpy (cadena_entero.cadena,yytext); 	
+{PALABRAS_RESERVADAS_TIPOS_DE_DATO_COMPUESTOS}			{strcpy (cadena_entero.cadena,yytext); 	
 																		cadena_entero.entero=(int)TIPOS_DE_DATOS_COMPUESTOS;
 																		agregar_cadena_entero_al_final_con_repeticion(&palabras_reservadas, cadena_entero);}
-{PALABRAS_RESERVADAS_TIPOS_DE_DATO}							{printf("PALABRAS_RESERVADAS_TIPOS_DE_DATO: %s\n", yytext);
-																		strcpy (cadena_entero.cadena,yytext);cadena_entero.entero=(int)TIPO_DE_DATO;
+{PALABRAS_RESERVADAS_TIPOS_DE_DATO}							{strcpy (cadena_entero.cadena,yytext);cadena_entero.entero=(int)TIPO_DE_DATO;
 																		agregar_cadena_entero_al_final_con_repeticion(&palabras_reservadas, cadena_entero);} 
-{IDENTIFICADOR} 													{printf("IDENTIFICADOR: %s\t", yytext);
-																		criterio = criterio_alfabetico; 
+{IDENTIFICADOR} 													{criterio = criterio_alfabetico; 
 																		accion = agregar_uno_a_entero;
 																		strcpy (cadena_entero.cadena,yytext);
 																		cadena_entero.entero=1;
 																		agregar_cadena_entero_ordenado_sin_repeticion (&identificadores, cadena_entero, 
 																																		accion, criterio);} 
-{COMENTARIO_DE_UNA_LINEA} 										{printf("COMENTARIO_DE_UNA_LINEA: %s\n", yytext);
-																		strcpy (cadena_entero.cadena,yytext); 	
+{COMENTARIO_DE_UNA_LINEA} 										{strcpy (cadena_entero.cadena,yytext); 	
 																		cadena_entero.entero=(int)UNA_LINEA;	
 																		agregar_cadena_entero_al_final_con_repeticion(&comentarios, cadena_entero);} 
-{COMENTARIO_MULTILINEAS}										{printf("COMENTARIO_MULTILINEAS: %s\n", yytext);
-																		strcpy (cadena_entero.cadena,yytext); 	
+{COMENTARIO_MULTILINEAS}										{strcpy (cadena_entero.cadena,yytext); 	
 																		cadena_entero.entero=(int)MULTIPLE_LINEAS;	
 																		agregar_cadena_entero_al_final_con_repeticion(&comentarios, cadena_entero);}  
-{CONSTANTE_CADENA_DE_CARACTERES} 							{printf("CONSTANTE_CADENA_DE_CARACTERES: %s\n", yytext);
-																		criterio = criterio_longitud; 
+{CONSTANTE_CADENA_DE_CARACTERES} 							{criterio = criterio_longitud; 
 																		accion = desechar;
 																		strcpy (cadena_entero.cadena,yytext); 
 																		cadena_entero.entero = yyleng - 2;
 																		agregar_cadena_entero_ordenado_sin_repeticion (&literales_cadena, cadena_entero, 
 																																		accion, criterio);}
-{CONSTANTE_OCTAL}													{printf("CONSTANTE_OCTAL: %s\n", yytext);
-																		agregar_enteros_al_final_con_repeticion (&octales,
+{CONSTANTE_OCTAL}													{agregar_enteros_al_final_con_repeticion (&octales,
 																															convertir_cadena_octal_a_entero(yytext));}
-{CONSTANTE_DECIMAL}												{printf("CONSTANTE_DECIMAL: %s\n", yytext);
-																		agregar_enteros_al_final_con_repeticion(&decimales, 	
+{CONSTANTE_DECIMAL}												{agregar_enteros_al_final_con_repeticion(&decimales, 	
 																															convertir_cadena_entera_a_entero(yytext));}
-{CONSTANTE_HEXADECIMAL}											{printf("CONSTANTE_HEXADECIMAL: %s\n", yytext);
-																		agregar_enteros_al_final_con_repeticion(&hexadecimales, 	
+{CONSTANTE_HEXADECIMAL}											{agregar_enteros_al_final_con_repeticion(&hexadecimales, 	
 																															convertir_cadena_hexadecimal_a_entero(yytext));}
-{CONSTANTE_REAL}													{printf("CONSTANTE_REAL: %s\n", yytext);
-																		real.parte_entera=obtener_parte_entera(yytext);
+{CONSTANTE_REAL}													{real.parte_entera=obtener_parte_entera(yytext);
 																		real.mantisa = obtener_mantisa(yytext);
 																		agregar_reales_al_final_con_repeticion (&reales, real);}	
-{CONSTANTE_CARACTER} 											{printf("CONSTANTE_CARACTER: %s, cuyo caracter es %c\n", yytext, yytext[1]);
-																		agregar_enteros_al_final_con_repeticion (&caracteres, yytext[1]);}
+{CONSTANTE_CARACTER} 											{agregar_enteros_al_final_con_repeticion (&caracteres, yytext[1]);}
 {VACIO}																;
 {BASURA}																;
 \n																		{numero_de_linea++;}
-.																		{printf("NO_RECONOCIDA: %s\t", yytext);printf("%s%d\n","En la linea: ", yylineno);
-																		strcpy (cadena_entero.cadena,yytext);
+.																		{strcpy (cadena_entero.cadena,yytext);
 																		cadena_entero.entero = yylineno;
 																		agregar_cadena_entero_al_final_con_repeticion (&no_reconocidas, cadena_entero);}
 

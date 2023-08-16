@@ -1,7 +1,7 @@
 //Programa de prueba
 /* Materia: SSL
 Codigo: K2052
-yy
+Facultad Regional Buenos Aires
 Grupo: 11*/
 #include <stdio.h>
 #define SALUDO "Hola mundo"

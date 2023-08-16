@@ -971,8 +971,7 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 YY_RULE_SETUP
 #line 69 "escaner.l"
-{printf("OPERADORES_Y_CARACTERES_DE_PUNTUACION: %s\n", yytext);
-																		accion = agregar_uno_a_entero;
+{accion = agregar_uno_a_entero;
 																		strcpy (cadena_entero.cadena,yytext);
 																		cadena_entero.entero=1;
 																		agregar_cadena_entero_sin_repeticion (&operadores_y_caracteres_de_puntuacion, 	
@@ -980,72 +979,63 @@ YY_RULE_SETUP
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 75 "escaner.l"
-{printf("PALABRAS_RESERVADAS_DIRECTIVAS_PREPROCESAMIENTO: %s\n", yytext);
-																		strcpy (cadena_entero.cadena,yytext); 	
+#line 74 "escaner.l"
+{strcpy (cadena_entero.cadena,yytext); 	
 																		cadena_entero.entero=(int)DIRECTIVA_DE_PREPROCESAMIENTO;											  
 																		agregar_cadena_entero_al_final_con_repeticion(&palabras_reservadas, cadena_entero);}  
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 79 "escaner.l"
-{printf("PALABRAS_RESERVADAS_PUNTO_ENTRADA_PROGRAMA: %s\n", yytext);
-																		strcpy (cadena_entero.cadena,yytext); 	
+#line 77 "escaner.l"
+{strcpy (cadena_entero.cadena,yytext); 	
 																		cadena_entero.entero=(int)PUNTO_DE_ENTRADA_AL_PROGRAMA;
 																		agregar_cadena_entero_al_final_con_repeticion(&palabras_reservadas, cadena_entero);}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 83 "escaner.l"
-{printf("PALABRAS_RESERVADAS_ESTRUCTURA_DE_CONTROL: %s\n", yytext);
-																		strcpy (cadena_entero.cadena,yytext); 
+#line 80 "escaner.l"
+{strcpy (cadena_entero.cadena,yytext); 
 																		cadena_entero.entero=(int)ESTRUCTURA_DE_CONTROL;
 																		agregar_cadena_entero_al_final_con_repeticion(&palabras_reservadas, cadena_entero);} 
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 87 "escaner.l"
-{printf("PALABRAS_RESERVADAS_MODIFICADOR_ALMACENAMIENTO: %s\n", yytext);
-																		strcpy (cadena_entero.cadena,yytext); 	
+#line 83 "escaner.l"
+{strcpy (cadena_entero.cadena,yytext); 	
 																		cadena_entero.entero=(int)MODIFICADOR_DE_ALMACENAMIENTO;
 																		agregar_cadena_entero_al_final_con_repeticion(&palabras_reservadas, cadena_entero);}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 91 "escaner.l"
-{printf("PALABRAS_RESERVADAS_MODIFICADOR_TIPO_DE_DATO: %s\n", yytext);
-																		strcpy (cadena_entero.cadena,yytext); 	
+#line 86 "escaner.l"
+{strcpy (cadena_entero.cadena,yytext); 	
 																		cadena_entero.entero=(int)MODIFICADOR_DE_TIPO_DE_DATO;
 																		agregar_cadena_entero_al_final_con_repeticion(&palabras_reservadas, cadena_entero);}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 95 "escaner.l"
-{printf("PALABRAS_RESERVADAS_MODIFICADOR_VARIABLE_NUMERICA: %s\n", yytext);
-																		strcpy (cadena_entero.cadena,yytext); 	
+#line 89 "escaner.l"
+{strcpy (cadena_entero.cadena,yytext); 	
 																		cadena_entero.entero=(int)MODIFICADOR_VARIABLE_NUMERICA;
 																		agregar_cadena_entero_al_final_con_repeticion(&palabras_reservadas, cadena_entero);}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 99 "escaner.l"
-{printf("PALABRAS_RESERVADAS_TIPOS_DE_DATO_COMPUESTOS: %s\n", yytext);
-																		strcpy (cadena_entero.cadena,yytext); 	
+#line 92 "escaner.l"
+{strcpy (cadena_entero.cadena,yytext); 	
 																		cadena_entero.entero=(int)TIPOS_DE_DATOS_COMPUESTOS;
 																		agregar_cadena_entero_al_final_con_repeticion(&palabras_reservadas, cadena_entero);}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 103 "escaner.l"
-{printf("PALABRAS_RESERVADAS_TIPOS_DE_DATO: %s\n", yytext);
-																		strcpy (cadena_entero.cadena,yytext);cadena_entero.entero=(int)TIPO_DE_DATO;
+#line 95 "escaner.l"
+{strcpy (cadena_entero.cadena,yytext);cadena_entero.entero=(int)TIPO_DE_DATO;
 																		agregar_cadena_entero_al_final_con_repeticion(&palabras_reservadas, cadena_entero);} 
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 106 "escaner.l"
-{printf("IDENTIFICADOR: %s\t", yytext);
-																		criterio = criterio_alfabetico; 
+#line 97 "escaner.l"
+{criterio = criterio_alfabetico; 
 																		accion = agregar_uno_a_entero;
 																		strcpy (cadena_entero.cadena,yytext);
 																		cadena_entero.entero=1;
@@ -1054,26 +1044,23 @@ YY_RULE_SETUP
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 113 "escaner.l"
-{printf("COMENTARIO_DE_UNA_LINEA: %s\n", yytext);
-																		strcpy (cadena_entero.cadena,yytext); 	
+#line 103 "escaner.l"
+{strcpy (cadena_entero.cadena,yytext); 	
 																		cadena_entero.entero=(int)UNA_LINEA;	
 																		agregar_cadena_entero_al_final_con_repeticion(&comentarios, cadena_entero);} 
 	YY_BREAK
 case 12:
 /* rule 12 can match eol */
 YY_RULE_SETUP
-#line 117 "escaner.l"
-{printf("COMENTARIO_MULTILINEAS: %s\n", yytext);
-																		strcpy (cadena_entero.cadena,yytext); 	
+#line 106 "escaner.l"
+{strcpy (cadena_entero.cadena,yytext); 	
 																		cadena_entero.entero=(int)MULTIPLE_LINEAS;	
 																		agregar_cadena_entero_al_final_con_repeticion(&comentarios, cadena_entero);}  
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 121 "escaner.l"
-{printf("CONSTANTE_CADENA_DE_CARACTERES: %s\n", yytext);
-																		criterio = criterio_longitud; 
+#line 109 "escaner.l"
+{criterio = criterio_longitud; 
 																		accion = desechar;
 																		strcpy (cadena_entero.cadena,yytext); 
 																		cadena_entero.entero = yyleng - 2;
@@ -1082,69 +1069,63 @@ YY_RULE_SETUP
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 128 "escaner.l"
-{printf("CONSTANTE_OCTAL: %s\n", yytext);
-																		agregar_enteros_al_final_con_repeticion (&octales,
+#line 115 "escaner.l"
+{agregar_enteros_al_final_con_repeticion (&octales,
 																															convertir_cadena_octal_a_entero(yytext));}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 131 "escaner.l"
-{printf("CONSTANTE_DECIMAL: %s\n", yytext);
-																		agregar_enteros_al_final_con_repeticion(&decimales, 	
+#line 117 "escaner.l"
+{agregar_enteros_al_final_con_repeticion(&decimales, 	
 																															convertir_cadena_entera_a_entero(yytext));}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 134 "escaner.l"
-{printf("CONSTANTE_HEXADECIMAL: %s\n", yytext);
-																		agregar_enteros_al_final_con_repeticion(&hexadecimales, 	
+#line 119 "escaner.l"
+{agregar_enteros_al_final_con_repeticion(&hexadecimales, 	
 																															convertir_cadena_hexadecimal_a_entero(yytext));}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 137 "escaner.l"
-{printf("CONSTANTE_REAL: %s\n", yytext);
-																		real.parte_entera=obtener_parte_entera(yytext);
+#line 121 "escaner.l"
+{real.parte_entera=obtener_parte_entera(yytext);
 																		real.mantisa = obtener_mantisa(yytext);
 																		agregar_reales_al_final_con_repeticion (&reales, real);}	
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 141 "escaner.l"
-{printf("CONSTANTE_CARACTER: %s, cuyo caracter es %c\n", yytext, yytext[1]);
-																		agregar_enteros_al_final_con_repeticion (&caracteres, yytext[1]);}
+#line 124 "escaner.l"
+{agregar_enteros_al_final_con_repeticion (&caracteres, yytext[1]);}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 143 "escaner.l"
+#line 125 "escaner.l"
 ;
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 144 "escaner.l"
+#line 126 "escaner.l"
 ;
 	YY_BREAK
 case 21:
 /* rule 21 can match eol */
 YY_RULE_SETUP
-#line 145 "escaner.l"
+#line 127 "escaner.l"
 {numero_de_linea++;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 146 "escaner.l"
-{printf("NO_RECONOCIDA: %s\t", yytext);printf("%s%d\n","En la linea: ", yylineno);
-																		strcpy (cadena_entero.cadena,yytext);
+#line 128 "escaner.l"
+{strcpy (cadena_entero.cadena,yytext);
 																		cadena_entero.entero = yylineno;
 																		agregar_cadena_entero_al_final_con_repeticion (&no_reconocidas, cadena_entero);}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 151 "escaner.l"
+#line 132 "escaner.l"
 ECHO;
 	YY_BREAK
-#line 1148 "lex.yy.c"
+#line 1129 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2161,7 +2142,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 151 "escaner.l"
+#line 132 "escaner.l"
 
 /**************** FIN REGLAS ******************/
 

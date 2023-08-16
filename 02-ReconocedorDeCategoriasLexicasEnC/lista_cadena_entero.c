@@ -21,6 +21,39 @@ void agregar_cadena_entero_al_final_con_repeticion (nodo_cadena_entero_t ** list
 	return;
 }
 
+void agregar_cadena_entero_al_final_con_repeticion_y_bandera (nodo_cadena_entero_t ** lista, cadena_entero_t cadena_entero, 
+																					bool_t * hay_un_caracter_no_reconocido)
+{
+	nodo_cadena_entero_t * nuevo_nodo, * ultimo_nodo;
+		
+	if(*lista == NULL)
+	{
+		nuevo_nodo = (nodo_cadena_entero_t *) malloc (sizeof(nodo_cadena_entero_t));
+		nuevo_nodo->info = cadena_entero;
+		nuevo_nodo->sig = NULL;
+		*lista = nuevo_nodo;
+	}
+	else
+	{
+		if (*hay_un_caracter_no_reconocido == TRUE)
+		{
+			for (ultimo_nodo = *lista; ultimo_nodo->sig != NULL; ultimo_nodo = ultimo_nodo->sig)
+				; 
+			strcat (ultimo_nodo->info.cadena,cadena_entero.cadena);
+		}
+		else
+		{
+			nuevo_nodo = (nodo_cadena_entero_t *) malloc (sizeof(nodo_cadena_entero_t));
+			nuevo_nodo->info = cadena_entero;
+			nuevo_nodo->sig = NULL;
+			for (ultimo_nodo = *lista; ultimo_nodo->sig != NULL; ultimo_nodo = ultimo_nodo->sig)
+				; 
+			ultimo_nodo->sig = nuevo_nodo;
+		}
+	}
+	return;
+}
+
 void imprimir_cadena_entero (nodo_cadena_entero_t * lista, char etiqueta_cadena[], char etiqueta_entero[], char cabecera[])
 {
 	nodo_cadena_entero_t * temporal;

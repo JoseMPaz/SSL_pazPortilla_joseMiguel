@@ -6,6 +6,12 @@
 #include <string.h>
 #include <ctype.h>
 
+typedef enum 
+{
+	FALSE = 0,
+	TRUE = 1
+}bool_t;
+
 typedef enum
 {
 	TIPO_DE_DATO = 0,
@@ -39,6 +45,8 @@ typedef struct nodo_cadena_entero_t
 }nodo_cadena_entero_t;
 
 void agregar_cadena_entero_al_final_con_repeticion (nodo_cadena_entero_t ** lista, cadena_entero_t cadena_entero);
+void agregar_cadena_entero_al_final_con_repeticion_y_bandera (nodo_cadena_entero_t ** lista, cadena_entero_t cadena_entero, 
+																					bool_t * hay_un_caracter_no_reconocido);
 void imprimir_cadena_entero (nodo_cadena_entero_t * lista, char etiqueta_cadena[], char etiqueta_entero[], char cabecera[]);
 void eliminar_lista_cadena_entero (nodo_cadena_entero_t * lista);
 nodo_cadena_entero_t * buscar (nodo_cadena_entero_t * lista, cadena_entero_t cadena_entero);

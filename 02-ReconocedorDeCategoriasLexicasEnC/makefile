@@ -29,7 +29,7 @@ lista_reales.o: lista_reales.c lista_reales.h
 lex.yy.o: lex.yy.c
 	$(CC) $(CFLAGS) -o lex.yy.o -c lex.yy.c
 lex.yy.c: escaner.l
-	flex escaner.l
+	$(LEX) escaner.l
 
 #Elimina los archivos objetos y el archivo lex.yy.c que solo se utilizaron para obtener el ejecutable
 clean:

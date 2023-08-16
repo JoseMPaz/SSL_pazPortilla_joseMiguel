@@ -22,7 +22,7 @@ void agregar_enteros_al_final_con_repeticion (nodo_enteros_t ** lista, int infor
 	return;
 }
 
-int suma_total(nodo_enteros_t * lista)
+int suma_total (nodo_enteros_t * lista)
 {
 	nodo_enteros_t * temporal;
 	int total = 0;
@@ -32,7 +32,7 @@ int suma_total(nodo_enteros_t * lista)
 	return total;
 }
 
-void imprimir_enteros(nodo_enteros_t * lista, char cabecera[])
+void imprimir_enteros (nodo_enteros_t * lista, char cabecera[])
 {
 	nodo_enteros_t * temporal;
 	
@@ -68,19 +68,6 @@ int convertir_cadena_octal_a_entero (char cadena[])
 int convertir_cadena_hexadecimal_a_entero (char cadena[])
 {
 	return (int) strtol (cadena,NULL,16);
-}
-
-void contar_enteros (nodo_enteros_t * lista)
-{
-	nodo_enteros_t * temporal;
-	int acumulador = 0;
-	
-	for (temporal = lista; temporal != NULL; temporal = temporal->sig)
-		 acumulador += temporal->info;
-	
-	printf ("%s%d\n","La suma de enteros es: ", acumulador);
-	
-	return;
 }
 
 void eliminar_lista_enteros (nodo_enteros_t * lista)

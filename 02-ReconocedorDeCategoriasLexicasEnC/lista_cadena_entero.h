@@ -30,8 +30,6 @@ typedef enum
 	MULTIPLE_LINEAS = 1
 }comentario_t;
 
-
-
 typedef struct
 {
 	char cadena[300];
@@ -52,11 +50,15 @@ void eliminar_lista_cadena_entero (nodo_cadena_entero_t * lista);
 nodo_cadena_entero_t * buscar (nodo_cadena_entero_t * lista, cadena_entero_t cadena_entero);
 void agregar_cadena_entero_sin_repeticion (nodo_cadena_entero_t ** lista, cadena_entero_t cadena_entero, void (*accion)(nodo_cadena_entero_t * aux));
 int criterio_longitud (cadena_entero_t dato1, cadena_entero_t dato2);
-int criterio_alfabetico(cadena_entero_t dato1, cadena_entero_t dato2);
-void agregar_uno_a_entero(nodo_cadena_entero_t * nodo);
-void desechar(nodo_cadena_entero_t * nodo);
+int criterio_alfabetico (cadena_entero_t dato1, cadena_entero_t dato2);
+void agregar_uno_a_entero (nodo_cadena_entero_t * nodo);
+void desechar (nodo_cadena_entero_t * nodo);
 void agregar_ordenado (nodo_cadena_entero_t ** lista, cadena_entero_t dato, int (*criterio)(cadena_entero_t dato1, cadena_entero_t dato2));
-void agregar_cadena_entero_ordenado_sin_repeticion (nodo_cadena_entero_t ** lista, cadena_entero_t cadena_entero, void (*accion)(nodo_cadena_entero_t * aux), int (*criterio)(cadena_entero_t dato1,cadena_entero_t dato2));
+void agregar_cadena_entero_ordenado_sin_repeticion (nodo_cadena_entero_t ** lista, 
+																	cadena_entero_t cadena_entero, 
+																	void (*accion)(nodo_cadena_entero_t * aux), 
+																	int (*criterio)(cadena_entero_t dato1,
+																	cadena_entero_t dato2));
 int strcmp_insensible (const char *s1, const char *s2);
 void imprimir_palabra_reservada (nodo_cadena_entero_t * lista);
 void imprimir_comentarios (nodo_cadena_entero_t * lista);

@@ -2,7 +2,7 @@
 
 int obtener_parte_entera (char cadena[])
 {
-	return (int) strtol(cadena,NULL,10);
+	return (int) strtol (cadena,NULL,10);
 }
 
 float obtener_mantisa (char cadena[])

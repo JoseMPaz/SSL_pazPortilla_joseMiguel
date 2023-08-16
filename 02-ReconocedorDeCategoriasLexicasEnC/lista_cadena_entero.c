@@ -60,7 +60,7 @@ void imprimir_cadena_entero (nodo_cadena_entero_t * lista, char etiqueta_cadena[
 	
 	printf ("\n%-20s%-20s%s\n", "############### ", cabecera," ###############");
 	for (temporal = lista; temporal != NULL; temporal = temporal->sig)
-		 printf ("%s%-20s%s%d\n",etiqueta_cadena ,temporal->info.cadena, etiqueta_entero, temporal->info.entero);
+		 printf ("%s%-20s\t%-3s%d\n",etiqueta_cadena ,temporal->info.cadena, etiqueta_entero, temporal->info.entero);
 	
 	return;
 }
@@ -68,7 +68,7 @@ void imprimir_cadena_entero (nodo_cadena_entero_t * lista, char etiqueta_cadena[
 void imprimir_palabra_reservada (nodo_cadena_entero_t * lista)
 {
 	nodo_cadena_entero_t * temporal;
-		char * categorias[] = {"TIPO DE DATO SIMPLE", "ESTRUCTURA DE CONTROL", "DIRECTIVA DE PREPROCESAMIENTO",
+	char * categorias[] = {"TIPO DE DATO SIMPLE", "ESTRUCTURA DE CONTROL", "DIRECTIVA DE PREPROCESAMIENTO",
 									"PUNTO DE ENTRADA AL PROGRAMA", "MODIFICADOR DE ALMACENAMIENTO", "MODIFICADOR DE TIPO DE DATO",
 									"MODIFICADOR DE VARIABLE NUMERICA", "TIPO DE DATO COMPUESTO"};
 	
@@ -107,6 +107,7 @@ void eliminar_lista_cadena_entero (nodo_cadena_entero_t * lista)
 nodo_cadena_entero_t * buscar (nodo_cadena_entero_t * lista, cadena_entero_t cadena_entero)
 {
 	nodo_cadena_entero_t * temporal;
+	
 	for (temporal = lista; temporal != NULL && strcmp(temporal->info.cadena,cadena_entero.cadena) != 0; temporal = temporal->sig)
 		;	
 	return temporal;
@@ -135,13 +136,13 @@ int criterio_alfabetico(cadena_entero_t dato1, cadena_entero_t dato2)
 	return strcmp_insensible (dato1.cadena,dato2.cadena);
 }
 
-void agregar_uno_a_entero(nodo_cadena_entero_t * nodo)
+void agregar_uno_a_entero (nodo_cadena_entero_t * nodo)
 {
 	nodo->info.entero = nodo->info.entero + 1;
 	return;
 }
 
-void desechar(nodo_cadena_entero_t * nodo)
+void desechar (nodo_cadena_entero_t * nodo)
 {
 	return;
 }
@@ -188,19 +189,23 @@ void agregar_cadena_entero_ordenado_sin_repeticion (nodo_cadena_entero_t ** list
 
 int strcmp_insensible (const char *s1, const char *s2) 
 {
-    while (*s1 != '\0' && *s2 != '\0') {
-        int diff = tolower(*s1) - tolower(*s2);
-        if (diff != 0) {
-            return (diff > 0) ? 1 : -1;
-        }
-        s1++;
-        s2++;
-    }
+	while (*s1 != '\0' && *s2 != '\0') 
+   {
+		int diff = tolower(*s1) - tolower(*s2);
+		if (diff != 0) 
+      {
+			return (diff > 0) ? 1 : -1;
+      }
+      s1++;
+      s2++;
+	}
     
-    if (*s1 == *s2) {
-        return 0;
-    } else {
-        return (*s1 > *s2) ? 1 : -1;
-    }
+	if (*s1 == *s2) 
+	{
+		return 0;
+	}
+    
+	return (*s1 > *s2) ? 1 : -1;
+
 }
 

@@ -3,7 +3,6 @@
 /**************** INICIO DEFINICIONES ******************/
 %{
 // Inclusion de Bibliotecas
-#include <stdio.h>
 #include "lista_cadena_entero.h"
 #include "lista_enteros.h"
 #include "lista_reales.h"
@@ -44,11 +43,8 @@ CONSTANTE_HEXADECIMAL					0[xX]{DIGITO_HEXADECIMAL}+
 CONSTANTE_CADENA_DE_CARACTERES		\"[^\n"]*\"
 CONSTANTE_CARACTER						\'.\'
 CONSTANTE_REAL 							-?[0-9]{0,6}"."[0-9]{0,6}
-IDENTIFICADOR								({LETRA}|{GUION_BAJO})({LETRA}|{DIGITO_DECIMAL}|GUION_BAJO)*
-OPERADOR_O_CARACTER_DE_PUNTUACION 	"<"|">"|";"|"."
+IDENTIFICADOR								[a-zA-Z_][a-zA-Z0-9_]*
 CONSTANTE_LITERAL_CADENA				\"[^\n"]*\"	
-FUNCION_PRINCIPAL							["main"]
-PALABRAS_RESERVADAS     				["printf"]
 COMENTARIO_DE_UNA_LINEA 				\/\/.*
 COMENTARIO_MULTILINEAS 					\/\*([^*]|(\*+[^*/]))*\*+\/
 
@@ -136,8 +132,8 @@ PALABRAS_RESERVADAS_PUNTO_ENTRADA_PROGRAMA			"main"
 																		agregar_enteros_al_final_con_repeticion(&hexadecimales, 	
 																															convertir_cadena_hexadecimal_a_entero(yytext));}
 {CONSTANTE_REAL}													{hay_un_caracter_no_reconocido = FALSE;
-																		real.parte_entera=obtener_parte_entera(yytext);
-																		real.mantisa = obtener_mantisa(yytext);
+																		real.parte_entera = obtener_parte_entera (yytext);
+																		real.mantisa = obtener_mantisa (yytext);
 																		agregar_reales_al_final_con_repeticion (&reales, real);}	
 {CONSTANTE_CARACTER} 											{hay_un_caracter_no_reconocido = FALSE;
 																		agregar_enteros_al_final_con_repeticion (&caracteres, yytext[1]);}
@@ -200,7 +196,7 @@ int main(void)
 	
 	fclose(yyin);
 
-    return 0;
+    return EXIT_SUCCESS;
 }
 /**************** FIN CODIGO USUARIO ******************/
 

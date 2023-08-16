@@ -17,11 +17,14 @@ nodo_cadena_entero_t * literales_cadena = NULL;
 nodo_cadena_entero_t * palabras_reservadas = NULL;
 nodo_enteros_t * octales = NULL;
 nodo_enteros_t * hexadecimales = NULL;
-
-//nodo_t * lista_palabras_reservadas = NULL;
-//palabra_reservada_t * palabra_reservada;
-//void (*pf_imprimir) (void * info);
+nodo_enteros_t * decimales = NULL;
+real_t real;
+nodo_real_t * reales = NULL;
 int numero_de_linea = 1;
+nodo_enteros_t * caracteres = NULL;
+nodo_cadena_entero_t * operadores_y_caracteres_de_puntuacion = NULL;
+nodo_cadena_entero_t * comentarios = NULL;
+nodo_cadena_entero_t * no_reconocidas = NULL;
 
 
 %}
@@ -34,23 +37,21 @@ GUION_BAJO				"_"
 BASURA					[ \t]+
 VACIO						""
 
-CONSTANTE_DECIMAL 						[1-9]{DIGITO_DECIMAL}* 
+CONSTANTE_DECIMAL 						-?[1-9]{DIGITO_DECIMAL}* 
 CONSTANTE_OCTAL							0{DIGITO_OCTAL}* 
 CONSTANTE_HEXADECIMAL					0[xX]{DIGITO_HEXADECIMAL}+
+CONSTANTE_CADENA_DE_CARACTERES		\"[^\n"]*\"
+CONSTANTE_CARACTER						\'.\'
+CONSTANTE_REAL 							-?[0-9]{0,6}"."[0-9]{0,6}
 IDENTIFICADOR								({LETRA}|{GUION_BAJO})({LETRA}|{DIGITO_DECIMAL}|GUION_BAJO)*
 OPERADOR_O_CARACTER_DE_PUNTUACION 	"<"|">"|";"|"."
 CONSTANTE_LITERAL_CADENA				\"[^\n"]*\"	
 FUNCION_PRINCIPAL							["main"]
 PALABRAS_RESERVADAS     				["printf"]
-CONSTANTE_CADENA_DE_CARACTERES		\"[^\n"]*\"
-CONSTANTE_CARACTER						\'.\'
-CONSTANTE_ENTERA 							-?[1-9][0-9]{0,4}
-CONSTANTE_REAL 							-?[0-9]{0,6}{"."}[0-9]{0,6}
 COMENTARIO_DE_UNA_LINEA 				\/\/.*
 COMENTARIO_MULTILINEAS 					\/\*([^*]|(\*+[^*/]))*\*+\/
 
-
-OPERADORES_Y_CARACTERES_DE_PUNTUACION					["+"]|["-"]|["*"]|["/"]|["."]|[","]|[";"]|["<"]|[">"]|["("]|[")"]|">="|"<="|"\{"|"\}"|"\]"
+OPERADORES_Y_CARACTERES_DE_PUNTUACION	["="]|["+"]|["-"]|["*"]|["/"]|["."]|[","]|[";"]|["<"]|[">"]|["("]|[")"]|">="|"<="|"\{"|"\}"|"\]"|"\["
 PALABRAS_RESERVADAS_TIPOS_DE_DATO     					"int"|"char"|"float"|"double"|"void"
 PALABRAS_RESERVADAS_DIRECTIVAS_PREPROCESAMIENTO		\#(include|define|ifndef|ifdef)(.*)|\#endif
 PALABRAS_RESERVADAS_ESTRUCTURA_DE_CONTROL				"goto"|"if"|"else"|"for"|"do"|"while"|"switch"|"case"|"break"|"continue"|"default"|"return"
@@ -65,7 +66,12 @@ PALABRAS_RESERVADAS_PUNTO_ENTRADA_PROGRAMA			"main"
 
 /**************** INICIO REGLAS ******************/
 %%
-{OPERADORES_Y_CARACTERES_DE_PUNTUACION}					{printf("OPERADORES_Y_CARACTERES_DE_PUNTUACION: %s\n", yytext);} 
+{OPERADORES_Y_CARACTERES_DE_PUNTUACION}					{printf("OPERADORES_Y_CARACTERES_DE_PUNTUACION: %s\n", yytext);
+																		accion = agregar_uno_a_entero;
+																		strcpy (cadena_entero.cadena,yytext);
+																		cadena_entero.entero=1;
+																		agregar_cadena_entero_sin_repeticion (&operadores_y_caracteres_de_puntuacion, 	
+																															cadena_entero, accion);} 
 {PALABRAS_RESERVADAS_DIRECTIVAS_PREPROCESAMIENTO}		{printf("PALABRAS_RESERVADAS_DIRECTIVAS_PREPROCESAMIENTO: %s\n", yytext);
 																		strcpy (cadena_entero.cadena,yytext); 	
 																		cadena_entero.entero=(int)DIRECTIVA_DE_PREPROCESAMIENTO;											  
@@ -75,7 +81,8 @@ PALABRAS_RESERVADAS_PUNTO_ENTRADA_PROGRAMA			"main"
 																		cadena_entero.entero=(int)PUNTO_DE_ENTRADA_AL_PROGRAMA;
 																		agregar_cadena_entero_al_final_con_repeticion(&palabras_reservadas, cadena_entero);}
 {PALABRAS_RESERVADAS_ESTRUCTURA_DE_CONTROL}				{printf("PALABRAS_RESERVADAS_ESTRUCTURA_DE_CONTROL: %s\n", yytext);
-																		strcpy (cadena_entero.cadena,yytext); cadena_entero.entero=(int)ESTRUCTURA_DE_CONTROL;
+																		strcpy (cadena_entero.cadena,yytext); 
+																		cadena_entero.entero=(int)ESTRUCTURA_DE_CONTROL;
 																		agregar_cadena_entero_al_final_con_repeticion(&palabras_reservadas, cadena_entero);} 
 {PALABRAS_RESERVADAS_MODIFICADOR_ALMACENAMIENTO}		{printf("PALABRAS_RESERVADAS_MODIFICADOR_ALMACENAMIENTO: %s\n", yytext);
 																		strcpy (cadena_entero.cadena,yytext); 	
@@ -93,37 +100,53 @@ PALABRAS_RESERVADAS_PUNTO_ENTRADA_PROGRAMA			"main"
 																		strcpy (cadena_entero.cadena,yytext); 	
 																		cadena_entero.entero=(int)TIPOS_DE_DATOS_COMPUESTOS;
 																		agregar_cadena_entero_al_final_con_repeticion(&palabras_reservadas, cadena_entero);}
-{CONSTANTE_CARACTER} 											{printf("CONSTANTE_CARACTER: %s\n", yytext);}
 {PALABRAS_RESERVADAS_TIPOS_DE_DATO}							{printf("PALABRAS_RESERVADAS_TIPOS_DE_DATO: %s\n", yytext);
 																		strcpy (cadena_entero.cadena,yytext);cadena_entero.entero=(int)TIPO_DE_DATO;
 																		agregar_cadena_entero_al_final_con_repeticion(&palabras_reservadas, cadena_entero);} 
 {IDENTIFICADOR} 													{printf("IDENTIFICADOR: %s\t", yytext);
-																		criterio = criterio_alfabetico; accion = agregar_uno_a_entero;
-																		strcpy (cadena_entero.cadena,yytext);cadena_entero.entero=1;
+																		criterio = criterio_alfabetico; 
+																		accion = agregar_uno_a_entero;
+																		strcpy (cadena_entero.cadena,yytext);
+																		cadena_entero.entero=1;
 																		agregar_cadena_entero_ordenado_sin_repeticion (&identificadores, cadena_entero, 
-																		accion, criterio);} 
-{COMENTARIO_DE_UNA_LINEA} 										{printf("COMENTARIO_DE_UNA_LINEA: %s\n", yytext);} 
-{COMENTARIO_MULTILINEAS}										{printf("COMENTARIO_MULTILINEAS: %s\n", yytext);} 
+																																		accion, criterio);} 
+{COMENTARIO_DE_UNA_LINEA} 										{printf("COMENTARIO_DE_UNA_LINEA: %s\n", yytext);
+																		strcpy (cadena_entero.cadena,yytext); 	
+																		cadena_entero.entero=(int)UNA_LINEA;	
+																		agregar_cadena_entero_al_final_con_repeticion(&comentarios, cadena_entero);} 
+{COMENTARIO_MULTILINEAS}										{printf("COMENTARIO_MULTILINEAS: %s\n", yytext);
+																		strcpy (cadena_entero.cadena,yytext); 	
+																		cadena_entero.entero=(int)MULTIPLE_LINEAS;	
+																		agregar_cadena_entero_al_final_con_repeticion(&comentarios, cadena_entero);}  
 {CONSTANTE_CADENA_DE_CARACTERES} 							{printf("CONSTANTE_CADENA_DE_CARACTERES: %s\n", yytext);
-																		criterio = criterio_longitud; accion = desechar;
-																		strcpy (cadena_entero.cadena,yytext); cadena_entero.entero = yyleng - 2;
+																		criterio = criterio_longitud; 
+																		accion = desechar;
+																		strcpy (cadena_entero.cadena,yytext); 
+																		cadena_entero.entero = yyleng - 2;
 																		agregar_cadena_entero_ordenado_sin_repeticion (&literales_cadena, cadena_entero, 
-																		accion, criterio);}
-{CONSTANTE_OCTAL}													{printf("CONSTANTE_OCTAL: %s que en decimal es %d\n" , 
-																		yytext, convertir_cadena_octal_a_entero(yytext));
+																																		accion, criterio);}
+{CONSTANTE_OCTAL}													{printf("CONSTANTE_OCTAL: %s\n", yytext);
 																		agregar_enteros_al_final_con_repeticion (&octales,
-																		convertir_cadena_octal_a_entero(yytext));}
-{CONSTANTE_DECIMAL}												{printf("CONSTANTE_DECIMAL: %s\n", yytext);}
+																															convertir_cadena_octal_a_entero(yytext));}
+{CONSTANTE_DECIMAL}												{printf("CONSTANTE_DECIMAL: %s\n", yytext);
+																		agregar_enteros_al_final_con_repeticion(&decimales, 	
+																															convertir_cadena_entera_a_entero(yytext));}
 {CONSTANTE_HEXADECIMAL}											{printf("CONSTANTE_HEXADECIMAL: %s\n", yytext);
-																		}
+																		agregar_enteros_al_final_con_repeticion(&hexadecimales, 	
+																															convertir_cadena_hexadecimal_a_entero(yytext));}
+{CONSTANTE_REAL}													{printf("CONSTANTE_REAL: %s\n", yytext);
+																		real.parte_entera=obtener_parte_entera(yytext);
+																		real.mantisa = obtener_mantisa(yytext);
+																		agregar_reales_al_final_con_repeticion (&reales, real);}	
+{CONSTANTE_CARACTER} 											{printf("CONSTANTE_CARACTER: %s, cuyo caracter es %c\n", yytext, yytext[1]);
+																		agregar_enteros_al_final_con_repeticion (&caracteres, yytext[1]);}
 {VACIO}																;
 {BASURA}																;
 \n																		{numero_de_linea++;}
-.																		{printf("NO_RECONOCIDA: %s\t", yytext);printf("%s%d\n","En la linea: ", yylineno);}
-
-
-
-
+.																		{printf("NO_RECONOCIDA: %s\t", yytext);printf("%s%d\n","En la linea: ", yylineno);
+																		strcpy (cadena_entero.cadena,yytext);
+																		cadena_entero.entero = yylineno;
+																		agregar_cadena_entero_al_final_con_repeticion (&no_reconocidas, cadena_entero);}
 
 %%
 /**************** FIN REGLAS ******************/
@@ -132,10 +155,9 @@ PALABRAS_RESERVADAS_PUNTO_ENTRADA_PROGRAMA			"main"
 int main(void) 
 {
    
-    /* Acciones previas a la invocación den analizador léxico */
+    /* Apertura de lectura de un archivo entrada.c */
     yyin = fopen("entrada.c", "r");
 	
-
 	/* Invocación del analizador léxico */
 	yylex();
 	
@@ -149,10 +171,30 @@ int main(void)
 	eliminar_lista_cadena_entero(palabras_reservadas);
 	
 	imprimir_enteros(octales,"CONSTANTES OCTALES");
-	//eliminar_lista_enteros(octales);
+	eliminar_lista_enteros(octales);
 	
-	//imprimir_enteros(hexadecimales,"CONSTANTES HEXADECIMALES");
-	//eliminar_lista_enteros(hexadecimales);
+	imprimir_enteros(hexadecimales,"CONSTANTES HEXADECIMALES");
+	eliminar_lista_enteros(hexadecimales);
+	
+	imprimir_enteros(decimales,"CONSTANTES DECIMALES");
+	eliminar_lista_enteros(decimales);
+	
+	imprimir_reales (reales);
+	eliminar_lista_reales (reales);
+	
+	imprimir_caracteres (caracteres);
+	eliminar_lista_enteros(caracteres);
+	
+	imprimir_cadena_entero(operadores_y_caracteres_de_puntuacion, 
+								"Operador o Caracter de Puntuacion: ", "Cantidad de repeticiones: ",
+								"OPERADORES O CARACTERES DE PUNTUACION");
+	eliminar_lista_cadena_entero(operadores_y_caracteres_de_puntuacion);
+	
+	imprimir_comentarios (comentarios);
+	eliminar_lista_cadena_entero(comentarios);
+	
+	imprimir_cadena_entero(no_reconocidas, "No reconocido: ", "Numero de linea: ","NO RECONOCIDAS");
+	eliminar_lista_cadena_entero(no_reconocidas);
 	
 	fclose(yyin);
 

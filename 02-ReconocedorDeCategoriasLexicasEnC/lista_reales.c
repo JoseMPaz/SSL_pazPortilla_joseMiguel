@@ -2,20 +2,22 @@
 
 int obtener_parte_entera (char cadena[])
 {
-	return (int) strtod(cadena,NULL);
+	return (int) strtol(cadena,NULL,10);
 }
 
 float obtener_mantisa (char cadena[])
 {
-	return (float) strtod(cadena,NULL) - (int) strtod(cadena,NULL);
+	float mantisa = (float) strtod(cadena,NULL) - obtener_parte_entera(cadena);
+	return (mantisa >= 0) ? mantisa : (-1)*mantisa;
 }
 
 void imprimir_reales (nodo_real_t * lista)
 {
 	nodo_real_t * temporal;
 	
+	printf ("\n%-20s%-20s%s\n", "############### ", "CONSTANTES REALES"," ###############");
 	for (temporal = lista; temporal != NULL; temporal = temporal->sig)
-		 printf ("%s%-20d%s%.3g\n","La parte entera es: ",temporal->info.parte_entera,"La mantisa es: ", temporal->info.mantisa);
+		 printf ("%s%-20d%s%.3g\n","Parte Entera: ",temporal->info.parte_entera,"Mantisa: ", temporal->info.mantisa);
 	
 	return;
 }

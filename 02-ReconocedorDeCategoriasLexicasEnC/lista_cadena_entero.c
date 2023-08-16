@@ -46,6 +46,18 @@ void imprimir_palabra_reservada (nodo_cadena_entero_t * lista)
 	return;
 }
 
+void imprimir_comentarios (nodo_cadena_entero_t * lista)
+{
+	nodo_cadena_entero_t * temporal;
+		char * categorias[] = {"Comentario de una Linea","Comentario Multilineas"};
+	
+	printf ("\n%-20s%-20s%s\n", "############### ", "COMENTARIOS"," ###############");
+	for (temporal = lista; temporal != NULL; temporal = temporal->sig)
+		 printf ("%s%-35s\n%s%s\n","Comentario: " ,temporal->info.cadena, "Tipo: ", categorias[(int)temporal->info.entero]);
+	
+	return;
+}
+
 void eliminar_lista_cadena_entero (nodo_cadena_entero_t * lista)
 {
 	nodo_cadena_entero_t * nodo_actual = lista, * nodo_siguiente = NULL;

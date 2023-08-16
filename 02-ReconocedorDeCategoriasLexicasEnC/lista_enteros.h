@@ -17,6 +17,7 @@ void imprimir_caracteres (nodo_enteros_t * lista);
 int convertir_cadena_entera_a_entero (char cadena[]);
 int convertir_cadena_octal_a_entero (char cadena[]);
 int convertir_cadena_hexadecimal_a_entero (char cadena[]);
+int suma_total(nodo_enteros_t * lista);
 void contar_enteros (nodo_enteros_t * lista);
 void eliminar_lista_enteros (nodo_enteros_t * lista);
 #endif

@@ -22,14 +22,25 @@ void agregar_enteros_al_final_con_repeticion (nodo_enteros_t ** lista, int infor
 	return;
 }
 
+int suma_total(nodo_enteros_t * lista)
+{
+	nodo_enteros_t * temporal;
+	int total = 0;
+	for (temporal = lista; temporal != NULL; temporal = temporal->sig)
+		total += temporal->info;
+
+	return total;
+}
+
 void imprimir_enteros(nodo_enteros_t * lista, char cabecera[])
 {
 	nodo_enteros_t * temporal;
 	
 	printf ("\n%-20s%-20s%s\n", "############### ", cabecera," ###############");
-	for (temporal = lista; temporal->sig != NULL; temporal = temporal->sig)
-		printf ("%s%d\n","El numero es: ", temporal->info);
-
+	for (temporal = lista; temporal != NULL; temporal = temporal->sig)
+		printf ("%s%d\n","Numero: ", temporal->info);
+	if (strcmp(cabecera,"CONSTANTES DECIMALES") == 0)
+		printf ("%s%d\n","La suma total es: ", suma_total(lista));
 	return;
 }
 
@@ -37,8 +48,9 @@ void imprimir_caracteres (nodo_enteros_t * lista)
 {
 	nodo_enteros_t * temporal;
 	
-	for (temporal = lista; temporal->sig != NULL; temporal = temporal->sig)
-		 printf ("%s%c\n","El numero entero es: ",temporal->info);
+	printf ("\n%-20s%-20s%s\n", "############### ", "CONSTANTES CARACTERES"," ###############");
+	for (temporal = lista; temporal != NULL; temporal = temporal->sig)
+		 printf ("%s%c\n","Caracter: ",temporal->info);
 	
 	return;
 }

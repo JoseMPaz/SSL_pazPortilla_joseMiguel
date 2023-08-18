@@ -5,12 +5,14 @@
 #include <stdlib.h>
 #include <string.h>
 
+/*Definicion del nodo de enteros*/
 typedef struct nodo_enteros_t
 {
 	int info;
 	struct nodo_enteros_t * sig;
 }nodo_enteros_t;
 
+/*Prototipo defunciones*/
 void agregar_enteros_al_final_con_repeticion (nodo_enteros_t ** lista, int informacion);
 void imprimir_enteros (nodo_enteros_t * lista, char cabecera[]);
 void imprimir_caracteres (nodo_enteros_t * lista);

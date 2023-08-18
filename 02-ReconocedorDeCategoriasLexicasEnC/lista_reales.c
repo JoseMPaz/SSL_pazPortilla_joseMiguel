@@ -75,8 +75,11 @@ void agregar_reales_al_final_con_repeticion (nodo_real_t ** lista, real_t real)
 void imprimir_reales (nodo_real_t * lista)
 {
 	nodo_real_t * temporal;
-	
+
+	 //Muestra por terminal el inicio de las constantes reales
 	printf ("\n%-20s%-20s%s\n", "############### ", "CONSTANTES REALES"," ###############");
+
+//Recorre toda la lista de reales y va mostrando su parte entera y su mantisa
 	for (temporal = lista; temporal != NULL; temporal = temporal->sig)
 		 printf ("%s%-20d%s%.3g\n","Parte Entera: ",temporal->info.parte_entera,"Mantisa: ", temporal->info.mantisa);
 	
@@ -87,6 +90,7 @@ void eliminar_lista_reales (nodo_real_t * lista)
 {
 	nodo_real_t * nodo_actual = lista, * nodo_siguiente = NULL;
 
+//Recorre toda la lista y va eliminado cada nodos desde el primero hasta el ultimo, utilizando un puntero auxiliar para no   perder las referencia
 	while (nodo_actual != NULL)
 	{
 		nodo_siguiente = nodo_actual->sig;

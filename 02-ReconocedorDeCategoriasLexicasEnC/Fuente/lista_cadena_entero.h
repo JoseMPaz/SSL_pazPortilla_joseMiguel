@@ -6,12 +6,15 @@
 #include <string.h>
 #include <ctype.h>
 
+
 typedef enum 
 {
 	FALSE = 0,
 	TRUE = 1
 }bool_t;
 
+
+// LO UTILIZAMOS EN UN VECTOR DONDE CADA POSICION ES UNA PARA CATEGORIA 
 typedef enum
 {
 	TIPO_DE_DATO = 0,
@@ -24,12 +27,16 @@ typedef enum
 	TIPOS_DE_DATOS_COMPUESTOS = 7
 }categoria_t;
 
+
+// LO UTILIZAMOS PARA LOS COMENTARIOS Y SABER SI SON DE LINEA O NO
 typedef enum
 {
 	UNA_LINEA = 0,
 	MULTIPLE_LINEAS = 1
 }comentario_t;
 
+
+// DEFINO LA ESTRUCTURA DE LA LISTA 
 typedef struct
 {
 	char cadena[300];
@@ -41,6 +48,9 @@ typedef struct nodo_cadena_entero_t
 	cadena_entero_t info;
 	struct nodo_cadena_entero_t * sig;
 }nodo_cadena_entero_t;
+
+
+// FUNCIONES A UTILIZAR 
 
 void agregar_cadena_entero_al_final_con_repeticion (nodo_cadena_entero_t ** lista, cadena_entero_t cadena_entero);
 void agregar_cadena_entero_al_final_con_repeticion_y_bandera (nodo_cadena_entero_t ** lista, cadena_entero_t cadena_entero, 

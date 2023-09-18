@@ -66,12 +66,12 @@ int main (int argc, const char * argv[])
 	printf ("%s%c\n", CONSTANTE_CARACTER,'c');
 	
 	// CARACTER_NO_RECONOCIDOS: Se deben hacer un comentario multilinea para que este programa funcione
-	/*
+	
 	@
 	$
 	@@$
 	#@
-	*/
+
 	return EXIT_SUCCESS;
 }
 

@@ -1,9 +1,9 @@
 #include "lista_reales.h"
 
-/*Funcion: obtener_parte_entera
-Precondicion: La cadena que es pasada como argumento, debe representar un numero real decimal.
-PostCondiciones: Ninguna.
-Accion: 	Esta funcion conviente un numero real pasado en forma de cadena a un numero entero
+
+//La cadena que es pasada como argumento, debe representar un numero real decimal.
+
+/*Accion:	Esta funcion convierte un numero real pasado en forma de cadena a un numero entero
 			que representa la parte entera del numero real. Para ello utiliza la funcion strtol que espera
 			una cadena que contenga un numero real decimal, como segundo argumento recibe
 			un puntero doble a caracter que sirve para identificar en caso que la cadena no sea un numero
@@ -17,10 +17,12 @@ int obtener_parte_entera (char cadena[])
 	return (int) strtol (cadena,NULL,10);
 }
 
-/*Funcion: obtener_mantisa
-Precondicion: La cadena que es pasada como argumento, debe representar un numero real decimal.
-PostCondiciones: Ninguna.
-Accion: 	Esta funcion conviente un numero real pasado en forma de cadena a un numero flotante
+
+
+
+//La cadena que es pasada como argumento, debe representar un numero real decimal.
+
+/*Accion:	Esta funcion conviente un numero real pasado en forma de cadena a un numero flotante
 			que representa la mantisa del numero real. Para ello utiliza la funcion strtod que espera
 			una cadena que contenga un numero real decimal, como segundo argumento recibe
 			un puntero doble a caracter que sirve para identificar en caso que la cadena no sea un numero
@@ -36,13 +38,16 @@ float obtener_mantisa (char cadena[])
 	return (mantisa >= 0) ? mantisa : (-1)*mantisa;
 }
 
-/*Funcion: agregar_reales_al_final_con_repeticion
-Precondicion: Si la lista esta vacia, antes de utilizar esta funcion se le debe asignar NULL
-PostCondiciones: Ninguna.
-Accion: 	Recibe una direccion del primer nodo de una lista y el elemento que sea agregado
-			Entonces esta funcion crea un nodo auxiliar, agrega el elemento que sera agregado al info de este nodo nuevo_nodo
-			nuevo y asigna NULL a la parte sig. Verifica si la lista esta vacio, en caso afirmativo asigna el nodo a la lista,
-			caso contrario asigna la lista a un nodo auxilia para no perder la referencia y recorre la lista hasta el ultimo nodo,
+
+
+
+//Si la lista esta vacia, antes de utilizar esta funcion se le debe asignar NULL
+
+/*Accion:	Recibe una direccion del primer nodo de una lista y el elemento que sea agregado
+			Entonces esta funcion crea un nodo auxiliar, agrega el elemento que sera agregado al info de este 
+			nodo nuevo_nodo nuevo y asigna NULL a la parte sig. 
+			Verifica si la lista esta vacio, en caso afirmativo asigna el nodo a la lista, caso contrario 
+			asigna la lista a un nodo auxilia para no perder la referencia y recorre la lista hasta el ultimo nodo,
 			una vez ahi asigna a su sig que apunte al nuevo nodo.*/
 void agregar_reales_al_final_con_repeticion (nodo_real_t ** lista, real_t real)
 {
@@ -55,6 +60,7 @@ void agregar_reales_al_final_con_repeticion (nodo_real_t ** lista, real_t real)
 	//Agrega NULL al sig del nodo nuevo
 	nuevo_nodo->sig = NULL;
 	
+
 	//Verifica si la lista viene vacia
 	if(*lista == NULL)
 	{
@@ -64,14 +70,17 @@ void agregar_reales_al_final_con_repeticion (nodo_real_t ** lista, real_t real)
 	else//La lista no esta vacia
 	{
 		//Recorre hasta el ultimo nodo de la lista, y no hace nada mientras recorre
-		for (ultimo_nodo = *lista; ultimo_nodo->sig != NULL; ultimo_nodo = ultimo_nodo->sig)
-			; 
+		for (ultimo_nodo = *lista; ultimo_nodo->sig != NULL; ultimo_nodo = ultimo_nodo->sig);
+
 		//Agrega el nuevo nodo al sig del ultimo nodo de la lista
 		ultimo_nodo->sig = nuevo_nodo;
 	}
 	return;
 }
 
+
+
+/* Imprime en la terminal el reporte de la lista de los reales. */
 void imprimir_reales (nodo_real_t * lista)
 {
 	nodo_real_t * temporal;
@@ -79,18 +88,21 @@ void imprimir_reales (nodo_real_t * lista)
 	 //Muestra por terminal el inicio de las constantes reales
 	printf ("\n%-20s%-20s%s\n", "############### ", "CONSTANTES REALES"," ###############");
 
-//Recorre toda la lista de reales y va mostrando su parte entera y su mantisa
+	//Recorre toda la lista de reales y va mostrando su parte entera y su mantisa
 	for (temporal = lista; temporal != NULL; temporal = temporal->sig)
 		 printf ("%s%-20d%s%.3g\n","Parte Entera: ",temporal->info.parte_entera,"Mantisa: ", temporal->info.mantisa);
 	
 	return;
 }
 
+
+
+/* Elimina todos los nodos de la lista de reales */
 void eliminar_lista_reales (nodo_real_t * lista)
 {
 	nodo_real_t * nodo_actual = lista, * nodo_siguiente = NULL;
 
-//Recorre toda la lista y va eliminado cada nodos desde el primero hasta el ultimo, utilizando un puntero auxiliar para no   perder las referencia
+	//Recorre toda la lista y va eliminado cada nodos desde el primero hasta el ultimo, utilizando un puntero auxiliar para no perder las referencias
 	while (nodo_actual != NULL)
 	{
 		nodo_siguiente = nodo_actual->sig;

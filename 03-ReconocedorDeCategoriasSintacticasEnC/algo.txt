@@ -1,0 +1,111 @@
+expresion:		expresion_de_asignacion
+				|	expresion expresion_de_asignacion
+;
+
+expresion_de_asignacion:	expresion_condicional
+									|	expresion_unaria ASIGNACION expresion_de_asignacion
+;
+
+expresion_condicional:		
+									expresion_logica_o
+								|	expresion_logica_o '?' expresion ':' expresion_condicional
+;
+
+expresion_logica_o: 		
+								expresion_logica_y
+							|	expresion_logica_o OPERADOR_LOGICO_O expresion_logica_y
+;
+
+expresion_logica_y:	
+							expresion_inclusiva_o
+						|	expresion_logica_y OPERADOR_LOGICO_Y expresion_inclusiva_o
+;
+
+expresion_inclusiva_o: 
+								expresion_exclusiva_o
+							|	expresion_inclusiva_o '|' expresion_exclusiva_o
+;
+
+expresion_exclusiva_o: 	
+								expresion_y
+							|	expresion_exclusiva_o '^' expresion_y
+;
+
+expresion_y: 
+					expresion_de_igualdad
+				|	expresion_y '&' expresion_de_igualdad
+;
+
+expresion_de_igualdad:	
+								expresion_relacional
+							|	expresion_de_igualdad OPERADOR_IGUALDAD expresion_relacional
+							|	expresion_de_igualdad OPERADOR_DISTINTO expresion_relacional
+;
+			
+expresion_relacional: 
+								expresion_de_desplazamiento
+							|	expresion_relacional '<' expresion_de_desplazamiento	
+							|	expresion_relacional '>' expresion_de_desplazamiento
+							|	expresion_relacional MENOR_O_IGUAL expresion_de_desplazamiento
+							|	expresion_relacional MAYOR_O_IGUAL expresion_de_desplazamiento
+;
+
+expresion_de_desplazamiento: 
+										expresion_aditiva
+									|	expresion_de_desplazamiento DESPLAZAMIENTO_A_IZQUIERDA expresion_aditiva
+									|	expresion_de_desplazamiento DESPLAZAMIENTO_A_DERECHA expresion_aditiva
+;
+
+expresion_aditiva: 
+							expresion_multiplicativa
+						| expresion_aditiva '+' expresion_multiplicativa
+						| expresion_aditiva '-' expresion_multiplicativa
+;
+
+expresion_multiplicativa: 
+									expresion_de_casteo
+								|	expresion_multiplicativa '*' expresion_de_casteo
+								|	expresion_multiplicativa '/' expresion_de_casteo
+								|	expresion_multiplicativa '%' expresion_de_casteo
+;
+
+expresion_de_casteo: expresion_unaria
+						|	'(' TIPO_DE_DATO ')' expresion_de_casteo
+;
+
+expresion_unaria: 
+							expresion_sufija
+						| INCREMENTO expresion_unaria
+						| DECREMENTO expresion_unaria
+						| operador_unario expresion_de_casteo
+						| SIZEOF expresion_unaria
+						| SIZEOF '(' TIPO_DE_DATO ')'
+;
+
+operador_unario:	
+						'&'
+					|	'*'
+					|	'+'
+					|	'-'
+					|	'~'
+					|	'!'	
+;
+
+expresion_sufija: 	
+						expresion_primaria
+					|	expresion_sufija '[' expresion ']'	
+					|	expresion_sufija '.' IDENTIFICADOR
+					| 	expresion_sufija APUNTA IDENTIFICADOR
+					| 	expresion_sufija INCREMENTO
+					| 	expresion_sufija DECREMENTO
+;
+
+expresion_primaria: 
+							IDENTIFICADOR
+						| CONSTANTE_DECIMAL
+						| '(' expresion ')'
+;
+
+
+
+

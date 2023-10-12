@@ -54,15 +54,23 @@ extern int yydebug;
     YYEOF = 0,                     /* "end of file"  */
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
-    INT = 258,                     /* INT  */
-    IDENTIFICADOR = 259,           /* IDENTIFICADOR  */
-    PUNTO_Y_COMA = 260,            /* PUNTO_Y_COMA  */
-    ABRE_PARENTESIS = 261,         /* ABRE_PARENTESIS  */
-    CIERRA_PARENTESIS = 262,       /* CIERRA_PARENTESIS  */
-    ABRE_LLAVE = 263,              /* ABRE_LLAVE  */
-    CIERRA_LLAVE = 264,            /* CIERRA_LLAVE  */
-    ASIGNACION = 265,              /* ASIGNACION  */
-    NUMBER = 266                   /* NUMBER  */
+    TIPO_DE_DATO = 258,            /* TIPO_DE_DATO  */
+    ESPECIFICADOR_DE_CATEGORIA_DE_ALMACENAMIENTO = 259, /* ESPECIFICADOR_DE_CATEGORIA_DE_ALMACENAMIENTO  */
+    IDENTIFICADOR = 260,           /* IDENTIFICADOR  */
+    CONSTANTE_DECIMAL = 261,       /* CONSTANTE_DECIMAL  */
+    ASIGNACION = 262,              /* ASIGNACION  */
+    OPERADOR_LOGICO_O = 263,       /* OPERADOR_LOGICO_O  */
+    OPERADOR_LOGICO_Y = 264,       /* OPERADOR_LOGICO_Y  */
+    OPERADOR_IGUALDAD = 265,       /* OPERADOR_IGUALDAD  */
+    OPERADOR_DISTINTO = 266,       /* OPERADOR_DISTINTO  */
+    MENOR_O_IGUAL = 267,           /* MENOR_O_IGUAL  */
+    MAYOR_O_IGUAL = 268,           /* MAYOR_O_IGUAL  */
+    DESPLAZAMIENTO_A_IZQUIERDA = 269, /* DESPLAZAMIENTO_A_IZQUIERDA  */
+    DESPLAZAMIENTO_A_DERECHA = 270, /* DESPLAZAMIENTO_A_DERECHA  */
+    INCREMENTO = 271,              /* INCREMENTO  */
+    DECREMENTO = 272,              /* DECREMENTO  */
+    SIZEOF = 273,                  /* SIZEOF  */
+    APUNTA = 274                   /* APUNTA  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -71,12 +79,12 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 10 "parser.y"
+#line 11 "parser.y"
 
 	char * sval;
 	int ival;
 
-#line 80 "parser.tab.h"
+#line 88 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

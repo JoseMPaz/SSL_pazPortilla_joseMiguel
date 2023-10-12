@@ -4,5 +4,12 @@ int suma(int a)
 	8;
 	;
 }
-int resta(int b, int c){}
-int producto(int d, int e, int f){}
+int resta(int b, int c)
+{
+	b = 2+5-1*9/3;
+	c = b;
+}
+int producto(int d, int e, int f)
+{
+	d = 3 * (8 / 2);
+}

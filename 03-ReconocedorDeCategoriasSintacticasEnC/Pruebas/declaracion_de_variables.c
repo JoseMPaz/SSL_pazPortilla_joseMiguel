@@ -1,4 +1,3 @@
-int entero;
-char caracter;
-float real_simple_presicion;
-double real_doble_presicion;
+int sumar (int a, int b);
+float restar(float, float);
+void multiplicar(double a, double b);

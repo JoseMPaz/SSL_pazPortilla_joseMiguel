@@ -55,22 +55,25 @@ extern int yydebug;
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
     TIPO_DE_DATO = 258,            /* TIPO_DE_DATO  */
-    ESPECIFICADOR_DE_CATEGORIA_DE_ALMACENAMIENTO = 259, /* ESPECIFICADOR_DE_CATEGORIA_DE_ALMACENAMIENTO  */
-    IDENTIFICADOR = 260,           /* IDENTIFICADOR  */
-    CONSTANTE_DECIMAL = 261,       /* CONSTANTE_DECIMAL  */
-    ASIGNACION = 262,              /* ASIGNACION  */
-    OPERADOR_LOGICO_O = 263,       /* OPERADOR_LOGICO_O  */
-    OPERADOR_LOGICO_Y = 264,       /* OPERADOR_LOGICO_Y  */
-    OPERADOR_IGUALDAD = 265,       /* OPERADOR_IGUALDAD  */
-    OPERADOR_DISTINTO = 266,       /* OPERADOR_DISTINTO  */
-    MENOR_O_IGUAL = 267,           /* MENOR_O_IGUAL  */
-    MAYOR_O_IGUAL = 268,           /* MAYOR_O_IGUAL  */
-    DESPLAZAMIENTO_A_IZQUIERDA = 269, /* DESPLAZAMIENTO_A_IZQUIERDA  */
-    DESPLAZAMIENTO_A_DERECHA = 270, /* DESPLAZAMIENTO_A_DERECHA  */
-    INCREMENTO = 271,              /* INCREMENTO  */
-    DECREMENTO = 272,              /* DECREMENTO  */
-    SIZEOF = 273,                  /* SIZEOF  */
-    APUNTA = 274                   /* APUNTA  */
+    IDENTIFICADOR = 259,           /* IDENTIFICADOR  */
+    CONSTANTE_DECIMAL = 260,       /* CONSTANTE_DECIMAL  */
+    TIPO_CALIFICADOR = 261,        /* TIPO_CALIFICADOR  */
+    ESPECIFICADOR_DE_CATEGORIA_DE_ALMACENAMIENTO = 262, /* ESPECIFICADOR_DE_CATEGORIA_DE_ALMACENAMIENTO  */
+    ASIGNACION_COMPUESTA = 263,    /* ASIGNACION_COMPUESTA  */
+    OPERADOR_LOGICO_O = 264,       /* OPERADOR_LOGICO_O  */
+    OPERADOR_LOGICO_Y = 265,       /* OPERADOR_LOGICO_Y  */
+    OPERADOR_IGUALDAD = 266,       /* OPERADOR_IGUALDAD  */
+    OPERADOR_DISTINTO = 267,       /* OPERADOR_DISTINTO  */
+    MENOR_O_IGUAL = 268,           /* MENOR_O_IGUAL  */
+    MAYOR_O_IGUAL = 269,           /* MAYOR_O_IGUAL  */
+    DESPLAZAMIENTO_A_IZQUIERDA = 270, /* DESPLAZAMIENTO_A_IZQUIERDA  */
+    DESPLAZAMIENTO_A_DERECHA = 271, /* DESPLAZAMIENTO_A_DERECHA  */
+    INCREMENTO = 272,              /* INCREMENTO  */
+    DECREMENTO = 273,              /* DECREMENTO  */
+    SIZEOF = 274,                  /* SIZEOF  */
+    APUNTA = 275,                  /* APUNTA  */
+    CASE = 276,                    /* CASE  */
+    DEFAULT = 277                  /* DEFAULT  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -84,7 +87,7 @@ union YYSTYPE
 	char * sval;
 	int ival;
 
-#line 88 "parser.tab.h"
+#line 91 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

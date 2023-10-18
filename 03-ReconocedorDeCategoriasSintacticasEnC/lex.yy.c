@@ -558,7 +558,7 @@ char *yytext;
 #line 1 "scanner.l"
 #line 2 "scanner.l"
 #include "parser.tab.h"
-int yyerror (char *s);
+int yyerror (char const *s);
 
 #line 564 "lex.yy.c"
 #line 565 "lex.yy.c"
@@ -2211,7 +2211,7 @@ void yyfree (void * ptr )
 #line 87 "scanner.l"
 
 
-int yyerror (char *s)
+int yyerror (char const *s)
 {
 	puts(s);
 	return 1;

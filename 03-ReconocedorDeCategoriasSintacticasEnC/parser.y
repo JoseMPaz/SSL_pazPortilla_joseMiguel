@@ -3,7 +3,7 @@
 #include <stdlib.h>
 extern int yylex();
 extern FILE * yyin;
-extern int yyerror (char *s);
+extern int yyerror (char const*s);
 
 %}
 
@@ -49,10 +49,12 @@ extern int yyerror (char *s);
 %left DESPLAZAMIENTO_A_DERECHA DESPLAZAMIENTO_A_IZQUIERDA
 %left '~' '!'
 %left '[' ']'
-
+//Mayor Precedencia
 %nonassoc THEN
 %nonassoc ELSE
-//Mayor Precedencia
+
+%define parse.error verbose
+
 %%
 
 unidad_de_traduccion//1 COMPLETO

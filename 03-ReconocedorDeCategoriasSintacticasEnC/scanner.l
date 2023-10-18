@@ -1,6 +1,6 @@
 %{
 #include "parser.tab.h"
-int yyerror (char *s);
+int yyerror (char const *s);
 
 %}
 
@@ -86,7 +86,7 @@ asignacion_compuesta										"*="|"/="|"%="|"+="|"-="|"<<="|">>="|"\&="|"^="|"\
 
 %%
 
-int yyerror (char *s)
+int yyerror (char const *s)
 {
 	puts(s);
 	return 1;

@@ -5,9 +5,6 @@ int yyerror (char *s);
 %}
 
 constante_decimal											[1-9][0-9]*
-tipo_de_dato 												"void"|"char"|"short"|"int"|"long"|"float"|"double"|"signed"|"unsigned"
-tipo_calificador											"const"|"volatile"
-especificador_de_categoria_de_almacenamiento		"auto"|"register"|"static"|"extern"|"typedef"
 identificador												[a-zA-Z_][a-zA-Z0-9_]*
 asignacion_compuesta										"*="|"/="|"%="|"+="|"-="|"<<="|">>="|"\&="|"^="|"\|="
 
@@ -15,9 +12,6 @@ asignacion_compuesta										"*="|"/="|"%="|"+="|"-="|"<<="|">>="|"\&="|"^="|"\
 
 %%
 ","															{ return ','; }
-{tipo_de_dato}												{ yylval.sval = strdup(yytext); return TIPO_DE_DATO; }
-{especificador_de_categoria_de_almacenamiento}	{ return ESPECIFICADOR_DE_CATEGORIA_DE_ALMACENAMIENTO; }
-{tipo_calificador}										{ return TIPO_CALIFICADOR; }
 "case"														{ return CASE; }
 "default"													{ return DEFAULT; }
 ";"															{ return ';'; }
@@ -25,21 +19,21 @@ asignacion_compuesta										"*="|"/="|"%="|"+="|"-="|"<<="|">>="|"\&="|"^="|"\
 ")"															{ return ')'; }
 "{"															{ return '{'; }
 "}"															{ return '}'; }
-"\?"															{ return '?'; }
+"?"															{ return '?'; }
 ":"															{ return ':'; }
-"\|\|"														{ return OPERADOR_LOGICO_O; }
-"\&\&"														{ return OPERADOR_LOGICO_Y; }
+"\|\|"														{ return OPERADOR_LOGICO_OR; }
+"\&\&"														{ return OPERADOR_LOGICO_AND; }
 "\|"															{ return '|'; }
 "^"															{ return '^'; }
 "\&"															{ return '&'; }
-"=="															{ return OPERADOR_IGUALDAD; }
-"!="															{ return OPERADOR_DISTINTO; }
+"=="															{ return OPERADOR_DE_IGUALDAD ; }
+"!="															{ return OPERADOR_DE_DESIGUALDAD; }
 "<"															{ return '<'; }
 ">"															{ return '>'; }
 "<="															{ return MENOR_O_IGUAL; }
 ">="															{ return MAYOR_O_IGUAL; }
-"<<"															{ return DESPLAZAMIENTO_A_IZQUIERDA; }
-">>"															{ return DESPLAZAMIENTO_A_DERECHA; }
+"<<"															{ return OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA; }
+">>"															{ return OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA; }
 "+"															{ return '+'; }
 "-"															{ return '-'; }
 "*"															{ return '*'; }
@@ -53,9 +47,38 @@ asignacion_compuesta										"*="|"/="|"%="|"+="|"-="|"<<="|">>="|"\&="|"^="|"\
 "\["															{ return '['; }
 "\]"															{ return ']'; }
 "."															{ return '.'; }
-"->"															{ return APUNTA; }	
+"..."															{ return ELIPSIS; }
+"->"															{ return OPERADOR_FLECHA; }	
 "="															{ return '='; }
-{asignacion_compuesta}									{ return ASIGNACION_COMPUESTA; }
+"void"														{return VOID;}
+"char"														{return CHAR;}
+"short"														{return SHORT;}
+"int"															{return INT;}
+"long"														{return LONG;}
+"float"														{return FLOAT;}
+"double"														{return DOUBLE;}
+"signed"														{return SIGNED;}
+"unsigned"													{return UNSIGNED;}
+"volatile"													{return VOLATILE;}
+"const"														{return CONST;}	
+"auto"														{return AUTO;}
+"register"													{return REGISTER;}
+"static"														{return STATIC;}
+"extern"														{return EXTERN;}
+"typedef"													{return TYPEDEF;}
+"struct"														{return STRUCT;}
+"union"														{return UNION;}
+"enum"														{return ENUM;}
+"if"															{return IF;}
+"else"														{return ELSE;}
+"switch"														{return SWITCH;}
+"for"															{return FOR;}
+"while"														{return WHILE;}
+"do"															{return DO;}
+"goto"														{return GOTO;}
+"continue"													{return CONTINUE;}
+"break"														{return BREAK;}
+"return"														{return RETURN;}
 {identificador}											{ yylval.sval = strdup(yytext); return IDENTIFICADOR; }
 {constante_decimal}										{ yylval.ival = atoi(yytext); return CONSTANTE_DECIMAL; }
 [ \t\n]														{ ; } // Ignora espacios en blanco y tabuladores

@@ -74,7 +74,7 @@ int main (int argc, const char * argv[])
 
 	return EXIT_SUCCESS;
 }
-
+JosePaz
 /*Esta funcion utiliza una variable estatica,
 esto quiere decir que solo la primera vez se inicializa en 0
 y en los proximos llamado conserva el valor anterior*/

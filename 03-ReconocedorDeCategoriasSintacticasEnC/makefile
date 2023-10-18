@@ -22,7 +22,7 @@ lex.yy.c: scanner.l parser.tab.h
 
 # Regla para generar el archivo parser.tab.c y parser.tab.h a partir de parser.y
 parser.tab.c parser.tab.h: parser.y
-	$(YACC) -d parser.y
+	$(YACC) -d -v parser.y
 
 # Regla para compilar el archivo de funciones
 misFunciones.o: misFunciones.c $(HEADERS)

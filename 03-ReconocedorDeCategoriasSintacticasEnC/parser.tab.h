@@ -54,26 +54,56 @@ extern int yydebug;
     YYEOF = 0,                     /* "end of file"  */
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
-    TIPO_DE_DATO = 258,            /* TIPO_DE_DATO  */
-    IDENTIFICADOR = 259,           /* IDENTIFICADOR  */
-    CONSTANTE_DECIMAL = 260,       /* CONSTANTE_DECIMAL  */
-    TIPO_CALIFICADOR = 261,        /* TIPO_CALIFICADOR  */
-    ESPECIFICADOR_DE_CATEGORIA_DE_ALMACENAMIENTO = 262, /* ESPECIFICADOR_DE_CATEGORIA_DE_ALMACENAMIENTO  */
-    ASIGNACION_COMPUESTA = 263,    /* ASIGNACION_COMPUESTA  */
-    OPERADOR_LOGICO_O = 264,       /* OPERADOR_LOGICO_O  */
-    OPERADOR_LOGICO_Y = 265,       /* OPERADOR_LOGICO_Y  */
-    OPERADOR_IGUALDAD = 266,       /* OPERADOR_IGUALDAD  */
-    OPERADOR_DISTINTO = 267,       /* OPERADOR_DISTINTO  */
-    MENOR_O_IGUAL = 268,           /* MENOR_O_IGUAL  */
-    MAYOR_O_IGUAL = 269,           /* MAYOR_O_IGUAL  */
-    DESPLAZAMIENTO_A_IZQUIERDA = 270, /* DESPLAZAMIENTO_A_IZQUIERDA  */
-    DESPLAZAMIENTO_A_DERECHA = 271, /* DESPLAZAMIENTO_A_DERECHA  */
-    INCREMENTO = 272,              /* INCREMENTO  */
-    DECREMENTO = 273,              /* DECREMENTO  */
-    SIZEOF = 274,                  /* SIZEOF  */
-    APUNTA = 275,                  /* APUNTA  */
-    CASE = 276,                    /* CASE  */
-    DEFAULT = 277                  /* DEFAULT  */
+    IDENTIFICADOR = 258,           /* IDENTIFICADOR  */
+    CONSTANTE_DECIMAL = 259,       /* CONSTANTE_DECIMAL  */
+    OPERADOR_LOGICO_OR = 260,      /* OPERADOR_LOGICO_OR  */
+    OPERADOR_LOGICO_AND = 261,     /* OPERADOR_LOGICO_AND  */
+    OPERADOR_DE_IGUALDAD = 262,    /* OPERADOR_DE_IGUALDAD  */
+    OPERADOR_DE_DESIGUALDAD = 263, /* OPERADOR_DE_DESIGUALDAD  */
+    OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA = 264, /* OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA  */
+    OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA = 265, /* OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA  */
+    OPERADOR_DE_COMPARACION = 266, /* OPERADOR_DE_COMPARACION  */
+    MENOR_O_IGUAL = 267,           /* MENOR_O_IGUAL  */
+    MAYOR_O_IGUAL = 268,           /* MAYOR_O_IGUAL  */
+    INCREMENTO = 269,              /* INCREMENTO  */
+    DECREMENTO = 270,              /* DECREMENTO  */
+    SIZEOF = 271,                  /* SIZEOF  */
+    OPERADOR_FLECHA = 272,         /* OPERADOR_FLECHA  */
+    CASE = 273,                    /* CASE  */
+    DEFAULT = 274,                 /* DEFAULT  */
+    VOID = 275,                    /* VOID  */
+    CHAR = 276,                    /* CHAR  */
+    SHORT = 277,                   /* SHORT  */
+    INT = 278,                     /* INT  */
+    LONG = 279,                    /* LONG  */
+    FLOAT = 280,                   /* FLOAT  */
+    DOUBLE = 281,                  /* DOUBLE  */
+    SIGNED = 282,                  /* SIGNED  */
+    UNSIGNED = 283,                /* UNSIGNED  */
+    CONST = 284,                   /* CONST  */
+    VOLATILE = 285,                /* VOLATILE  */
+    AUTO = 286,                    /* AUTO  */
+    REGISTER = 287,                /* REGISTER  */
+    STATIC = 288,                  /* STATIC  */
+    EXTERN = 289,                  /* EXTERN  */
+    TYPEDEF = 290,                 /* TYPEDEF  */
+    ELIPSIS = 291,                 /* ELIPSIS  */
+    STRUCT = 292,                  /* STRUCT  */
+    UNION = 293,                   /* UNION  */
+    ENUM = 294,                    /* ENUM  */
+    IF = 295,                      /* IF  */
+    ELSE = 296,                    /* ELSE  */
+    SWITCH = 297,                  /* SWITCH  */
+    WHILE = 298,                   /* WHILE  */
+    DO = 299,                      /* DO  */
+    FOR = 300,                     /* FOR  */
+    GOTO = 301,                    /* GOTO  */
+    CONTINUE = 302,                /* CONTINUE  */
+    BREAK = 303,                   /* BREAK  */
+    RETURN = 304,                  /* RETURN  */
+    DESPLAZAMIENTO_A_DERECHA = 305, /* DESPLAZAMIENTO_A_DERECHA  */
+    DESPLAZAMIENTO_A_IZQUIERDA = 306, /* DESPLAZAMIENTO_A_IZQUIERDA  */
+    THEN = 307                     /* THEN  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -87,7 +117,7 @@ union YYSTYPE
 	char * sval;
 	int ival;
 
-#line 91 "parser.tab.h"
+#line 121 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

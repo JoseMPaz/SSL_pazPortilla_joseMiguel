@@ -13,327 +13,423 @@ extern int yyerror (char *s);
 	int ival;
 }
 
-%token <sval> TIPO_DE_DATO IDENTIFICADOR
+%token <sval> IDENTIFICADOR
 %token <ival> CONSTANTE_DECIMAL
-%token TIPO_CALIFICADOR
-%token ESPECIFICADOR_DE_CATEGORIA_DE_ALMACENAMIENTO
-%token ASIGNACION_COMPUESTA
-%token OPERADOR_LOGICO_O
-%token OPERADOR_LOGICO_Y
-%token OPERADOR_IGUALDAD
-%token OPERADOR_DISTINTO
+%token OPERADOR_LOGICO_OR OPERADOR_LOGICO_AND OPERADOR_DE_IGUALDAD  OPERADOR_DE_DESIGUALDAD
+%token OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA OPERADOR_DE_COMPARACION
 %token MENOR_O_IGUAL
 %token MAYOR_O_IGUAL
-%token DESPLAZAMIENTO_A_IZQUIERDA
-%token DESPLAZAMIENTO_A_DERECHA
 %token INCREMENTO
 %token DECREMENTO
 %token SIZEOF
-%token APUNTA
+%token OPERADOR_FLECHA
 %token CASE
 %token DEFAULT
+%token VOID CHAR SHORT INT LONG FLOAT DOUBLE SIGNED UNSIGNED
+%token CONST VOLATILE
+%token AUTO REGISTER STATIC EXTERN TYPEDEF	
+%token ELIPSIS
+%token STRUCT UNION ENUM
+%token IF ELSE SWITCH
+%token WHILE DO FOR
+%token GOTO CONTINUE BREAK RETURN
 
 //Menor Precedencia
+%left ','
 %right '='
+%right '?' ':'
+%left OPERADOR_LOGICO_OR
+%left OPERADOR_LOGICO_AND
+%left '|' '&'  '^'
+%left OPERADOR_DE_IGUALDAD OPERADOR_DE_DESIGUALDAD
+%left '<' '>'
 %left '+' '-'
 %left '*' '/' '%'
-%left '^'
 %left '(' ')'
-%left '<' '>'
-%left '?' ':'
-%left OPERADOR_LOGICO_O
-%left OPERADOR_LOGICO_Y
-%left '|'
-%left '&'
-%left OPERADOR_IGUALDAD OPERADOR_DISTINTO
-%left MENOR_O_IGUAL MAYOR_O_IGUAL
 %left DESPLAZAMIENTO_A_DERECHA DESPLAZAMIENTO_A_IZQUIERDA
 %left '~' '!'
 %left '[' ']'
-%left '{' '}'
 
+%nonassoc THEN
+%nonassoc ELSE
 //Mayor Precedencia
 %%
 
-unidad_de_traduccion:		
-		declaracion_externa	
+unidad_de_traduccion//1 COMPLETO
+	:	declaracion_externa	
 	|	unidad_de_traduccion declaracion_externa
-;//ok
+	;
 
-declaracion_externa:			
-		definicion_de_funcion
+declaracion_externa//2 COMPLETO
+	:	definicion_de_funcion
 	|	declaracion
-;//ok
+	;
 
-definicion_de_funcion:	
-		declarador sentencia_compuesta
+definicion_de_funcion//3 COMPLETO
+	:	declarador sentencia_compuesta
 	|	declarador lista_de_declaraciones sentencia_compuesta
 	|	especificadores_de_declaracion declarador sentencia_compuesta
 	|	especificadores_de_declaracion declarador lista_de_declaraciones sentencia_compuesta
-;//ok
+	;
 
-declaracion:
-		especificadores_de_declaracion ';'
-	|	especificadores_de_declaracion lista_de_declaraciones_iniciales ';'
-;//ok
+declaracion//4 COMPLETO
+	:	especificadores_de_declaracion ';'
+	|	especificadores_de_declaracion lista_de_declaradores_inicial ';'
+	;
+	
+lista_de_declaraciones//5 COMPLETO
+	:	declaracion
+	|	lista_de_declaraciones declaracion
+	;
 
-lista_de_declaraciones: 
-			declaracion
-		|	lista_de_declaraciones declaracion
-;//ok
+especificadores_de_declaracion//6 COMPLETO
+	:	especificador_de_clase_de_almacenamiento
+	|	especificador_de_clase_de_almacenamiento especificadores_de_declaracion
+	|	especificador_de_tipo
+	|	especificador_de_tipo especificadores_de_declaracion
+	|	calificador_de_tipo
+	|	calificador_de_tipo especificadores_de_declaracion
+	;
 
-especificadores_de_declaracion:	ESPECIFICADOR_DE_CATEGORIA_DE_ALMACENAMIENTO
-										|	ESPECIFICADOR_DE_CATEGORIA_DE_ALMACENAMIENTO	especificadores_de_declaracion		
-										|	TIPO_DE_DATO	
-										|	TIPO_DE_DATO especificadores_de_declaracion	
-										|	TIPO_CALIFICADOR
-										|	TIPO_CALIFICADOR especificadores_de_declaracion							
-;//ok ACA FALTA AGREGAR TIPOS UNION STRUCT ...
+especificador_de_clase_de_almacenamiento//7 COMPLETO
+	:	AUTO
+	|	REGISTER
+	|	STATIC
+	|	EXTERN
+	|	TYPEDEF	
+	;
+	
+especificador_de_tipo//8
+	:	VOID
+	|	CHAR
+	|	SHORT
+	|	INT
+	|	LONG
+	|	FLOAT
+	|	DOUBLE
+	|	SIGNED
+	|	UNSIGNED
+	|	especificador_de_struct_o_union
+	|	especificador_enum
+	|	IDENTIFICADOR
+	;
+	
+calificador_de_tipo//9 COMPLETO
+	:	CONST
+	|	VOLATILE
+	;
 
+especificador_de_struct_o_union //10 COMPLETO
+	:	struct_o_union '{' lista_de_declaraciones_struct '}'	
+	|	struct_o_union IDENTIFICADOR '{' lista_de_declaraciones_struct '}'	
+	|	struct_o_union IDENTIFICADOR
+	;
+	
+struct_o_union//11 COMPLETO
+	:	STRUCT
+	|	UNION
+	;
+	
+lista_de_declaraciones_struct//12 COMPLETO
+	: 	declaracion_struct
+	|	lista_de_declaraciones_struct declaracion_struct
+	;
 
-lista_de_declaraciones_iniciales:
-		declaracion_inicial
-	|	lista_de_declaraciones_iniciales ',' declaracion_inicial
-;//ok
+lista_de_declaradores_inicial://13 COMPLETO
+		declarador_inicial
+	|	lista_de_declaradores_inicial ',' declarador_inicial
+	;
 
-declaracion_inicial:
-		declarador
+declarador_inicial//14 COMPLETO
+	:	declarador
 	|	declarador '=' inicializador
-;//ok
+	;
 
-declarador:		
-		declaracion_directa
-	| punteros declaracion_directa
-;//ok
+declaracion_struct//15 COMPLETO
+	:	lista_de_calificadores_y_especificadores lista_de_declaradores_struct ';'
+	;
 
-declaracion_directa:
-		IDENTIFICADOR
-	|	'(' IDENTIFICADOR ')'
+lista_de_calificadores_y_especificadores //16 COMPLETO
+	:	especificador_de_tipo
+	|	especificador_de_tipo lista_de_calificadores_y_especificadores
+	|	calificador_de_tipo
+	|	calificador_de_tipo lista_de_calificadores_y_especificadores
+	;
+
+lista_de_declaradores_struct//17 COMPLETO
+	:	declarador_struct
+	|	lista_de_declaradores_struct ',' declarador_struct
+	;
+	
+declarador_struct//18 COMPLETO
+	:	declarador
+	;
+
+especificador_enum//19 COMPLETO
+	:	ENUM '{' lista_de_enumeradores '}'
+	|	ENUM IDENTIFICADOR '{' lista_de_enumeradores '}'
+	|	ENUM IDENTIFICADOR
+	;
+	
+lista_de_enumeradores//21 COMPLETO
+	:	enumerador
+	|	lista_de_enumeradores ',' enumerador
+	;
+
+enumerador//22 COMPLETO
+	:	IDENTIFICADOR
+	|	IDENTIFICADOR '=' expresion_constante
+	;
+
+declarador//23 COMPLETO
+	:	declaracion_directa
+	|	puntero declaracion_directa
+	;
+
+declaracion_directa//24 COMPLETO
+	:	IDENTIFICADOR
+	|	'(' declarador ')'
 	|	declaracion_directa '[' ']'
-	|	declaracion_directa '[' expresion ']'
+	|	declaracion_directa '[' expresion_constante ']'
 	|	declaracion_directa '(' lista_de_tipos_de_parametros ')' { printf("Funcion: %s\n", $<sval>1); }
 	|	declaracion_directa '(' ')'
 	|	declaracion_directa '(' lista_de_identificadores ')'
-;//ok FALTA MODIFICAR EXPRESION
+	;
 
-punteros:
-		'*'
-	|	'*' lista_de_tipos_calificadores
-	|	'*' punteros
-	|	'*' lista_de_tipos_calificadores punteros
-;//ok
+puntero//25 COMPLETO
+	:	'*'
+	|	'*' lista_de_calificadores_de_tipo
+	|	'*' puntero
+	|	'*' lista_de_calificadores_de_tipo puntero
+	;
 
-lista_de_tipos_calificadores:
-		TIPO_CALIFICADOR
-	|	lista_de_tipos_calificadores TIPO_CALIFICADOR
-;//ok
+lista_de_calificadores_de_tipo//26 COMPLETO
+	:	calificador_de_tipo
+	|	lista_de_calificadores_de_tipo calificador_de_tipo
+	;
+	
+lista_de_tipos_de_parametros//27 COMPLETO
+	:	lista_de_parametros
+	|	lista_de_parametros ',' ELIPSIS
+	;
 
-lista_de_tipos_de_parametros:
-		lista_de_parametros
-	|	lista_de_parametros lista_de_tipos_de_parametros
-;//ok
-
-lista_de_parametros:
-		declaracion_de_parametro 
+lista_de_parametros//28 COMPLETO
+	:	declaracion_de_parametro 
 	|	lista_de_parametros ',' declaracion_de_parametro
-;//ok
-
-declaracion_de_parametro:
-		especificadores_de_declaracion declarador { printf("Parametro: %s\n", $<sval>2); }
-;//ok
+	;
+	
+declaracion_de_parametro//29
+	:	especificadores_de_declaracion	
+	|	especificadores_de_declaracion declarador { printf("Parametro: %s\n", $<sval>2); }
+	;
 		
-lista_de_identificadores:
-		IDENTIFICADOR
+lista_de_identificadores//30 COMPLETO
+	:	IDENTIFICADOR
 	|	lista_de_identificadores ',' IDENTIFICADOR
-;//ok
+;
 
-inicializador:
-		expresion
-    |	'{' lista_de_inicializadores '}'
-;//ok FALTA MODIFICAR EXPRESION
+inicializador//31 COMPLETO
+	:	expresion_de_asignacion
+	|	'{' lista_de_inicializadores '}'
+	|	'{' lista_de_inicializadores ',' '}'
+	;
 
-lista_de_inicializadores:
-		inicializador
-	| lista_de_inicializadores inicializador
-;//ok
+lista_de_inicializadores//32 COMPLETO
+	:	inicializador
+	|	lista_de_inicializadores ',' inicializador
+	;
 
-sentencia:
-		sentencia_de_seleccion_multiple	
+nombre_de_tipo //33
+	:	lista_de_calificadores_y_especificadores
+	;
+	
+/*34-37*/
+
+	
+sentencia//38
+	:	sentencia_de_etiqueta	
 	|	sentencia_de_expresion
-	|	sentencia_de_asignacion
   	|	sentencia_compuesta
-;//ok INCOMPLETO
+  	|	sentencia_de_seleccion
+  	|	sentencia_de_iteracion
+  	|	sentencia_de_salto
+	;
 
-sentencia_de_seleccion_multiple:
-		IDENTIFICADOR ':' sentencia
+sentencia_de_etiqueta//39 COMPLETO
+	:	IDENTIFICADOR ':' sentencia
 	|	CASE expresion ':' sentencia
 	|	DEFAULT ':' sentencia
-;//ok
+	;
 
-sentencia_de_expresion:		
-		';'
+sentencia_de_expresion//40 COMPLETO
+	:	';'
 	|	expresion ';'
-;//ok
+	;
 
-sentencia_compuesta:		'{' '}'
-    						|	'{' lista_de_sentencias '}'
-    						|	'{' lista_de_declaraciones '}' 
-    						|	'{' lista_de_declaraciones lista_de_sentencias '}' 
-;//ok
+sentencia_compuesta//41 COMPLETO
+	:	'{' '}'
+	|	'{' lista_de_sentencias '}'
+	|	'{' lista_de_declaraciones '}' 
+	|	'{' lista_de_declaraciones lista_de_sentencias '}' 
+	;
 
-lista_de_sentencias:
-		sentencia
+lista_de_sentencias//42 COMPLETO
+	:	sentencia
 	|	lista_de_sentencias sentencia
-;//ok
+	;
 
-//FALTA AGREGAR MAS SENTENCIAS
+sentencia_de_seleccion//43 COMPLETO
+	:	IF '(' expresion ')' sentencia %prec THEN
+		IF '(' expresion ')' sentencia ELSE sentencia
+	|	SWITCH '(' expresion ')' sentencia
+	;
+	
+sentencia_de_iteracion//44 COMPLETO
+	:	WHILE '(' expresion ')' sentencia 
+	|	DO sentencia WHILE '(' expresion ')' ';'
+	|	FOR '(' ';' ';' ')' sentencia
+	|	FOR '(' expresion ';' ';' ')' sentencia
+	|	FOR '(' ';' expresion ';' ')' sentencia
+	|	FOR '(' ';' ';' expresion ')' sentencia
+	|	FOR '(' expresion ';' expresion ';' ')' sentencia
+	|	FOR '(' expresion ';' ';' expresion ')' sentencia
+	|	FOR '(' ';' expresion ';' expresion ')' sentencia
+	|	FOR '(' expresion ';' expresion ';' expresion ')' sentencia
+	;
+	
+sentencia_de_salto//45 COMPLETO
+	:	GOTO IDENTIFICADOR ';'
+	|	CONTINUE ';'
+	|	BREAK ';'
+	|	RETURN ';'
+	|	RETURN expresion ';'
+	;
 
-sentencia_de_asignacion:
-		IDENTIFICADOR '=' expresion ';'
-    {
-        printf("Asignacion: %s\n", $<sval>1);
-    }
-    ;
-    
-expresion:	
-		IDENTIFICADOR
-				|	CONSTANTE_DECIMAL
-				| expresion '+' expresion
-   			 | expresion '-' expresion
-    			| expresion '*' expresion
-   			 | expresion '/' expresion
-				| '(' expresion ')'
-;
-/*
-expresion_de_asignacion:
-	IDENTIFICADOR '=' expresion ';'
-	//	expresion_condicional	
-	//|	expresion_unaria operador_de_asignacion expresion_de_asignacion
-;*/
-/*
-operador_de_asignacion:
-		'='
-	|	ASIGNACION_COMPUESTA
-;
-*/
-//***********
-/*
-expresion_condicional:		
-		expresion_logica_o
-	|	expresion_logica_o '?' expresion ':' expresion_condicional
-;
+expresion//46 COMPLETO
+	:	expresion_de_asignacion
+	|	expresion ','  expresion_de_asignacion 
+	;
 
-expresion_logica_o: 		
-		expresion_logica_y
-	|	expresion_logica_o OPERADOR_LOGICO_O expresion_logica_y
-;
+expresion_de_asignacion//47 COMPLETO
+	:	expresion_condicional	
+	|	expresion_unaria '=' expresion_de_asignacion
+	;
+	
+expresion_condicional//48 COMPLETO
+	:	expresion_logica_OR
+	|	expresion_logica_OR '?' expresion ':' expresion_condicional
+	;
 
-expresion_logica_y:	
-		expresion_inclusiva_o
-	|	expresion_logica_y OPERADOR_LOGICO_Y expresion_inclusiva_o
-;
+expresion_constante//49 COMPLETO
+	:	expresion_condicional
+	;
 
-expresion_inclusiva_o: 
-		expresion_exclusiva_o
-	|	expresion_inclusiva_o '|' expresion_exclusiva_o
-;
+expresion_logica_OR//50 COMPLETO
+	:	expresion_logica_AND
+	|	expresion_logica_OR OPERADOR_LOGICO_OR expresion_logica_AND
+	;	
 
-expresion_exclusiva_o: 	
-		expresion_y
-	|	expresion_exclusiva_o '^' expresion_y
-;
+expresion_logica_AND//51 COMPLETO
+	:	expresion_OR_inclusiva
+	|	expresion_logica_AND OPERADOR_LOGICO_AND expresion_OR_inclusiva
+	;
 
-expresion_y: 
-		expresion_de_igualdad
-	|	expresion_y '&' expresion_de_igualdad
-;
+expresion_OR_inclusiva//52 COMPLETO
+	:	expresion_OR_exclusiva
+	|	expresion_OR_inclusiva '|' expresion_OR_exclusiva
+	;
 
-expresion_de_igualdad:	
-		expresion_relacional
-	|	expresion_de_igualdad OPERADOR_IGUALDAD expresion_relacional
-	|	expresion_de_igualdad OPERADOR_DISTINTO expresion_relacional
-;
-			
-expresion_relacional: 
-		expresion_de_desplazamiento
-	|	expresion_relacional '<' expresion_de_desplazamiento	
-	|	expresion_relacional '>' expresion_de_desplazamiento
+expresion_OR_exclusiva//53 COMPLETO
+	:	expresion_AND
+	|	expresion_OR_exclusiva '^' expresion_AND
+	;
+
+expresion_AND//54 COMPLETO
+	:	expresion_de_igualdad
+	|	expresion_AND '&' expresion_de_igualdad
+	;
+
+expresion_de_igualdad//55 COMPLETO
+	:	expresion_relacional
+	|	expresion_de_igualdad OPERADOR_DE_IGUALDAD expresion_relacional
+	|	expresion_de_igualdad OPERADOR_DE_DESIGUALDAD expresion_relacional
+	;
+
+expresion_relacional//56 COMPLETO
+	:	expresion_de_desplazamiento
+	|	expresion_relacional '<' expresion_de_desplazamiento
 	|	expresion_relacional MENOR_O_IGUAL expresion_de_desplazamiento
+	|	expresion_relacional '>' expresion_de_desplazamiento
 	|	expresion_relacional MAYOR_O_IGUAL expresion_de_desplazamiento
-;
+	;
 
-expresion_de_desplazamiento: 
+expresion_de_desplazamiento://57 COMPLETO
 		expresion_aditiva
-	|	expresion_de_desplazamiento DESPLAZAMIENTO_A_IZQUIERDA expresion_aditiva
-	|	expresion_de_desplazamiento DESPLAZAMIENTO_A_DERECHA expresion_aditiva
-;
+	|	expresion_de_desplazamiento OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA expresion_aditiva
+	|	expresion_de_desplazamiento OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA expresion_aditiva
+	;
 
-expresion_aditiva: 
-		expresion_multiplicativa
-	| expresion_aditiva '+' expresion_multiplicativa
-	| expresion_aditiva '-' expresion_multiplicativa
-;
+expresion_aditiva//58 COMPLETO
+	:	expresion_multiplicativa
+	|	expresion_aditiva '+' expresion_multiplicativa
+	|	expresion_aditiva '-' expresion_multiplicativa
+	;
 
-expresion_multiplicativa: 
-		//expresion_de_casteo
-		expresion_multiplicativa '*' expresion_de_casteo
+expresion_multiplicativa//59 COMPLETO
+	:	expresion_de_casteo
+	|	expresion_multiplicativa '*' expresion_de_casteo
 	|	expresion_multiplicativa '/' expresion_de_casteo
 	|	expresion_multiplicativa '%' expresion_de_casteo
-;
+	;
 
-
-///////////////
-
-
-expresion_de_casteo: 
-		expresion_unaria
-	|	'(' TIPO_DE_DATO ')' expresion_de_casteo
-;
-
-expresion_unaria: 
-		expresion_sufija
+expresion_de_casteo//60 COMPLETO
+	:	expresion_unaria
+	|	'(' nombre_de_tipo ')' expresion_de_casteo
+	;
+	
+expresion_unaria//61 COMPLETO
+	:	expresion_posfija
 	|	INCREMENTO expresion_unaria
 	|	DECREMENTO expresion_unaria
 	|	operador_unario expresion_de_casteo
-	| SIZEOF expresion_unaria
-	| SIZEOF '(' TIPO_DE_DATO ')'
-;
+	|	SIZEOF expresion_unaria
+	|	SIZEOF '(' nombre_de_tipo ')'
+	;
 
-operador_unario:	
-		'&'
-	|	'*'
+operador_unario//62 COMPLETO
+	:	'~'
+	|	'!'
 	|	'+'
 	|	'-'
-	|	'~'
-	|	'!'	
-;
+	|	'*'
+	|	'&'
+	;
 
-expresion_sufija: 	
-		expresion_primaria
-	|	expresion_sufija '[' expresion ']'	
-	|	expresion_sufija '.' IDENTIFICADOR
-	| 	expresion_sufija APUNTA IDENTIFICADOR
-	| 	expresion_sufija INCREMENTO
-	| 	expresion_sufija DECREMENTO
-;
+expresion_posfija//63 COMPLETO
+	:	expresion_primaria
+	|	expresion_posfija '[' expresion ']'  
+	|	expresion_posfija '(' ')'
+	|	expresion_posfija '(' lista_de_expresiones_de_argumentos ')'
+	|	expresion_posfija '.' IDENTIFICADOR
+	|	expresion_posfija OPERADOR_FLECHA IDENTIFICADOR
+	|	expresion_posfija INCREMENTO
+	|	expresion_posfija DECREMENTO
+	;
+	
+expresion_primaria//64
+	:	IDENTIFICADOR   
+	|	constante	
+	|	'(' expresion ')'	 
+	;
 
-expresion_primaria: 
-		IDENTIFICADOR
-	|	CONSTANTE_DECIMAL
-	|	'(' expresion ')'
-;
-
-*/
-/*	IDENTIFICADOR
-				|	CONSTANTE_DECIMAL
-				| expresion '+' expresion
-   			 | expresion '-' expresion
-    			| expresion '*' expresion
-   			 | expresion '/' expresion
-				| '(' expresion ')'*/
-
-
-
+lista_de_expresiones_de_argumentos//65 COMPLETO
+	:	expresion_de_asignacion
+	|	lista_de_expresiones_de_argumentos ',' expresion_de_asignacion
+	;
+ 
+constante//66
+	:	CONSTANTE_DECIMAL
+	;
 
 %%
 
@@ -352,7 +448,3 @@ int main (int argc, const char * argv[])
   yyparse ();
   return 0;
 }
-
-
-
-

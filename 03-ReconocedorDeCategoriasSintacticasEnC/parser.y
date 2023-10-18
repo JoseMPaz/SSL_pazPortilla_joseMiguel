@@ -111,7 +111,6 @@ especificador_de_tipo//8
 	|	UNSIGNED
 	|	especificador_de_struct_o_union
 	|	especificador_enum
-	|	IDENTIFICADOR
 	;
 	
 calificador_de_tipo//9 COMPLETO
@@ -218,9 +217,10 @@ lista_de_parametros//28 COMPLETO
 	|	lista_de_parametros ',' declaracion_de_parametro
 	;
 	
-declaracion_de_parametro//29
+declaracion_de_parametro//29 COMPLETO
 	:	especificadores_de_declaracion	
 	|	especificadores_de_declaracion declarador { printf("Parametro: %s\n", $<sval>2); }
+	|	especificadores_de_declaracion declarador_abstracto
 	;
 		
 lista_de_identificadores//30 COMPLETO
@@ -241,10 +241,22 @@ lista_de_inicializadores//32 COMPLETO
 
 nombre_de_tipo //33
 	:	lista_de_calificadores_y_especificadores
+	|	lista_de_calificadores_y_especificadores declarador_abstracto
 	;
 	
-/*34-37*/
-
+declarador_abstracto
+	:	puntero
+	|	declarador_abstracto_directo
+	|	puntero declarador_abstracto_directo
+	;
+	
+declarador_abstracto_directo
+	: '(' declarador_abstracto ')'
+	|	'[' expresion_constante ']'
+	|	declarador_abstracto_directo '[' expresion_constante ']'
+	|	'(' lista_de_tipos_de_parametros ')'
+	|	declarador_abstracto_directo '(' lista_de_tipos_de_parametros ')'
+	;
 	
 sentencia//38
 	:	sentencia_de_etiqueta	

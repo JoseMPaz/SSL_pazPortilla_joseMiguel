@@ -55,55 +55,71 @@ extern int yydebug;
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
     IDENTIFICADOR = 258,           /* IDENTIFICADOR  */
-    CONSTANTE_DECIMAL = 259,       /* CONSTANTE_DECIMAL  */
-    OPERADOR_LOGICO_OR = 260,      /* OPERADOR_LOGICO_OR  */
-    OPERADOR_LOGICO_AND = 261,     /* OPERADOR_LOGICO_AND  */
-    OPERADOR_DE_IGUALDAD = 262,    /* OPERADOR_DE_IGUALDAD  */
-    OPERADOR_DE_DESIGUALDAD = 263, /* OPERADOR_DE_DESIGUALDAD  */
-    OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA = 264, /* OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA  */
-    OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA = 265, /* OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA  */
-    OPERADOR_DE_COMPARACION = 266, /* OPERADOR_DE_COMPARACION  */
-    MENOR_O_IGUAL = 267,           /* MENOR_O_IGUAL  */
-    MAYOR_O_IGUAL = 268,           /* MAYOR_O_IGUAL  */
-    INCREMENTO = 269,              /* INCREMENTO  */
-    DECREMENTO = 270,              /* DECREMENTO  */
-    SIZEOF = 271,                  /* SIZEOF  */
-    OPERADOR_FLECHA = 272,         /* OPERADOR_FLECHA  */
-    CASE = 273,                    /* CASE  */
-    DEFAULT = 274,                 /* DEFAULT  */
-    VOID = 275,                    /* VOID  */
-    CHAR = 276,                    /* CHAR  */
-    SHORT = 277,                   /* SHORT  */
-    INT = 278,                     /* INT  */
-    LONG = 279,                    /* LONG  */
-    FLOAT = 280,                   /* FLOAT  */
-    DOUBLE = 281,                  /* DOUBLE  */
-    SIGNED = 282,                  /* SIGNED  */
-    UNSIGNED = 283,                /* UNSIGNED  */
-    CONST = 284,                   /* CONST  */
-    VOLATILE = 285,                /* VOLATILE  */
-    AUTO = 286,                    /* AUTO  */
-    REGISTER = 287,                /* REGISTER  */
-    STATIC = 288,                  /* STATIC  */
-    EXTERN = 289,                  /* EXTERN  */
-    TYPEDEF = 290,                 /* TYPEDEF  */
-    ELIPSIS = 291,                 /* ELIPSIS  */
-    STRUCT = 292,                  /* STRUCT  */
-    UNION = 293,                   /* UNION  */
-    ENUM = 294,                    /* ENUM  */
-    IF = 295,                      /* IF  */
-    ELSE = 296,                    /* ELSE  */
-    SWITCH = 297,                  /* SWITCH  */
-    WHILE = 298,                   /* WHILE  */
-    DO = 299,                      /* DO  */
-    FOR = 300,                     /* FOR  */
-    GOTO = 301,                    /* GOTO  */
-    CONTINUE = 302,                /* CONTINUE  */
-    BREAK = 303,                   /* BREAK  */
-    RETURN = 304,                  /* RETURN  */
-    DESPLAZAMIENTO_A_DERECHA = 305, /* DESPLAZAMIENTO_A_DERECHA  */
-    DESPLAZAMIENTO_A_IZQUIERDA = 306, /* DESPLAZAMIENTO_A_IZQUIERDA  */
-    THEN = 307                     /* THEN  */
+    CADENA_DE_CARACTERES = 259,    /* CADENA_DE_CARACTERES  */
+    CONSTANTE_CARACTER = 260,      /* CONSTANTE_CARACTER  */
+    CONSTANTE_DE_ENUMERACION = 261, /* CONSTANTE_DE_ENUMERACION  */
+    CONSTANTE_REAL = 262,          /* CONSTANTE_REAL  */
+    CONSTANTE_DECIMAL = 263,       /* CONSTANTE_DECIMAL  */
+    CONSTANTE_OCTAL = 264,         /* CONSTANTE_OCTAL  */
+    CONSTANTE_HEXADECIMAL = 265,   /* CONSTANTE_HEXADECIMAL  */
+    OPERADOR_LOGICO_OR = 266,      /* OPERADOR_LOGICO_OR  */
+    OPERADOR_LOGICO_AND = 267,     /* OPERADOR_LOGICO_AND  */
+    OPERADOR_DE_IGUALDAD = 268,    /* OPERADOR_DE_IGUALDAD  */
+    OPERADOR_DE_DESIGUALDAD = 269, /* OPERADOR_DE_DESIGUALDAD  */
+    OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA = 270, /* OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA  */
+    OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA = 271, /* OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA  */
+    OPERADOR_DE_COMPARACION = 272, /* OPERADOR_DE_COMPARACION  */
+    MENOR_O_IGUAL = 273,           /* MENOR_O_IGUAL  */
+    MAYOR_O_IGUAL = 274,           /* MAYOR_O_IGUAL  */
+    INCREMENTO = 275,              /* INCREMENTO  */
+    DECREMENTO = 276,              /* DECREMENTO  */
+    SIZEOF = 277,                  /* SIZEOF  */
+    OPERADOR_FLECHA = 278,         /* OPERADOR_FLECHA  */
+    CASE = 279,                    /* CASE  */
+    DEFAULT = 280,                 /* DEFAULT  */
+    VOID = 281,                    /* VOID  */
+    CHAR = 282,                    /* CHAR  */
+    SHORT = 283,                   /* SHORT  */
+    INT = 284,                     /* INT  */
+    LONG = 285,                    /* LONG  */
+    FLOAT = 286,                   /* FLOAT  */
+    DOUBLE = 287,                  /* DOUBLE  */
+    SIGNED = 288,                  /* SIGNED  */
+    UNSIGNED = 289,                /* UNSIGNED  */
+    CONST = 290,                   /* CONST  */
+    VOLATILE = 291,                /* VOLATILE  */
+    AUTO = 292,                    /* AUTO  */
+    REGISTER = 293,                /* REGISTER  */
+    STATIC = 294,                  /* STATIC  */
+    EXTERN = 295,                  /* EXTERN  */
+    TYPEDEF = 296,                 /* TYPEDEF  */
+    ELIPSIS = 297,                 /* ELIPSIS  */
+    STRUCT = 298,                  /* STRUCT  */
+    UNION = 299,                   /* UNION  */
+    ENUM = 300,                    /* ENUM  */
+    IF = 301,                      /* IF  */
+    ELSE = 302,                    /* ELSE  */
+    SWITCH = 303,                  /* SWITCH  */
+    WHILE = 304,                   /* WHILE  */
+    DO = 305,                      /* DO  */
+    FOR = 306,                     /* FOR  */
+    GOTO = 307,                    /* GOTO  */
+    CONTINUE = 308,                /* CONTINUE  */
+    BREAK = 309,                   /* BREAK  */
+    RETURN = 310,                  /* RETURN  */
+    OPERADOR_ASIGNACION_MULTIPLICACION = 311, /* OPERADOR_ASIGNACION_MULTIPLICACION  */
+    OPERADOR_ASIGNACION_DIVISION = 312, /* OPERADOR_ASIGNACION_DIVISION  */
+    OPERADOR_ASIGNACION_RESTO = 313, /* OPERADOR_ASIGNACION_RESTO  */
+    OPERADOR_ASIGNACION_SUMA = 314, /* OPERADOR_ASIGNACION_SUMA  */
+    OPERADOR_ASIGNACION_RESTA = 315, /* OPERADOR_ASIGNACION_RESTA  */
+    OPERADOR_ASIGNACION_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA = 316, /* OPERADOR_ASIGNACION_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA  */
+    OPERADOR_ASIGNACION_DESPLAZAMIENTO_DE_BITS_A_DERECHA = 317, /* OPERADOR_ASIGNACION_DESPLAZAMIENTO_DE_BITS_A_DERECHA  */
+    OPERADOR_ASIGNACION_AND_BIT_A_BIT = 318, /* OPERADOR_ASIGNACION_AND_BIT_A_BIT  */
+    OPERADOR_ASIGNACION_XOR_BIT_A_BIT = 319, /* OPERADOR_ASIGNACION_XOR_BIT_A_BIT  */
+    OPERADOR_ASIGNACION_OR_BIT_A_BIT = 320, /* OPERADOR_ASIGNACION_OR_BIT_A_BIT  */
+    DESPLAZAMIENTO_A_DERECHA = 321, /* DESPLAZAMIENTO_A_DERECHA  */
+    DESPLAZAMIENTO_A_IZQUIERDA = 322, /* DESPLAZAMIENTO_A_IZQUIERDA  */
+    THEN = 323                     /* THEN  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -116,8 +132,9 @@ union YYSTYPE
 
 	char * sval;
 	int ival;
+	double dval;
 
-#line 121 "parser.tab.h"
+#line 138 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

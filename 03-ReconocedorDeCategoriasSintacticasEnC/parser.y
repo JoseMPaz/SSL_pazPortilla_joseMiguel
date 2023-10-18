@@ -15,6 +15,7 @@ extern int yyerror (char const*s);
 }
 
 %token <sval> IDENTIFICADOR CADENA_DE_CARACTERES CONSTANTE_CARACTER CONSTANTE_DE_ENUMERACION
+%token <sval> VOID CHAR SHORT INT LONG FLOAT DOUBLE SIGNED UNSIGNED
 %token <dval> CONSTANTE_REAL
 %token <ival> CONSTANTE_DECIMAL CONSTANTE_OCTAL CONSTANTE_HEXADECIMAL
 %token OPERADOR_LOGICO_OR OPERADOR_LOGICO_AND OPERADOR_DE_IGUALDAD  OPERADOR_DE_DESIGUALDAD
@@ -27,7 +28,6 @@ extern int yyerror (char const*s);
 %token OPERADOR_FLECHA
 %token CASE
 %token DEFAULT
-%token VOID CHAR SHORT INT LONG FLOAT DOUBLE SIGNED UNSIGNED
 %token CONST VOLATILE
 %token AUTO REGISTER STATIC EXTERN TYPEDEF	
 %token ELIPSIS
@@ -79,7 +79,7 @@ definicion_de_funcion//3 COMPLETO
 	:	declarador sentencia_compuesta
 	|	declarador lista_de_declaraciones sentencia_compuesta
 	|	especificadores_de_declaracion declarador sentencia_compuesta
-	|	especificadores_de_declaracion declarador lista_de_declaraciones sentencia_compuesta
+	|	especificadores_de_declaracion declarador lista_de_declaraciones sentencia_compuesta 
 	;
 
 declaracion//4 COMPLETO
@@ -95,8 +95,8 @@ lista_de_declaraciones//5 COMPLETO
 especificadores_de_declaracion//6 COMPLETO
 	:	especificador_de_clase_de_almacenamiento
 	|	especificador_de_clase_de_almacenamiento especificadores_de_declaracion
-	|	especificador_de_tipo
-	|	especificador_de_tipo especificadores_de_declaracion
+	|	especificador_de_tipo							{ printf("Tipo: %s\n", $<sval>1); }
+	|	especificador_de_tipo especificadores_de_declaracion	
 	|	calificador_de_tipo
 	|	calificador_de_tipo especificadores_de_declaracion
 	;
@@ -151,7 +151,7 @@ lista_de_declaradores_inicial://13 COMPLETO
 
 declarador_inicial//14 COMPLETO
 	:	declarador
-	|	declarador '=' inicializador
+	|	declarador '=' inicializador	{ printf("Variable: %s\n", $<sval>1); }
 	;
 
 declaracion_struct//15 COMPLETO

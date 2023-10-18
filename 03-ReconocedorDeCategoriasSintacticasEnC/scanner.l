@@ -13,10 +13,12 @@ constante_real												[0-9]{0,6}"."[0-9]{0,6}
 constante_octal											0[0-7]* 
 constante_hexadecimal									0[xX][0-9A-Fa-f]+
 constante_de_enumeracion								[A-Z_][A-Z0-9_]*
+directiva_de_preprocesamiento							\#(include|define|ifndef|ifdef)(.*)|\#endif
 
 %option noyywrap
 
 %%
+{directiva_de_preprocesamiento}						;
 ","															{ return ','; }
 "case"														{ return CASE; }
 "default"													{ return DEFAULT; }
@@ -56,15 +58,15 @@ constante_de_enumeracion								[A-Z_][A-Z0-9_]*
 "..."															{ return ELIPSIS; }
 "->"															{ return OPERADOR_FLECHA; }	
 "="															{ return '='; }
-"void"														{return VOID;}
-"char"														{return CHAR;}
-"short"														{return SHORT;}
-"int"															{return INT;}
-"long"														{return LONG;}
-"float"														{return FLOAT;}
-"double"														{return DOUBLE;}
-"signed"														{return SIGNED;}
-"unsigned"													{return UNSIGNED;}
+"void"														{yylval.sval = strdup(yytext); return VOID;}
+"char"														{yylval.sval = strdup(yytext);return CHAR;}
+"short"														{yylval.sval = strdup(yytext);return SHORT;}
+"int"															{yylval.sval = strdup(yytext);return INT;}
+"long"														{yylval.sval = strdup(yytext);return LONG;}
+"float"														{yylval.sval = strdup(yytext);return FLOAT;}
+"double"														{yylval.sval = strdup(yytext);return DOUBLE;}
+"signed"														{yylval.sval = strdup(yytext);return SIGNED;}
+"unsigned"													{yylval.sval = strdup(yytext);return UNSIGNED;}
 "volatile"													{return VOLATILE;}
 "const"														{return CONST;}	
 "auto"														{return AUTO;}

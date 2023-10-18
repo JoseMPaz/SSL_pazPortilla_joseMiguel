@@ -325,34 +325,34 @@ Terminales con las reglas donde aparecen
     CADENA_DE_CARACTERES <sval> (259) 208
     CONSTANTE_CARACTER <sval> (260) 213
     CONSTANTE_DE_ENUMERACION <sval> (261) 218
-    CONSTANTE_REAL <dval> (262) 214
-    CONSTANTE_DECIMAL <ival> (263) 215
-    CONSTANTE_OCTAL <ival> (264) 216
-    CONSTANTE_HEXADECIMAL <ival> (265) 217
-    OPERADOR_LOGICO_OR (266) 157
-    OPERADOR_LOGICO_AND (267) 159
-    OPERADOR_DE_IGUALDAD (268) 167
-    OPERADOR_DE_DESIGUALDAD (269) 168
-    OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA (270) 175
-    OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA (271) 176
-    OPERADOR_DE_COMPARACION (272)
-    MENOR_O_IGUAL (273) 171
-    MAYOR_O_IGUAL (274) 173
-    INCREMENTO (275) 187 204
-    DECREMENTO (276) 188 205
-    SIZEOF (277) 190 191
-    OPERADOR_FLECHA (278) 203
-    CASE (279) 111
-    DEFAULT (280) 112
-    VOID (281) 24
-    CHAR (282) 25
-    SHORT (283) 26
-    INT (284) 27
-    LONG (285) 28
-    FLOAT (286) 29
-    DOUBLE (287) 30
-    SIGNED (288) 31
-    UNSIGNED (289) 32
+    VOID <sval> (262) 24
+    CHAR <sval> (263) 25
+    SHORT <sval> (264) 26
+    INT <sval> (265) 27
+    LONG <sval> (266) 28
+    FLOAT <sval> (267) 29
+    DOUBLE <sval> (268) 30
+    SIGNED <sval> (269) 31
+    UNSIGNED <sval> (270) 32
+    CONSTANTE_REAL <dval> (271) 214
+    CONSTANTE_DECIMAL <ival> (272) 215
+    CONSTANTE_OCTAL <ival> (273) 216
+    CONSTANTE_HEXADECIMAL <ival> (274) 217
+    OPERADOR_LOGICO_OR (275) 157
+    OPERADOR_LOGICO_AND (276) 159
+    OPERADOR_DE_IGUALDAD (277) 167
+    OPERADOR_DE_DESIGUALDAD (278) 168
+    OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA (279) 175
+    OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA (280) 176
+    OPERADOR_DE_COMPARACION (281)
+    MENOR_O_IGUAL (282) 171
+    MAYOR_O_IGUAL (283) 173
+    INCREMENTO (284) 187 204
+    DECREMENTO (285) 188 205
+    SIZEOF (286) 190 191
+    OPERADOR_FLECHA (287) 203
+    CASE (288) 111
+    DEFAULT (289) 112
     CONST (290) 35
     VOLATILE (291) 36
     AUTO (292) 19
@@ -1294,15 +1294,6 @@ Estado 54
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
     CONSTANTE_CARACTER        desplazar e ir al estado 82
     CONSTANTE_DE_ENUMERACION  desplazar e ir al estado 83
-    CONSTANTE_REAL            desplazar e ir al estado 84
-    CONSTANTE_DECIMAL         desplazar e ir al estado 85
-    CONSTANTE_OCTAL           desplazar e ir al estado 86
-    CONSTANTE_HEXADECIMAL     desplazar e ir al estado 87
-    INCREMENTO                desplazar e ir al estado 88
-    DECREMENTO                desplazar e ir al estado 89
-    SIZEOF                    desplazar e ir al estado 90
-    CASE                      desplazar e ir al estado 91
-    DEFAULT                   desplazar e ir al estado 92
     VOID                      desplazar e ir al estado 2
     CHAR                      desplazar e ir al estado 3
     SHORT                     desplazar e ir al estado 4
@@ -1312,6 +1303,15 @@ Estado 54
     DOUBLE                    desplazar e ir al estado 8
     SIGNED                    desplazar e ir al estado 9
     UNSIGNED                  desplazar e ir al estado 10
+    CONSTANTE_REAL            desplazar e ir al estado 84
+    CONSTANTE_DECIMAL         desplazar e ir al estado 85
+    CONSTANTE_OCTAL           desplazar e ir al estado 86
+    CONSTANTE_HEXADECIMAL     desplazar e ir al estado 87
+    INCREMENTO                desplazar e ir al estado 88
+    DECREMENTO                desplazar e ir al estado 89
+    SIZEOF                    desplazar e ir al estado 90
+    CASE                      desplazar e ir al estado 91
+    DEFAULT                   desplazar e ir al estado 92
     CONST                     desplazar e ir al estado 11
     VOLATILE                  desplazar e ir al estado 12
     AUTO                      desplazar e ir al estado 13
@@ -2271,13 +2271,6 @@ Estado 106
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
     CONSTANTE_CARACTER        desplazar e ir al estado 82
     CONSTANTE_DE_ENUMERACION  desplazar e ir al estado 83
-    CONSTANTE_REAL            desplazar e ir al estado 84
-    CONSTANTE_DECIMAL         desplazar e ir al estado 85
-    CONSTANTE_OCTAL           desplazar e ir al estado 86
-    CONSTANTE_HEXADECIMAL     desplazar e ir al estado 87
-    INCREMENTO                desplazar e ir al estado 88
-    DECREMENTO                desplazar e ir al estado 89
-    SIZEOF                    desplazar e ir al estado 90
     VOID                      desplazar e ir al estado 2
     CHAR                      desplazar e ir al estado 3
     SHORT                     desplazar e ir al estado 4
@@ -2287,6 +2280,13 @@ Estado 106
     DOUBLE                    desplazar e ir al estado 8
     SIGNED                    desplazar e ir al estado 9
     UNSIGNED                  desplazar e ir al estado 10
+    CONSTANTE_REAL            desplazar e ir al estado 84
+    CONSTANTE_DECIMAL         desplazar e ir al estado 85
+    CONSTANTE_OCTAL           desplazar e ir al estado 86
+    CONSTANTE_HEXADECIMAL     desplazar e ir al estado 87
+    INCREMENTO                desplazar e ir al estado 88
+    DECREMENTO                desplazar e ir al estado 89
+    SIZEOF                    desplazar e ir al estado 90
     CONST                     desplazar e ir al estado 11
     VOLATILE                  desplazar e ir al estado 12
     STRUCT                    desplazar e ir al estado 18
@@ -2367,15 +2367,6 @@ Estado 111
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
     CONSTANTE_CARACTER        desplazar e ir al estado 82
     CONSTANTE_DE_ENUMERACION  desplazar e ir al estado 83
-    CONSTANTE_REAL            desplazar e ir al estado 84
-    CONSTANTE_DECIMAL         desplazar e ir al estado 85
-    CONSTANTE_OCTAL           desplazar e ir al estado 86
-    CONSTANTE_HEXADECIMAL     desplazar e ir al estado 87
-    INCREMENTO                desplazar e ir al estado 88
-    DECREMENTO                desplazar e ir al estado 89
-    SIZEOF                    desplazar e ir al estado 90
-    CASE                      desplazar e ir al estado 91
-    DEFAULT                   desplazar e ir al estado 92
     VOID                      desplazar e ir al estado 2
     CHAR                      desplazar e ir al estado 3
     SHORT                     desplazar e ir al estado 4
@@ -2385,6 +2376,15 @@ Estado 111
     DOUBLE                    desplazar e ir al estado 8
     SIGNED                    desplazar e ir al estado 9
     UNSIGNED                  desplazar e ir al estado 10
+    CONSTANTE_REAL            desplazar e ir al estado 84
+    CONSTANTE_DECIMAL         desplazar e ir al estado 85
+    CONSTANTE_OCTAL           desplazar e ir al estado 86
+    CONSTANTE_HEXADECIMAL     desplazar e ir al estado 87
+    INCREMENTO                desplazar e ir al estado 88
+    DECREMENTO                desplazar e ir al estado 89
+    SIZEOF                    desplazar e ir al estado 90
+    CASE                      desplazar e ir al estado 91
+    DEFAULT                   desplazar e ir al estado 92
     CONST                     desplazar e ir al estado 11
     VOLATILE                  desplazar e ir al estado 12
     AUTO                      desplazar e ir al estado 13
@@ -3346,13 +3346,6 @@ Estado 177
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
     CONSTANTE_CARACTER        desplazar e ir al estado 82
     CONSTANTE_DE_ENUMERACION  desplazar e ir al estado 83
-    CONSTANTE_REAL            desplazar e ir al estado 84
-    CONSTANTE_DECIMAL         desplazar e ir al estado 85
-    CONSTANTE_OCTAL           desplazar e ir al estado 86
-    CONSTANTE_HEXADECIMAL     desplazar e ir al estado 87
-    INCREMENTO                desplazar e ir al estado 88
-    DECREMENTO                desplazar e ir al estado 89
-    SIZEOF                    desplazar e ir al estado 90
     VOID                      desplazar e ir al estado 2
     CHAR                      desplazar e ir al estado 3
     SHORT                     desplazar e ir al estado 4
@@ -3362,6 +3355,13 @@ Estado 177
     DOUBLE                    desplazar e ir al estado 8
     SIGNED                    desplazar e ir al estado 9
     UNSIGNED                  desplazar e ir al estado 10
+    CONSTANTE_REAL            desplazar e ir al estado 84
+    CONSTANTE_DECIMAL         desplazar e ir al estado 85
+    CONSTANTE_OCTAL           desplazar e ir al estado 86
+    CONSTANTE_HEXADECIMAL     desplazar e ir al estado 87
+    INCREMENTO                desplazar e ir al estado 88
+    DECREMENTO                desplazar e ir al estado 89
+    SIZEOF                    desplazar e ir al estado 90
     CONST                     desplazar e ir al estado 11
     VOLATILE                  desplazar e ir al estado 12
     STRUCT                    desplazar e ir al estado 18

@@ -4,12 +4,13 @@
 extern int yylex();
 extern FILE * yyin;
 extern int yyerror (char const*s);
+extern int yylineno;
 
 %}
 
 %union
 {
-	char * sval;
+	char sval[200];
 	int ival;
 	double dval;
 }
@@ -32,9 +33,9 @@ extern int yyerror (char const*s);
 %token AUTO REGISTER STATIC EXTERN TYPEDEF	
 %token ELIPSIS
 %token STRUCT UNION ENUM
-%token IF ELSE SWITCH
-%token WHILE DO FOR
-%token GOTO CONTINUE BREAK RETURN
+%token <sval> IF ELSE SWITCH
+%token <sval> WHILE DO FOR
+%token <sval> GOTO CONTINUE BREAK RETURN
 %token OPERADOR_ASIGNACION_MULTIPLICACION OPERADOR_ASIGNACION_DIVISION OPERADOR_ASIGNACION_RESTO
 %token OPERADOR_ASIGNACION_SUMA OPERADOR_ASIGNACION_RESTA
 %token OPERADOR_ASIGNACION_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA OPERADOR_ASIGNACION_DESPLAZAMIENTO_DE_BITS_A_DERECHA
@@ -79,13 +80,13 @@ declaracion_externa//2 COMPLETO
 definicion_de_funcion//3 COMPLETO
 	:	declarador sentencia_compuesta
 	|	declarador lista_de_declaraciones sentencia_compuesta
-	|	especificadores_de_declaracion declarador sentencia_compuesta
-	|	especificadores_de_declaracion declarador lista_de_declaraciones sentencia_compuesta 
+	|	especificadores_de_declaracion declarador sentencia_compuesta { printf("Definicion: %-10s TipoDato: %-10s Linea: %d\n",$<sval>2, $<sval>1, yylineno); }
+	|	especificadores_de_declaracion declarador lista_de_declaraciones sentencia_compuesta { printf("Definicion: %-10s TipoDato: %-10s Linea: %d\n",$<sval>2, $<sval>1, yylineno); }
 	;
 
 declaracion//4 COMPLETO
 	:	especificadores_de_declaracion ';'
-	|	especificadores_de_declaracion lista_de_declaradores_inicial ';' { printf("tipoDato: %s\n", $<sval>1); }
+	|	especificadores_de_declaracion lista_de_declaradores_inicial ';' { printf("TipoDato: %-10s Linea: %d\n", $<sval>1, yylineno); }
 	;
 	
 lista_de_declaraciones//5 COMPLETO
@@ -146,13 +147,13 @@ lista_de_declaraciones_struct//12 COMPLETO
 	;
 
 lista_de_declaradores_inicial://13 COMPLETO
-		declarador_inicial	 
-	|	lista_de_declaradores_inicial ',' declarador_inicial
+		declarador_inicial	 { printf("Declaracion: %-10s\t", $<sval>1); }
+	|	lista_de_declaradores_inicial ',' declarador_inicial { printf("Declaracion: %-10s\t", $<sval>1); }
 	;
 
 declarador_inicial//14 COMPLETO
-	:	declarador
-	|	declarador '=' inicializador	{ printf("Variable: %-10s\t", $<sval>1); }
+	:	declarador							
+	|	declarador '=' inicializador	
 	;
 
 declaracion_struct//15 COMPLETO
@@ -194,7 +195,7 @@ enumerador//21 COMPLETO
 	;
 
 declarador//22 COMPLETO
-	:	declarador_directo
+	:	declarador_directo	
 	|	puntero declarador_directo
 	;
 
@@ -203,7 +204,7 @@ declarador_directo//23 COMPLETO
 	|	'(' declarador ')'
 	|	declarador_directo '[' ']'
 	|	declarador_directo '[' expresion_constante ']'
-	|	declarador_directo '(' lista_de_tipos_de_parametros ')' { printf("Funcion: %-10s\t", $<sval>1); }
+	|	declarador_directo '(' lista_de_tipos_de_parametros ')' //{ printf("Funcion: %-10s\t", $<sval>1); }
 	|	declarador_directo '(' ')'
 	|	declarador_directo '(' lista_de_identificadores ')'
 	;
@@ -231,7 +232,7 @@ lista_de_parametros//27 COMPLETO
 	;
 	
 declaracion_de_parametro//28 COMPLETO
-	:	especificadores_de_declaracion declarador { printf("Parametro: %-10s\t TipoDato: %s\n", $<sval>2, $<sval>1); }
+	:	especificadores_de_declaracion declarador { printf("Parametro: %-10s\t TipoDato: %-10s linea: %d\n", $<sval>2, $<sval>1,yylineno); }
 	|	especificadores_de_declaracion	
 	|	especificadores_de_declaracion declarador_abstracto
 	;
@@ -278,7 +279,7 @@ sentencia//36
 	|	sentencia_de_expresion
   	|	sentencia_compuesta
   	|	sentencia_de_seleccion
-  	|	sentencia_de_iteracion
+  	|	sentencia_de_iteracion 
   	|	sentencia_de_salto
 	;
 
@@ -306,30 +307,30 @@ lista_de_sentencias//40 COMPLETO
 	;
 
 sentencia_de_seleccion//41 COMPLETO
-	:	IF '(' expresion ')' sentencia %prec LOWER_THAN_ELSE
-	|	IF '(' expresion ')' sentencia ELSE sentencia 
-	|	SWITCH '(' expresion ')' sentencia
+	:	IF '(' expresion ')' sentencia %prec LOWER_THAN_ELSE  { printf("Sentencia de seleccion: %-10s\t linea: %d\n", $<sval>1, yylineno); }
+	|	IF '(' expresion ')' sentencia ELSE sentencia  { printf("Sentencia de seleccion: %s %-10s\t linea: %d\n", $<sval>1, $<sval>6, yylineno); }
+	|	SWITCH '(' expresion ')' sentencia { printf("Sentencia de seleccion: %-10s\t linea: %d\n", $<sval>1, yylineno); }
 	;
 	
 sentencia_de_iteracion//42 COMPLETO
-	:	WHILE '(' expresion ')' sentencia 
-	|	DO sentencia WHILE '(' expresion ')' ';'
-	|	FOR '(' ';' ';' ')' sentencia
-	|	FOR '(' expresion ';' ';' ')' sentencia
-	|	FOR '(' ';' expresion ';' ')' sentencia
-	|	FOR '(' ';' ';' expresion ')' sentencia
-	|	FOR '(' expresion ';' expresion ';' ')' sentencia
-	|	FOR '(' expresion ';' ';' expresion ')' sentencia
-	|	FOR '(' ';' expresion ';' expresion ')' sentencia
-	|	FOR '(' expresion ';' expresion ';' expresion ')' sentencia
+	:	WHILE '(' expresion ')' sentencia 		{ printf("Sentencia de iteracion: %-10s\t linea: %d\n", $<sval>1, yylineno); }
+	|	DO sentencia WHILE '(' expresion ')' ';' { printf("Sentencia de iteracion: %s %-10s\t linea: %d\n", $<sval>1, $<sval>3, yylineno); }
+	|	FOR '(' ';' ';' ')' sentencia	{ printf("Sentencia de iteracion: %-10s\t linea: %d\n", $<sval>1, yylineno); }
+	|	FOR '(' expresion ';' ';' ')' sentencia	{ printf("Sentencia de iteracion: %-10s\t linea: %d\n", $<sval>1, yylineno); }
+	|	FOR '(' ';' expresion ';' ')' sentencia	{ printf("Sentencia de iteracion: %-10s\t linea: %d\n", $<sval>1, yylineno); }
+	|	FOR '(' ';' ';' expresion ')' sentencia	{ printf("Sentencia de iteracion: %-10s\t linea: %d\n", $<sval>1, yylineno); }
+	|	FOR '(' expresion ';' expresion ';' ')' sentencia	{ printf("Sentencia de iteracion: %-10s\t linea: %d\n", $<sval>1, yylineno); }
+	|	FOR '(' expresion ';' ';' expresion ')' sentencia	{ printf("Sentencia de iteracion: %-10s\t linea: %d\n", $<sval>1, yylineno); }
+	|	FOR '(' ';' expresion ';' expresion ')' sentencia	{ printf("Sentencia de iteracion: %-10s\t linea: %d\n", $<sval>1, yylineno); }
+	|	FOR '(' expresion ';' expresion ';' expresion ')' sentencia	{ printf("Sentencia de iteracion: %-10s\t linea: %d\n", $<sval>1, yylineno); }
 	;
 	
 sentencia_de_salto//43 COMPLETO
-	:	GOTO IDENTIFICADOR ';'
-	|	CONTINUE ';'
-	|	BREAK ';'
-	|	RETURN ';'
-	|	RETURN expresion ';'
+	:	GOTO IDENTIFICADOR ';'	{ printf("Sentencia de salto: %-10s\t linea: %d\n", $<sval>1, yylineno); }
+	|	CONTINUE ';'	{ printf("Sentencia de salto: %-10s\t linea: %d\n", $<sval>1, yylineno); }
+	|	BREAK ';'	{ printf("Sentencia de salto: %-10s\t linea: %d\n", $<sval>1, yylineno); }
+	|	RETURN ';'	{ printf("Sentencia de salto: %-10s\t linea: %d\n", $<sval>1, yylineno); }
+	|	RETURN expresion ';'	{ printf("Sentencia de salto: %-10s\t linea: %d\n", $<sval>1, yylineno); }
 	;
 
 expresion//44 COMPLETO

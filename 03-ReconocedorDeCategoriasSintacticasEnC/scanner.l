@@ -16,6 +16,7 @@ constante_de_enumeracion								[A-Z_][A-Z0-9_]*
 directiva_de_preprocesamiento							\#(include|define|ifndef|ifdef)(.*)|\#endif
 
 %option noyywrap
+%option yylineno
 
 %%
 {directiva_de_preprocesamiento}						;
@@ -58,15 +59,15 @@ directiva_de_preprocesamiento							\#(include|define|ifndef|ifdef)(.*)|\#endif
 "..."															{ return ELIPSIS; }
 "->"															{ return OPERADOR_FLECHA; }	
 "="															{ return '='; }
-"void"														{yylval.sval = strdup(yytext); return VOID;}
-"char"														{yylval.sval = strdup(yytext);return CHAR;}
-"short"														{yylval.sval = strdup(yytext);return SHORT;}
-"int"															{yylval.sval = strdup(yytext);return INT;}
-"long"														{yylval.sval = strdup(yytext);return LONG;}
-"float"														{yylval.sval = strdup(yytext);return FLOAT;}
-"double"														{yylval.sval = strdup(yytext);return DOUBLE;}
-"signed"														{yylval.sval = strdup(yytext);return SIGNED;}
-"unsigned"													{yylval.sval = strdup(yytext);return UNSIGNED;}
+"void"														{strcpy (yylval.sval, yytext); return VOID;}
+"char"														{strcpy (yylval.sval, yytext);return CHAR;}
+"short"														{strcpy (yylval.sval, yytext);return SHORT;}
+"int"															{strcpy (yylval.sval, yytext);return INT;}
+"long"														{strcpy (yylval.sval, yytext);return LONG;}
+"float"														{strcpy (yylval.sval, yytext);return FLOAT;}
+"double"														{strcpy (yylval.sval, yytext);return DOUBLE;}
+"signed"														{strcpy (yylval.sval, yytext);return SIGNED;}
+"unsigned"													{strcpy (yylval.sval, yytext);return UNSIGNED;}
 "volatile"													{return VOLATILE;}
 "const"														{return CONST;}	
 "auto"														{return AUTO;}
@@ -77,16 +78,16 @@ directiva_de_preprocesamiento							\#(include|define|ifndef|ifdef)(.*)|\#endif
 "struct"														{return STRUCT;}
 "union"														{return UNION;}
 "enum"														{return ENUM;}
-"if"															{return IF;}
-"else"														{return ELSE;}
-"switch"														{return SWITCH;}
-"for"															{return FOR;}
-"while"														{return WHILE;}
-"do"															{return DO;}
-"goto"														{return GOTO;}
-"continue"													{return CONTINUE;}
-"break"														{return BREAK;}
-"return"														{return RETURN;}
+"if"															{strcpy (yylval.sval, yytext);return IF;}
+"else"														{strcpy (yylval.sval, yytext);return ELSE;}
+"switch"														{strcpy (yylval.sval, yytext);return SWITCH;}
+"for"															{strcpy (yylval.sval, yytext);return FOR;}
+"while"														{strcpy (yylval.sval, yytext);return WHILE;}
+"do"															{strcpy (yylval.sval, yytext);return DO;}
+"goto"														{strcpy (yylval.sval, yytext);return GOTO;}
+"continue"													{strcpy (yylval.sval, yytext);return CONTINUE;}
+"break"														{strcpy (yylval.sval, yytext);return BREAK;}
+"return"														{strcpy (yylval.sval, yytext);return RETURN;}
 "*="															{return OPERADOR_ASIGNACION_MULTIPLICACION;}
 "/="															{return OPERADOR_ASIGNACION_DIVISION;}
 "%="															{return OPERADOR_ASIGNACION_RESTO;}
@@ -97,14 +98,14 @@ directiva_de_preprocesamiento							\#(include|define|ifndef|ifdef)(.*)|\#endif
 "&="															{return OPERADOR_ASIGNACION_AND_BIT_A_BIT;}
 "^="															{return OPERADOR_ASIGNACION_XOR_BIT_A_BIT;}
 "\|="															{return OPERADOR_ASIGNACION_OR_BIT_A_BIT;}
-{cadena_de_caracteres}				 					{yylval.sval = strdup(yytext); return CADENA_DE_CARACTERES; }
+{cadena_de_caracteres}				 					{strcpy (yylval.sval, yytext);return CADENA_DE_CARACTERES; }
 {constante_decimal}										{ yylval.ival = (int) strtol (yytext, NULL, 10); return CONSTANTE_DECIMAL; }
 {constante_octal}											{ yylval.ival = (int) strtol(yytext, NULL, 8); return CONSTANTE_OCTAL; }
 {constante_hexadecimal}									{ yylval.ival = (int) strtol(yytext, NULL, 16); return CONSTANTE_HEXADECIMAL; }
-{constante_caracter}										{yylval.sval = strdup(yytext); return CONSTANTE_CARACTER; }
+{constante_caracter}										{strcpy (yylval.sval, yytext); return CONSTANTE_CARACTER; }
 {constante_real}											{ yylval.dval = strtod (yytext,NULL); return CONSTANTE_REAL; }
-{constante_de_enumeracion}								{ yylval.sval = strdup(yytext); return CONSTANTE_DE_ENUMERACION; }
-{identificador}											{ yylval.sval = strdup(yytext); return IDENTIFICADOR; }
+{constante_de_enumeracion}								{ strcpy (yylval.sval, yytext); return CONSTANTE_DE_ENUMERACION; }
+{identificador}											{ strcpy (yylval.sval, yytext); return IDENTIFICADOR; }
 
 [ \t\n]														{ ; } // Ignora espacios en blanco y tabuladores
 .																{ yyerror("Carácter no válido"); }

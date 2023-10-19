@@ -5,9 +5,12 @@ double dividir(long z);
 int restar(int b, int c);
 char multiplicar(int d, int e, int f);
 
-int main (int argc, char * argv[])
+long main (void)
 {
 	float var = 7 && 2;
+	double pi;
+	if(var >= 0)
+		puts("UTN");
 	do
 	{
 		return var?1:2;
@@ -17,8 +20,10 @@ int main (int argc, char * argv[])
 	printf ( "Hola" );
 	while ( var >= -9 )
 	{
-		int v;
+		v;
 	}
+	
+	
 	if (e) 
 	{
 		return 0;
@@ -41,17 +46,18 @@ signed suma(int a)
 	return (signed) a + 8;
 }
 
-int resta(int b[], int c)
+double resta(int b, int c)
 {
-	int v;
+	char variable = 43;
 	b = 2 + 5 - 1 * 9 / 3;
 	c = b += 3;
 	
 	return NULL;
 }
-int ** producto(int d, int e, int f)
+unsigned producto(int d, int e, int f)
 {
-	
+	double anios = 2;
+	char meses;
 
 	d = 3 * (8 / 2);
 	return e;

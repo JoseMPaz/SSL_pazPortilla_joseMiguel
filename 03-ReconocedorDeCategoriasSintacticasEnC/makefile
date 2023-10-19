@@ -33,7 +33,7 @@ misFunciones.o: misFunciones.c $(HEADERS)
 
 # Limpieza de archivos generados
 clean:
-	rm -f $(OBJECTS) lex.yy.c parser.tab.c parser.tab.h
+	rm -f $(OBJECTS) lex.yy.c parser.tab.c parser.tab.h *.output
 
 # Regla phony para que "clean" no sea confundido con un archivo llamado "clean"
 .PHONY: clean

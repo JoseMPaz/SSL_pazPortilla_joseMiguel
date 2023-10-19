@@ -1,10 +1,13 @@
+/*Programa de prueba*/
 #include <stdio.h>
 
 signed sumar(int a);
 double dividir(long z);
 int restar(int b, int c);
 char multiplicar(int d, int e, int f);
-
+@
+@@
+long 2main (void);
 long main (void)
 {
 	float var = 7 && 2;

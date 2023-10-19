@@ -1,11 +1,16 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
+#include "misFunciones.h"
 extern int yylex();
 extern FILE * yyin;
 extern int yyerror (char const*s);
 extern int yylineno;
+extern nodo_cadena_entero_t * no_reconocidas;
 
+#define ETIQUETA_PALABRAS_O_CARACTERES_NO_RECONOCIDOS "Palabra o caracter no reconocido: "
+#define ETIQUETA_NUMERO_DE_LINEA "Numero de linea: "
+#define CABECERA_PALABRAS_O_CARACTERES_NO_RECONOCIDOS "ERRORES LEXICOS"
 %}
 
 %union
@@ -57,11 +62,11 @@ extern int yylineno;
 %left '~' '!'
 %left '[' ']'
 //Mayor Precedencia
-%nonassoc LOWER_THAN_ELSE
+%nonassoc MENOR_QUE_ELSE
 %nonassoc ELSE
 
 
-%define parse.error verbose
+//%define parse.error verbose
 
 %start unidad_de_traduccion
 
@@ -70,6 +75,7 @@ extern int yylineno;
 unidad_de_traduccion//1 COMPLETO
 	:	declaracion_externa	
 	|	unidad_de_traduccion declaracion_externa
+	| 	error ';' 	{ printf("%s\tLinea:%d\n", "Error Sintactico", yylineno);              	}
 	;
 
 declaracion_externa//2 COMPLETO
@@ -307,7 +313,7 @@ lista_de_sentencias//40 COMPLETO
 	;
 
 sentencia_de_seleccion//41 COMPLETO
-	:	IF '(' expresion ')' sentencia %prec LOWER_THAN_ELSE  { printf("Sentencia de seleccion: %-10s\t linea: %d\n", $<sval>1, yylineno); }
+	:	IF '(' expresion ')' sentencia %prec MENOR_QUE_ELSE  { printf("Sentencia de seleccion: %-10s\t linea: %d\n", $<sval>1, yylineno); }
 	|	IF '(' expresion ')' sentencia ELSE sentencia  { printf("Sentencia de seleccion: %s %-10s\t linea: %d\n", $<sval>1, $<sval>6, yylineno); }
 	|	SWITCH '(' expresion ')' sentencia { printf("Sentencia de seleccion: %-10s\t linea: %d\n", $<sval>1, yylineno); }
 	;
@@ -498,5 +504,11 @@ int main (int argc, const char * argv[])
 	yyin = fopen (argv[1], "r");
 	
   yyparse ();
-  return 0;
+  
+  /*Imprime y luego elimina la lista de las palabras reservadas*/
+	imprimir_cadena_entero(no_reconocidas, ETIQUETA_PALABRAS_O_CARACTERES_NO_RECONOCIDOS, 
+									ETIQUETA_NUMERO_DE_LINEA,CABECERA_PALABRAS_O_CARACTERES_NO_RECONOCIDOS);
+	eliminar_lista_cadena_entero(no_reconocidas);
+	fclose (yyin);
+	return 0;
 }

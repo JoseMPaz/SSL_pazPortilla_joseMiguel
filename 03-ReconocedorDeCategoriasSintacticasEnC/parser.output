@@ -168,163 +168,164 @@ Gramática
   119 lista_de_sentencias: sentencia
   120                    | lista_de_sentencias sentencia
 
-  121 sentencia_de_seleccion: IF '(' expresion ')' sentencia IF '(' expresion ')' sentencia ELSE sentencia
-  122                       | SWITCH '(' expresion ')' sentencia
+  121 sentencia_de_seleccion: IF '(' expresion ')' sentencia
+  122                       | IF '(' expresion ')' sentencia ELSE sentencia
+  123                       | SWITCH '(' expresion ')' sentencia
 
-  123 sentencia_de_iteracion: WHILE '(' expresion ')' sentencia
-  124                       | DO sentencia WHILE '(' expresion ')' ';'
-  125                       | FOR '(' ';' ';' ')' sentencia
-  126                       | FOR '(' expresion ';' ';' ')' sentencia
-  127                       | FOR '(' ';' expresion ';' ')' sentencia
-  128                       | FOR '(' ';' ';' expresion ')' sentencia
-  129                       | FOR '(' expresion ';' expresion ';' ')' sentencia
-  130                       | FOR '(' expresion ';' ';' expresion ')' sentencia
-  131                       | FOR '(' ';' expresion ';' expresion ')' sentencia
-  132                       | FOR '(' expresion ';' expresion ';' expresion ')' sentencia
+  124 sentencia_de_iteracion: WHILE '(' expresion ')' sentencia
+  125                       | DO sentencia WHILE '(' expresion ')' ';'
+  126                       | FOR '(' ';' ';' ')' sentencia
+  127                       | FOR '(' expresion ';' ';' ')' sentencia
+  128                       | FOR '(' ';' expresion ';' ')' sentencia
+  129                       | FOR '(' ';' ';' expresion ')' sentencia
+  130                       | FOR '(' expresion ';' expresion ';' ')' sentencia
+  131                       | FOR '(' expresion ';' ';' expresion ')' sentencia
+  132                       | FOR '(' ';' expresion ';' expresion ')' sentencia
+  133                       | FOR '(' expresion ';' expresion ';' expresion ')' sentencia
 
-  133 sentencia_de_salto: GOTO IDENTIFICADOR ';'
-  134                   | CONTINUE ';'
-  135                   | BREAK ';'
-  136                   | RETURN ';'
-  137                   | RETURN expresion ';'
+  134 sentencia_de_salto: GOTO IDENTIFICADOR ';'
+  135                   | CONTINUE ';'
+  136                   | BREAK ';'
+  137                   | RETURN ';'
+  138                   | RETURN expresion ';'
 
-  138 expresion: expresion_de_asignacion
-  139          | expresion ',' expresion_de_asignacion
+  139 expresion: expresion_de_asignacion
+  140          | expresion ',' expresion_de_asignacion
 
-  140 expresion_de_asignacion: expresion_condicional
-  141                        | expresion_unaria operador_de_asignacion expresion_de_asignacion
+  141 expresion_de_asignacion: expresion_condicional
+  142                        | expresion_unaria operador_de_asignacion expresion_de_asignacion
 
-  142 operador_de_asignacion: '='
-  143                       | OPERADOR_ASIGNACION_MULTIPLICACION
-  144                       | OPERADOR_ASIGNACION_DIVISION
-  145                       | OPERADOR_ASIGNACION_RESTO
-  146                       | OPERADOR_ASIGNACION_SUMA
-  147                       | OPERADOR_ASIGNACION_RESTA
-  148                       | OPERADOR_ASIGNACION_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA
-  149                       | OPERADOR_ASIGNACION_DESPLAZAMIENTO_DE_BITS_A_DERECHA
-  150                       | OPERADOR_ASIGNACION_AND_BIT_A_BIT
-  151                       | OPERADOR_ASIGNACION_XOR_BIT_A_BIT
-  152                       | OPERADOR_ASIGNACION_OR_BIT_A_BIT
+  143 operador_de_asignacion: '='
+  144                       | OPERADOR_ASIGNACION_MULTIPLICACION
+  145                       | OPERADOR_ASIGNACION_DIVISION
+  146                       | OPERADOR_ASIGNACION_RESTO
+  147                       | OPERADOR_ASIGNACION_SUMA
+  148                       | OPERADOR_ASIGNACION_RESTA
+  149                       | OPERADOR_ASIGNACION_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA
+  150                       | OPERADOR_ASIGNACION_DESPLAZAMIENTO_DE_BITS_A_DERECHA
+  151                       | OPERADOR_ASIGNACION_AND_BIT_A_BIT
+  152                       | OPERADOR_ASIGNACION_XOR_BIT_A_BIT
+  153                       | OPERADOR_ASIGNACION_OR_BIT_A_BIT
 
-  153 expresion_condicional: expresion_logica_OR
-  154                      | expresion_logica_OR '?' expresion ':' expresion_condicional
+  154 expresion_condicional: expresion_logica_OR
+  155                      | expresion_logica_OR '?' expresion ':' expresion_condicional
 
-  155 expresion_constante: expresion_condicional
+  156 expresion_constante: expresion_condicional
 
-  156 expresion_logica_OR: expresion_logica_AND
-  157                    | expresion_logica_OR OPERADOR_LOGICO_OR expresion_logica_AND
+  157 expresion_logica_OR: expresion_logica_AND
+  158                    | expresion_logica_OR OPERADOR_LOGICO_OR expresion_logica_AND
 
-  158 expresion_logica_AND: expresion_OR_inclusiva
-  159                     | expresion_logica_AND OPERADOR_LOGICO_AND expresion_OR_inclusiva
+  159 expresion_logica_AND: expresion_OR_inclusiva
+  160                     | expresion_logica_AND OPERADOR_LOGICO_AND expresion_OR_inclusiva
 
-  160 expresion_OR_inclusiva: expresion_XOR
-  161                       | expresion_OR_inclusiva '|' expresion_XOR
+  161 expresion_OR_inclusiva: expresion_XOR
+  162                       | expresion_OR_inclusiva '|' expresion_XOR
 
-  162 expresion_XOR: expresion_AND
-  163              | expresion_XOR '^' expresion_AND
+  163 expresion_XOR: expresion_AND
+  164              | expresion_XOR '^' expresion_AND
 
-  164 expresion_AND: expresion_de_igualdad
-  165              | expresion_AND '&' expresion_de_igualdad
+  165 expresion_AND: expresion_de_igualdad
+  166              | expresion_AND '&' expresion_de_igualdad
 
-  166 expresion_de_igualdad: expresion_relacional
-  167                      | expresion_de_igualdad OPERADOR_DE_IGUALDAD expresion_relacional
-  168                      | expresion_de_igualdad OPERADOR_DE_DESIGUALDAD expresion_relacional
+  167 expresion_de_igualdad: expresion_relacional
+  168                      | expresion_de_igualdad OPERADOR_DE_IGUALDAD expresion_relacional
+  169                      | expresion_de_igualdad OPERADOR_DE_DESIGUALDAD expresion_relacional
 
-  169 expresion_relacional: expresion_de_desplazamiento
-  170                     | expresion_relacional '<' expresion_de_desplazamiento
-  171                     | expresion_relacional MENOR_O_IGUAL expresion_de_desplazamiento
-  172                     | expresion_relacional '>' expresion_de_desplazamiento
-  173                     | expresion_relacional MAYOR_O_IGUAL expresion_de_desplazamiento
+  170 expresion_relacional: expresion_de_desplazamiento
+  171                     | expresion_relacional '<' expresion_de_desplazamiento
+  172                     | expresion_relacional MENOR_O_IGUAL expresion_de_desplazamiento
+  173                     | expresion_relacional '>' expresion_de_desplazamiento
+  174                     | expresion_relacional MAYOR_O_IGUAL expresion_de_desplazamiento
 
-  174 expresion_de_desplazamiento: expresion_aditiva
-  175                            | expresion_de_desplazamiento OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA expresion_aditiva
-  176                            | expresion_de_desplazamiento OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA expresion_aditiva
+  175 expresion_de_desplazamiento: expresion_aditiva
+  176                            | expresion_de_desplazamiento OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA expresion_aditiva
+  177                            | expresion_de_desplazamiento OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA expresion_aditiva
 
-  177 expresion_aditiva: expresion_multiplicativa
-  178                  | expresion_aditiva '+' expresion_multiplicativa
-  179                  | expresion_aditiva '-' expresion_multiplicativa
+  178 expresion_aditiva: expresion_multiplicativa
+  179                  | expresion_aditiva '+' expresion_multiplicativa
+  180                  | expresion_aditiva '-' expresion_multiplicativa
 
-  180 expresion_multiplicativa: expresion_de_casteo
-  181                         | expresion_multiplicativa '*' expresion_de_casteo
-  182                         | expresion_multiplicativa '/' expresion_de_casteo
-  183                         | expresion_multiplicativa '%' expresion_de_casteo
+  181 expresion_multiplicativa: expresion_de_casteo
+  182                         | expresion_multiplicativa '*' expresion_de_casteo
+  183                         | expresion_multiplicativa '/' expresion_de_casteo
+  184                         | expresion_multiplicativa '%' expresion_de_casteo
 
-  184 expresion_de_casteo: expresion_unaria
-  185                    | '(' nombre_de_tipo ')' expresion_de_casteo
+  185 expresion_de_casteo: expresion_unaria
+  186                    | '(' nombre_de_tipo ')' expresion_de_casteo
 
-  186 expresion_unaria: expresion_posfija
-  187                 | INCREMENTO expresion_unaria
-  188                 | DECREMENTO expresion_unaria
-  189                 | operador_unario expresion_de_casteo
-  190                 | SIZEOF expresion_unaria
-  191                 | SIZEOF '(' nombre_de_tipo ')'
+  187 expresion_unaria: expresion_posfija
+  188                 | INCREMENTO expresion_unaria
+  189                 | DECREMENTO expresion_unaria
+  190                 | operador_unario expresion_de_casteo
+  191                 | SIZEOF expresion_unaria
+  192                 | SIZEOF '(' nombre_de_tipo ')'
 
-  192 operador_unario: '~'
-  193                | '!'
-  194                | '+'
-  195                | '-'
-  196                | '*'
-  197                | '&'
+  193 operador_unario: '~'
+  194                | '!'
+  195                | '+'
+  196                | '-'
+  197                | '*'
+  198                | '&'
 
-  198 expresion_posfija: expresion_primaria
-  199                  | expresion_posfija '[' expresion ']'
-  200                  | expresion_posfija '(' ')'
-  201                  | expresion_posfija '(' lista_de_expresiones_de_argumentos ')'
-  202                  | expresion_posfija '.' IDENTIFICADOR
-  203                  | expresion_posfija OPERADOR_FLECHA IDENTIFICADOR
-  204                  | expresion_posfija INCREMENTO
-  205                  | expresion_posfija DECREMENTO
+  199 expresion_posfija: expresion_primaria
+  200                  | expresion_posfija '[' expresion ']'
+  201                  | expresion_posfija '(' ')'
+  202                  | expresion_posfija '(' lista_de_expresiones_de_argumentos ')'
+  203                  | expresion_posfija '.' IDENTIFICADOR
+  204                  | expresion_posfija OPERADOR_FLECHA IDENTIFICADOR
+  205                  | expresion_posfija INCREMENTO
+  206                  | expresion_posfija DECREMENTO
 
-  206 expresion_primaria: IDENTIFICADOR
-  207                   | constante
-  208                   | CADENA_DE_CARACTERES
-  209                   | '(' expresion ')'
+  207 expresion_primaria: IDENTIFICADOR
+  208                   | constante
+  209                   | CADENA_DE_CARACTERES
+  210                   | '(' expresion ')'
 
-  210 lista_de_expresiones_de_argumentos: expresion_de_asignacion
-  211                                   | lista_de_expresiones_de_argumentos ',' expresion_de_asignacion
+  211 lista_de_expresiones_de_argumentos: expresion_de_asignacion
+  212                                   | lista_de_expresiones_de_argumentos ',' expresion_de_asignacion
 
-  212 constante: constante_entera
-  213          | CONSTANTE_CARACTER
-  214          | CONSTANTE_REAL
+  213 constante: constante_entera
+  214          | CONSTANTE_CARACTER
+  215          | CONSTANTE_REAL
 
-  215 constante_entera: CONSTANTE_DECIMAL
-  216                 | CONSTANTE_OCTAL
-  217                 | CONSTANTE_HEXADECIMAL
-  218                 | CONSTANTE_DE_ENUMERACION
+  216 constante_entera: CONSTANTE_DECIMAL
+  217                 | CONSTANTE_OCTAL
+  218                 | CONSTANTE_HEXADECIMAL
+  219                 | CONSTANTE_DE_ENUMERACION
 
 
 Terminales con las reglas donde aparecen
 
     $end (0) 0
-    '!' (33) 193
-    '%' (37) 183
-    '&' (38) 165 197
-    '(' (40) 68 71 72 73 99 102 103 121 122 123 124 125 126 127 128 129 130 131 132 185 191 200 201 209
-    ')' (41) 68 71 72 73 99 102 103 121 122 123 124 125 126 127 128 129 130 131 132 185 191 200 201 209
-    '*' (42) 74 75 76 77 181 196
-    '+' (43) 178 194
-    ',' (44) 45 54 62 81 83 88 91 93 139 211
-    '-' (45) 179 195
-    '.' (46) 202
-    '/' (47) 182
-    ':' (58) 56 57 110 111 112 154
-    ';' (59) 9 10 48 113 114 124 125 126 127 128 129 130 131 132 133 134 135 136 137
-    '<' (60) 170
-    '=' (61) 47 64 142
-    '>' (62) 172
-    '?' (63) 154
-    '[' (91) 69 70 100 101 199
-    ']' (93) 69 70 100 101 199
-    '^' (94) 163
+    '!' (33) 194
+    '%' (37) 184
+    '&' (38) 166 198
+    '(' (40) 68 71 72 73 99 102 103 121 122 123 124 125 126 127 128 129 130 131 132 133 186 192 201 202 210
+    ')' (41) 68 71 72 73 99 102 103 121 122 123 124 125 126 127 128 129 130 131 132 133 186 192 201 202 210
+    '*' (42) 74 75 76 77 182 197
+    '+' (43) 179 195
+    ',' (44) 45 54 62 81 83 88 91 93 140 212
+    '-' (45) 180 196
+    '.' (46) 203
+    '/' (47) 183
+    ':' (58) 56 57 110 111 112 155
+    ';' (59) 9 10 48 113 114 125 126 127 128 129 130 131 132 133 134 135 136 137 138
+    '<' (60) 171
+    '=' (61) 47 64 143
+    '>' (62) 173
+    '?' (63) 155
+    '[' (91) 69 70 100 101 200
+    ']' (93) 69 70 100 101 200
+    '^' (94) 164
     '{' (123) 37 38 58 59 90 91 115 116 117 118
-    '|' (124) 161
+    '|' (124) 162
     '}' (125) 37 38 58 59 90 91 115 116 117 118
-    '~' (126) 192
+    '~' (126) 193
     error (256)
-    IDENTIFICADOR <sval> (258) 38 39 59 60 63 64 67 87 88 110 133 202 203 206
-    CADENA_DE_CARACTERES <sval> (259) 208
-    CONSTANTE_CARACTER <sval> (260) 213
-    CONSTANTE_DE_ENUMERACION <sval> (261) 218
+    IDENTIFICADOR <sval> (258) 38 39 59 60 63 64 67 87 88 110 134 203 204 207
+    CADENA_DE_CARACTERES <sval> (259) 209
+    CONSTANTE_CARACTER <sval> (260) 214
+    CONSTANTE_DE_ENUMERACION <sval> (261) 219
     VOID <sval> (262) 24
     CHAR <sval> (263) 25
     SHORT <sval> (264) 26
@@ -334,23 +335,23 @@ Terminales con las reglas donde aparecen
     DOUBLE <sval> (268) 30
     SIGNED <sval> (269) 31
     UNSIGNED <sval> (270) 32
-    CONSTANTE_REAL <dval> (271) 214
-    CONSTANTE_DECIMAL <ival> (272) 215
-    CONSTANTE_OCTAL <ival> (273) 216
-    CONSTANTE_HEXADECIMAL <ival> (274) 217
-    OPERADOR_LOGICO_OR (275) 157
-    OPERADOR_LOGICO_AND (276) 159
-    OPERADOR_DE_IGUALDAD (277) 167
-    OPERADOR_DE_DESIGUALDAD (278) 168
-    OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA (279) 175
-    OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA (280) 176
+    CONSTANTE_REAL <dval> (271) 215
+    CONSTANTE_DECIMAL <ival> (272) 216
+    CONSTANTE_OCTAL <ival> (273) 217
+    CONSTANTE_HEXADECIMAL <ival> (274) 218
+    OPERADOR_LOGICO_OR (275) 158
+    OPERADOR_LOGICO_AND (276) 160
+    OPERADOR_DE_IGUALDAD (277) 168
+    OPERADOR_DE_DESIGUALDAD (278) 169
+    OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA (279) 176
+    OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA (280) 177
     OPERADOR_DE_COMPARACION (281)
-    MENOR_O_IGUAL (282) 171
-    MAYOR_O_IGUAL (283) 173
-    INCREMENTO (284) 187 204
-    DECREMENTO (285) 188 205
-    SIZEOF (286) 190 191
-    OPERADOR_FLECHA (287) 203
+    MENOR_O_IGUAL (282) 172
+    MAYOR_O_IGUAL (283) 174
+    INCREMENTO (284) 188 205
+    DECREMENTO (285) 189 206
+    SIZEOF (286) 191 192
+    OPERADOR_FLECHA (287) 204
     CASE (288) 111
     DEFAULT (289) 112
     CONST (290) 35
@@ -364,29 +365,29 @@ Terminales con las reglas donde aparecen
     STRUCT (298) 40
     UNION (299) 41
     ENUM (300) 58 59 60
-    IF (301) 121
-    ELSE (302) 121
-    SWITCH (303) 122
-    WHILE (304) 123 124
-    DO (305) 124
-    FOR (306) 125 126 127 128 129 130 131 132
-    GOTO (307) 133
-    CONTINUE (308) 134
-    BREAK (309) 135
-    RETURN (310) 136 137
-    OPERADOR_ASIGNACION_MULTIPLICACION (311) 143
-    OPERADOR_ASIGNACION_DIVISION (312) 144
-    OPERADOR_ASIGNACION_RESTO (313) 145
-    OPERADOR_ASIGNACION_SUMA (314) 146
-    OPERADOR_ASIGNACION_RESTA (315) 147
-    OPERADOR_ASIGNACION_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA (316) 148
-    OPERADOR_ASIGNACION_DESPLAZAMIENTO_DE_BITS_A_DERECHA (317) 149
-    OPERADOR_ASIGNACION_AND_BIT_A_BIT (318) 150
-    OPERADOR_ASIGNACION_XOR_BIT_A_BIT (319) 151
-    OPERADOR_ASIGNACION_OR_BIT_A_BIT (320) 152
+    IF (301) 121 122
+    ELSE (302) 122
+    SWITCH (303) 123
+    WHILE (304) 124 125
+    DO (305) 125
+    FOR (306) 126 127 128 129 130 131 132 133
+    GOTO (307) 134
+    CONTINUE (308) 135
+    BREAK (309) 136
+    RETURN (310) 137 138
+    OPERADOR_ASIGNACION_MULTIPLICACION (311) 144
+    OPERADOR_ASIGNACION_DIVISION (312) 145
+    OPERADOR_ASIGNACION_RESTO (313) 146
+    OPERADOR_ASIGNACION_SUMA (314) 147
+    OPERADOR_ASIGNACION_RESTA (315) 148
+    OPERADOR_ASIGNACION_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA (316) 149
+    OPERADOR_ASIGNACION_DESPLAZAMIENTO_DE_BITS_A_DERECHA (317) 150
+    OPERADOR_ASIGNACION_AND_BIT_A_BIT (318) 151
+    OPERADOR_ASIGNACION_XOR_BIT_A_BIT (319) 152
+    OPERADOR_ASIGNACION_OR_BIT_A_BIT (320) 153
     DESPLAZAMIENTO_A_DERECHA (321)
     DESPLAZAMIENTO_A_IZQUIERDA (322)
-    THEN (323)
+    LOWER_THAN_ELSE (323)
 
 
 No terminales con las reglas donde aparecen
@@ -488,7 +489,7 @@ No terminales con las reglas donde aparecen
         on right: 90 91 93
     nombre_de_tipo (125)
         on left: 94 95
-        on right: 185 191
+        on right: 186 192
     declarador_abstracto (126)
         on left: 96 97 98
         on right: 86 95 99
@@ -497,7 +498,7 @@ No terminales con las reglas donde aparecen
         on right: 97 98 101 103
     sentencia (128)
         on left: 104 105 106 107 108 109
-        on right: 110 111 112 119 120 121 122 123 124 125 126 127 128 129 130 131 132
+        on right: 110 111 112 119 120 121 122 123 124 125 126 127 128 129 130 131 132 133
     sentencia_de_etiqueta (129)
         on left: 110 111 112
         on right: 104
@@ -511,83 +512,83 @@ No terminales con las reglas donde aparecen
         on left: 119 120
         on right: 116 118 120
     sentencia_de_seleccion (133)
-        on left: 121 122
+        on left: 121 122 123
         on right: 107
     sentencia_de_iteracion (134)
-        on left: 123 124 125 126 127 128 129 130 131 132
+        on left: 124 125 126 127 128 129 130 131 132 133
         on right: 108
     sentencia_de_salto (135)
-        on left: 133 134 135 136 137
+        on left: 134 135 136 137 138
         on right: 109
     expresion (136)
-        on left: 138 139
-        on right: 111 114 121 122 123 124 126 127 128 129 130 131 132 137 139 154 199 209
+        on left: 139 140
+        on right: 111 114 121 122 123 124 125 127 128 129 130 131 132 133 138 140 155 200 210
     expresion_de_asignacion (137)
-        on left: 140 141
-        on right: 89 138 139 141 210 211
+        on left: 141 142
+        on right: 89 139 140 142 211 212
     operador_de_asignacion (138)
-        on left: 142 143 144 145 146 147 148 149 150 151 152
-        on right: 141
+        on left: 143 144 145 146 147 148 149 150 151 152 153
+        on right: 142
     expresion_condicional (139)
-        on left: 153 154
-        on right: 140 154 155
+        on left: 154 155
+        on right: 141 155 156
     expresion_constante (140)
-        on left: 155
+        on left: 156
         on right: 56 57 64 70 100 101
     expresion_logica_OR (141)
-        on left: 156 157
-        on right: 153 154 157
+        on left: 157 158
+        on right: 154 155 158
     expresion_logica_AND (142)
-        on left: 158 159
-        on right: 156 157 159
+        on left: 159 160
+        on right: 157 158 160
     expresion_OR_inclusiva (143)
-        on left: 160 161
-        on right: 158 159 161
+        on left: 161 162
+        on right: 159 160 162
     expresion_XOR (144)
-        on left: 162 163
-        on right: 160 161 163
+        on left: 163 164
+        on right: 161 162 164
     expresion_AND (145)
-        on left: 164 165
-        on right: 162 163 165
+        on left: 165 166
+        on right: 163 164 166
     expresion_de_igualdad (146)
-        on left: 166 167 168
-        on right: 164 165 167 168
+        on left: 167 168 169
+        on right: 165 166 168 169
     expresion_relacional (147)
-        on left: 169 170 171 172 173
-        on right: 166 167 168 170 171 172 173
+        on left: 170 171 172 173 174
+        on right: 167 168 169 171 172 173 174
     expresion_de_desplazamiento (148)
-        on left: 174 175 176
-        on right: 169 170 171 172 173 175 176
+        on left: 175 176 177
+        on right: 170 171 172 173 174 176 177
     expresion_aditiva (149)
-        on left: 177 178 179
-        on right: 174 175 176 178 179
+        on left: 178 179 180
+        on right: 175 176 177 179 180
     expresion_multiplicativa (150)
-        on left: 180 181 182 183
-        on right: 177 178 179 181 182 183
+        on left: 181 182 183 184
+        on right: 178 179 180 182 183 184
     expresion_de_casteo (151)
-        on left: 184 185
-        on right: 180 181 182 183 185 189
+        on left: 185 186
+        on right: 181 182 183 184 186 190
     expresion_unaria (152)
-        on left: 186 187 188 189 190 191
-        on right: 141 184 187 188 190
+        on left: 187 188 189 190 191 192
+        on right: 142 185 188 189 191
     operador_unario (153)
-        on left: 192 193 194 195 196 197
-        on right: 189
+        on left: 193 194 195 196 197 198
+        on right: 190
     expresion_posfija (154)
-        on left: 198 199 200 201 202 203 204 205
-        on right: 186 199 200 201 202 203 204 205
+        on left: 199 200 201 202 203 204 205 206
+        on right: 187 200 201 202 203 204 205 206
     expresion_primaria (155)
-        on left: 206 207 208 209
-        on right: 198
+        on left: 207 208 209 210
+        on right: 199
     lista_de_expresiones_de_argumentos (156)
-        on left: 210 211
-        on right: 201 211
+        on left: 211 212
+        on right: 202 212
     constante (157)
-        on left: 212 213 214
-        on right: 207
+        on left: 213 214 215
+        on right: 208
     constante_entera (158)
-        on left: 215 216 217 218
-        on right: 212
+        on left: 216 217 218 219
+        on right: 213
 
 
 Estado 0
@@ -1864,65 +1865,65 @@ Estado 79
 Estado 80
 
   110 sentencia_de_etiqueta: IDENTIFICADOR • ':' sentencia
-  206 expresion_primaria: IDENTIFICADOR •
+  207 expresion_primaria: IDENTIFICADOR •
 
     ':'  desplazar e ir al estado 173
 
-    $default  reduce usando la regla 206 (expresion_primaria)
+    $default  reduce usando la regla 207 (expresion_primaria)
 
 
 Estado 81
 
-  208 expresion_primaria: CADENA_DE_CARACTERES •
+  209 expresion_primaria: CADENA_DE_CARACTERES •
 
-    $default  reduce usando la regla 208 (expresion_primaria)
+    $default  reduce usando la regla 209 (expresion_primaria)
 
 
 Estado 82
 
-  213 constante: CONSTANTE_CARACTER •
-
-    $default  reduce usando la regla 213 (constante)
-
-
-Estado 83
-
-  218 constante_entera: CONSTANTE_DE_ENUMERACION •
-
-    $default  reduce usando la regla 218 (constante_entera)
-
-
-Estado 84
-
-  214 constante: CONSTANTE_REAL •
+  214 constante: CONSTANTE_CARACTER •
 
     $default  reduce usando la regla 214 (constante)
 
 
+Estado 83
+
+  219 constante_entera: CONSTANTE_DE_ENUMERACION •
+
+    $default  reduce usando la regla 219 (constante_entera)
+
+
+Estado 84
+
+  215 constante: CONSTANTE_REAL •
+
+    $default  reduce usando la regla 215 (constante)
+
+
 Estado 85
 
-  215 constante_entera: CONSTANTE_DECIMAL •
-
-    $default  reduce usando la regla 215 (constante_entera)
-
-
-Estado 86
-
-  216 constante_entera: CONSTANTE_OCTAL •
+  216 constante_entera: CONSTANTE_DECIMAL •
 
     $default  reduce usando la regla 216 (constante_entera)
 
 
-Estado 87
+Estado 86
 
-  217 constante_entera: CONSTANTE_HEXADECIMAL •
+  217 constante_entera: CONSTANTE_OCTAL •
 
     $default  reduce usando la regla 217 (constante_entera)
 
 
+Estado 87
+
+  218 constante_entera: CONSTANTE_HEXADECIMAL •
+
+    $default  reduce usando la regla 218 (constante_entera)
+
+
 Estado 88
 
-  187 expresion_unaria: INCREMENTO • expresion_unaria
+  188 expresion_unaria: INCREMENTO • expresion_unaria
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -1953,7 +1954,7 @@ Estado 88
 
 Estado 89
 
-  188 expresion_unaria: DECREMENTO • expresion_unaria
+  189 expresion_unaria: DECREMENTO • expresion_unaria
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -1984,8 +1985,8 @@ Estado 89
 
 Estado 90
 
-  190 expresion_unaria: SIZEOF • expresion_unaria
-  191                 | SIZEOF • '(' nombre_de_tipo ')'
+  191 expresion_unaria: SIZEOF • expresion_unaria
+  192                 | SIZEOF • '(' nombre_de_tipo ')'
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -2068,28 +2069,29 @@ Estado 92
 
 Estado 93
 
-  121 sentencia_de_seleccion: IF • '(' expresion ')' sentencia IF '(' expresion ')' sentencia ELSE sentencia
+  121 sentencia_de_seleccion: IF • '(' expresion ')' sentencia
+  122                       | IF • '(' expresion ')' sentencia ELSE sentencia
 
     '('  desplazar e ir al estado 181
 
 
 Estado 94
 
-  122 sentencia_de_seleccion: SWITCH • '(' expresion ')' sentencia
+  123 sentencia_de_seleccion: SWITCH • '(' expresion ')' sentencia
 
     '('  desplazar e ir al estado 182
 
 
 Estado 95
 
-  123 sentencia_de_iteracion: WHILE • '(' expresion ')' sentencia
+  124 sentencia_de_iteracion: WHILE • '(' expresion ')' sentencia
 
     '('  desplazar e ir al estado 183
 
 
 Estado 96
 
-  124 sentencia_de_iteracion: DO • sentencia WHILE '(' expresion ')' ';'
+  125 sentencia_de_iteracion: DO • sentencia WHILE '(' expresion ')' ';'
 
     IDENTIFICADOR             desplazar e ir al estado 80
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -2154,43 +2156,43 @@ Estado 96
 
 Estado 97
 
-  125 sentencia_de_iteracion: FOR • '(' ';' ';' ')' sentencia
-  126                       | FOR • '(' expresion ';' ';' ')' sentencia
-  127                       | FOR • '(' ';' expresion ';' ')' sentencia
-  128                       | FOR • '(' ';' ';' expresion ')' sentencia
-  129                       | FOR • '(' expresion ';' expresion ';' ')' sentencia
-  130                       | FOR • '(' expresion ';' ';' expresion ')' sentencia
-  131                       | FOR • '(' ';' expresion ';' expresion ')' sentencia
-  132                       | FOR • '(' expresion ';' expresion ';' expresion ')' sentencia
+  126 sentencia_de_iteracion: FOR • '(' ';' ';' ')' sentencia
+  127                       | FOR • '(' expresion ';' ';' ')' sentencia
+  128                       | FOR • '(' ';' expresion ';' ')' sentencia
+  129                       | FOR • '(' ';' ';' expresion ')' sentencia
+  130                       | FOR • '(' expresion ';' expresion ';' ')' sentencia
+  131                       | FOR • '(' expresion ';' ';' expresion ')' sentencia
+  132                       | FOR • '(' ';' expresion ';' expresion ')' sentencia
+  133                       | FOR • '(' expresion ';' expresion ';' expresion ')' sentencia
 
     '('  desplazar e ir al estado 185
 
 
 Estado 98
 
-  133 sentencia_de_salto: GOTO • IDENTIFICADOR ';'
+  134 sentencia_de_salto: GOTO • IDENTIFICADOR ';'
 
     IDENTIFICADOR  desplazar e ir al estado 186
 
 
 Estado 99
 
-  134 sentencia_de_salto: CONTINUE • ';'
+  135 sentencia_de_salto: CONTINUE • ';'
 
     ';'  desplazar e ir al estado 187
 
 
 Estado 100
 
-  135 sentencia_de_salto: BREAK • ';'
+  136 sentencia_de_salto: BREAK • ';'
 
     ';'  desplazar e ir al estado 188
 
 
 Estado 101
 
-  136 sentencia_de_salto: RETURN • ';'
-  137                   | RETURN • expresion ';'
+  137 sentencia_de_salto: RETURN • ';'
+  138                   | RETURN • expresion ';'
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -2236,36 +2238,36 @@ Estado 101
 
 Estado 102
 
-  197 operador_unario: '&' •
+  198 operador_unario: '&' •
 
-    $default  reduce usando la regla 197 (operador_unario)
+    $default  reduce usando la regla 198 (operador_unario)
 
 
 Estado 103
 
-  194 operador_unario: '+' •
-
-    $default  reduce usando la regla 194 (operador_unario)
-
-
-Estado 104
-
-  195 operador_unario: '-' •
+  195 operador_unario: '+' •
 
     $default  reduce usando la regla 195 (operador_unario)
 
 
-Estado 105
+Estado 104
 
-  196 operador_unario: '*' •
+  196 operador_unario: '-' •
 
     $default  reduce usando la regla 196 (operador_unario)
 
 
+Estado 105
+
+  197 operador_unario: '*' •
+
+    $default  reduce usando la regla 197 (operador_unario)
+
+
 Estado 106
 
-  185 expresion_de_casteo: '(' • nombre_de_tipo ')' expresion_de_casteo
-  209 expresion_primaria: '(' • expresion ')'
+  186 expresion_de_casteo: '(' • nombre_de_tipo ')' expresion_de_casteo
+  210 expresion_primaria: '(' • expresion ')'
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -2331,16 +2333,16 @@ Estado 106
 
 Estado 107
 
-  192 operador_unario: '~' •
+  193 operador_unario: '~' •
 
-    $default  reduce usando la regla 192 (operador_unario)
+    $default  reduce usando la regla 193 (operador_unario)
 
 
 Estado 108
 
-  193 operador_unario: '!' •
+  194 operador_unario: '!' •
 
-    $default  reduce usando la regla 193 (operador_unario)
+    $default  reduce usando la regla 194 (operador_unario)
 
 
 Estado 109
@@ -2572,7 +2574,7 @@ Estado 119
 Estado 120
 
   114 sentencia_de_expresion: expresion • ';'
-  139 expresion: expresion • ',' expresion_de_asignacion
+  140 expresion: expresion • ',' expresion_de_asignacion
 
     ','  desplazar e ir al estado 198
     ';'  desplazar e ir al estado 199
@@ -2580,147 +2582,147 @@ Estado 120
 
 Estado 121
 
-  138 expresion: expresion_de_asignacion •
+  139 expresion: expresion_de_asignacion •
 
-    $default  reduce usando la regla 138 (expresion)
+    $default  reduce usando la regla 139 (expresion)
 
 
 Estado 122
 
-  140 expresion_de_asignacion: expresion_condicional •
+  141 expresion_de_asignacion: expresion_condicional •
 
-    $default  reduce usando la regla 140 (expresion_de_asignacion)
+    $default  reduce usando la regla 141 (expresion_de_asignacion)
 
 
 Estado 123
 
-  153 expresion_condicional: expresion_logica_OR •
-  154                      | expresion_logica_OR • '?' expresion ':' expresion_condicional
-  157 expresion_logica_OR: expresion_logica_OR • OPERADOR_LOGICO_OR expresion_logica_AND
+  154 expresion_condicional: expresion_logica_OR •
+  155                      | expresion_logica_OR • '?' expresion ':' expresion_condicional
+  158 expresion_logica_OR: expresion_logica_OR • OPERADOR_LOGICO_OR expresion_logica_AND
 
     OPERADOR_LOGICO_OR  desplazar e ir al estado 200
     '?'                 desplazar e ir al estado 201
 
-    $default  reduce usando la regla 153 (expresion_condicional)
+    $default  reduce usando la regla 154 (expresion_condicional)
 
 
 Estado 124
 
-  156 expresion_logica_OR: expresion_logica_AND •
-  159 expresion_logica_AND: expresion_logica_AND • OPERADOR_LOGICO_AND expresion_OR_inclusiva
+  157 expresion_logica_OR: expresion_logica_AND •
+  160 expresion_logica_AND: expresion_logica_AND • OPERADOR_LOGICO_AND expresion_OR_inclusiva
 
     OPERADOR_LOGICO_AND  desplazar e ir al estado 202
 
-    $default  reduce usando la regla 156 (expresion_logica_OR)
+    $default  reduce usando la regla 157 (expresion_logica_OR)
 
 
 Estado 125
 
-  158 expresion_logica_AND: expresion_OR_inclusiva •
-  161 expresion_OR_inclusiva: expresion_OR_inclusiva • '|' expresion_XOR
+  159 expresion_logica_AND: expresion_OR_inclusiva •
+  162 expresion_OR_inclusiva: expresion_OR_inclusiva • '|' expresion_XOR
 
     '|'  desplazar e ir al estado 203
 
-    $default  reduce usando la regla 158 (expresion_logica_AND)
+    $default  reduce usando la regla 159 (expresion_logica_AND)
 
 
 Estado 126
 
-  160 expresion_OR_inclusiva: expresion_XOR •
-  163 expresion_XOR: expresion_XOR • '^' expresion_AND
+  161 expresion_OR_inclusiva: expresion_XOR •
+  164 expresion_XOR: expresion_XOR • '^' expresion_AND
 
     '^'  desplazar e ir al estado 204
 
-    $default  reduce usando la regla 160 (expresion_OR_inclusiva)
+    $default  reduce usando la regla 161 (expresion_OR_inclusiva)
 
 
 Estado 127
 
-  162 expresion_XOR: expresion_AND •
-  165 expresion_AND: expresion_AND • '&' expresion_de_igualdad
+  163 expresion_XOR: expresion_AND •
+  166 expresion_AND: expresion_AND • '&' expresion_de_igualdad
 
     '&'  desplazar e ir al estado 205
 
-    $default  reduce usando la regla 162 (expresion_XOR)
+    $default  reduce usando la regla 163 (expresion_XOR)
 
 
 Estado 128
 
-  164 expresion_AND: expresion_de_igualdad •
-  167 expresion_de_igualdad: expresion_de_igualdad • OPERADOR_DE_IGUALDAD expresion_relacional
-  168                      | expresion_de_igualdad • OPERADOR_DE_DESIGUALDAD expresion_relacional
+  165 expresion_AND: expresion_de_igualdad •
+  168 expresion_de_igualdad: expresion_de_igualdad • OPERADOR_DE_IGUALDAD expresion_relacional
+  169                      | expresion_de_igualdad • OPERADOR_DE_DESIGUALDAD expresion_relacional
 
     OPERADOR_DE_IGUALDAD     desplazar e ir al estado 206
     OPERADOR_DE_DESIGUALDAD  desplazar e ir al estado 207
 
-    $default  reduce usando la regla 164 (expresion_AND)
+    $default  reduce usando la regla 165 (expresion_AND)
 
 
 Estado 129
 
-  166 expresion_de_igualdad: expresion_relacional •
-  170 expresion_relacional: expresion_relacional • '<' expresion_de_desplazamiento
-  171                     | expresion_relacional • MENOR_O_IGUAL expresion_de_desplazamiento
-  172                     | expresion_relacional • '>' expresion_de_desplazamiento
-  173                     | expresion_relacional • MAYOR_O_IGUAL expresion_de_desplazamiento
+  167 expresion_de_igualdad: expresion_relacional •
+  171 expresion_relacional: expresion_relacional • '<' expresion_de_desplazamiento
+  172                     | expresion_relacional • MENOR_O_IGUAL expresion_de_desplazamiento
+  173                     | expresion_relacional • '>' expresion_de_desplazamiento
+  174                     | expresion_relacional • MAYOR_O_IGUAL expresion_de_desplazamiento
 
     MENOR_O_IGUAL  desplazar e ir al estado 208
     MAYOR_O_IGUAL  desplazar e ir al estado 209
     '<'            desplazar e ir al estado 210
     '>'            desplazar e ir al estado 211
 
-    $default  reduce usando la regla 166 (expresion_de_igualdad)
+    $default  reduce usando la regla 167 (expresion_de_igualdad)
 
 
 Estado 130
 
-  169 expresion_relacional: expresion_de_desplazamiento •
-  175 expresion_de_desplazamiento: expresion_de_desplazamiento • OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA expresion_aditiva
-  176                            | expresion_de_desplazamiento • OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA expresion_aditiva
+  170 expresion_relacional: expresion_de_desplazamiento •
+  176 expresion_de_desplazamiento: expresion_de_desplazamiento • OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA expresion_aditiva
+  177                            | expresion_de_desplazamiento • OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA expresion_aditiva
 
     OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA  desplazar e ir al estado 212
     OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA    desplazar e ir al estado 213
 
-    $default  reduce usando la regla 169 (expresion_relacional)
+    $default  reduce usando la regla 170 (expresion_relacional)
 
 
 Estado 131
 
-  174 expresion_de_desplazamiento: expresion_aditiva •
-  178 expresion_aditiva: expresion_aditiva • '+' expresion_multiplicativa
-  179                  | expresion_aditiva • '-' expresion_multiplicativa
+  175 expresion_de_desplazamiento: expresion_aditiva •
+  179 expresion_aditiva: expresion_aditiva • '+' expresion_multiplicativa
+  180                  | expresion_aditiva • '-' expresion_multiplicativa
 
     '+'  desplazar e ir al estado 214
     '-'  desplazar e ir al estado 215
 
-    $default  reduce usando la regla 174 (expresion_de_desplazamiento)
+    $default  reduce usando la regla 175 (expresion_de_desplazamiento)
 
 
 Estado 132
 
-  177 expresion_aditiva: expresion_multiplicativa •
-  181 expresion_multiplicativa: expresion_multiplicativa • '*' expresion_de_casteo
-  182                         | expresion_multiplicativa • '/' expresion_de_casteo
-  183                         | expresion_multiplicativa • '%' expresion_de_casteo
+  178 expresion_aditiva: expresion_multiplicativa •
+  182 expresion_multiplicativa: expresion_multiplicativa • '*' expresion_de_casteo
+  183                         | expresion_multiplicativa • '/' expresion_de_casteo
+  184                         | expresion_multiplicativa • '%' expresion_de_casteo
 
     '*'  desplazar e ir al estado 216
     '/'  desplazar e ir al estado 217
     '%'  desplazar e ir al estado 218
 
-    $default  reduce usando la regla 177 (expresion_aditiva)
+    $default  reduce usando la regla 178 (expresion_aditiva)
 
 
 Estado 133
 
-  180 expresion_multiplicativa: expresion_de_casteo •
+  181 expresion_multiplicativa: expresion_de_casteo •
 
-    $default  reduce usando la regla 180 (expresion_multiplicativa)
+    $default  reduce usando la regla 181 (expresion_multiplicativa)
 
 
 Estado 134
 
-  141 expresion_de_asignacion: expresion_unaria • operador_de_asignacion expresion_de_asignacion
-  184 expresion_de_casteo: expresion_unaria •
+  142 expresion_de_asignacion: expresion_unaria • operador_de_asignacion expresion_de_asignacion
+  185 expresion_de_casteo: expresion_unaria •
 
     OPERADOR_ASIGNACION_MULTIPLICACION                      desplazar e ir al estado 219
     OPERADOR_ASIGNACION_DIVISION                            desplazar e ir al estado 220
@@ -2734,14 +2736,14 @@ Estado 134
     OPERADOR_ASIGNACION_OR_BIT_A_BIT                        desplazar e ir al estado 228
     '='                                                     desplazar e ir al estado 229
 
-    $default  reduce usando la regla 184 (expresion_de_casteo)
+    $default  reduce usando la regla 185 (expresion_de_casteo)
 
     operador_de_asignacion  ir al estado 230
 
 
 Estado 135
 
-  189 expresion_unaria: operador_unario • expresion_de_casteo
+  190 expresion_unaria: operador_unario • expresion_de_casteo
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -2773,14 +2775,14 @@ Estado 135
 
 Estado 136
 
-  186 expresion_unaria: expresion_posfija •
-  199 expresion_posfija: expresion_posfija • '[' expresion ']'
-  200                  | expresion_posfija • '(' ')'
-  201                  | expresion_posfija • '(' lista_de_expresiones_de_argumentos ')'
-  202                  | expresion_posfija • '.' IDENTIFICADOR
-  203                  | expresion_posfija • OPERADOR_FLECHA IDENTIFICADOR
-  204                  | expresion_posfija • INCREMENTO
-  205                  | expresion_posfija • DECREMENTO
+  187 expresion_unaria: expresion_posfija •
+  200 expresion_posfija: expresion_posfija • '[' expresion ']'
+  201                  | expresion_posfija • '(' ')'
+  202                  | expresion_posfija • '(' lista_de_expresiones_de_argumentos ')'
+  203                  | expresion_posfija • '.' IDENTIFICADOR
+  204                  | expresion_posfija • OPERADOR_FLECHA IDENTIFICADOR
+  205                  | expresion_posfija • INCREMENTO
+  206                  | expresion_posfija • DECREMENTO
 
     INCREMENTO       desplazar e ir al estado 232
     DECREMENTO       desplazar e ir al estado 233
@@ -2789,28 +2791,28 @@ Estado 136
     '['              desplazar e ir al estado 236
     '.'              desplazar e ir al estado 237
 
-    $default  reduce usando la regla 186 (expresion_unaria)
+    $default  reduce usando la regla 187 (expresion_unaria)
 
 
 Estado 137
 
-  198 expresion_posfija: expresion_primaria •
+  199 expresion_posfija: expresion_primaria •
 
-    $default  reduce usando la regla 198 (expresion_posfija)
+    $default  reduce usando la regla 199 (expresion_posfija)
 
 
 Estado 138
 
-  207 expresion_primaria: constante •
+  208 expresion_primaria: constante •
 
-    $default  reduce usando la regla 207 (expresion_primaria)
+    $default  reduce usando la regla 208 (expresion_primaria)
 
 
 Estado 139
 
-  212 constante: constante_entera •
+  213 constante: constante_entera •
 
-    $default  reduce usando la regla 212 (constante)
+    $default  reduce usando la regla 213 (constante)
 
 
 Estado 140
@@ -2907,9 +2909,9 @@ Estado 149
 
 Estado 150
 
-  206 expresion_primaria: IDENTIFICADOR •
+  207 expresion_primaria: IDENTIFICADOR •
 
-    $default  reduce usando la regla 206 (expresion_primaria)
+    $default  reduce usando la regla 207 (expresion_primaria)
 
 
 Estado 151
@@ -2921,9 +2923,9 @@ Estado 151
 
 Estado 152
 
-  155 expresion_constante: expresion_condicional •
+  156 expresion_constante: expresion_condicional •
 
-    $default  reduce usando la regla 155 (expresion_constante)
+    $default  reduce usando la regla 156 (expresion_constante)
 
 
 Estado 153
@@ -2935,9 +2937,9 @@ Estado 153
 
 Estado 154
 
-  184 expresion_de_casteo: expresion_unaria •
+  185 expresion_de_casteo: expresion_unaria •
 
-    $default  reduce usando la regla 184 (expresion_de_casteo)
+    $default  reduce usando la regla 185 (expresion_de_casteo)
 
 
 Estado 155
@@ -3280,7 +3282,7 @@ Estado 173
 
 Estado 174
 
-  209 expresion_primaria: '(' • expresion ')'
+  210 expresion_primaria: '(' • expresion ')'
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -3325,22 +3327,22 @@ Estado 174
 
 Estado 175
 
-  187 expresion_unaria: INCREMENTO expresion_unaria •
-
-    $default  reduce usando la regla 187 (expresion_unaria)
-
-
-Estado 176
-
-  188 expresion_unaria: DECREMENTO expresion_unaria •
+  188 expresion_unaria: INCREMENTO expresion_unaria •
 
     $default  reduce usando la regla 188 (expresion_unaria)
 
 
+Estado 176
+
+  189 expresion_unaria: DECREMENTO expresion_unaria •
+
+    $default  reduce usando la regla 189 (expresion_unaria)
+
+
 Estado 177
 
-  191 expresion_unaria: SIZEOF '(' • nombre_de_tipo ')'
-  209 expresion_primaria: '(' • expresion ')'
+  192 expresion_unaria: SIZEOF '(' • nombre_de_tipo ')'
+  210 expresion_primaria: '(' • expresion ')'
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -3406,15 +3408,15 @@ Estado 177
 
 Estado 178
 
-  190 expresion_unaria: SIZEOF expresion_unaria •
+  191 expresion_unaria: SIZEOF expresion_unaria •
 
-    $default  reduce usando la regla 190 (expresion_unaria)
+    $default  reduce usando la regla 191 (expresion_unaria)
 
 
 Estado 179
 
   111 sentencia_de_etiqueta: CASE expresion • ':' sentencia
-  139 expresion: expresion • ',' expresion_de_asignacion
+  140 expresion: expresion • ',' expresion_de_asignacion
 
     ','  desplazar e ir al estado 198
     ':'  desplazar e ir al estado 261
@@ -3487,7 +3489,8 @@ Estado 180
 
 Estado 181
 
-  121 sentencia_de_seleccion: IF '(' • expresion ')' sentencia IF '(' expresion ')' sentencia ELSE sentencia
+  121 sentencia_de_seleccion: IF '(' • expresion ')' sentencia
+  122                       | IF '(' • expresion ')' sentencia ELSE sentencia
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -3532,7 +3535,7 @@ Estado 181
 
 Estado 182
 
-  122 sentencia_de_seleccion: SWITCH '(' • expresion ')' sentencia
+  123 sentencia_de_seleccion: SWITCH '(' • expresion ')' sentencia
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -3577,7 +3580,7 @@ Estado 182
 
 Estado 183
 
-  123 sentencia_de_iteracion: WHILE '(' • expresion ')' sentencia
+  124 sentencia_de_iteracion: WHILE '(' • expresion ')' sentencia
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -3622,21 +3625,21 @@ Estado 183
 
 Estado 184
 
-  124 sentencia_de_iteracion: DO sentencia • WHILE '(' expresion ')' ';'
+  125 sentencia_de_iteracion: DO sentencia • WHILE '(' expresion ')' ';'
 
     WHILE  desplazar e ir al estado 266
 
 
 Estado 185
 
-  125 sentencia_de_iteracion: FOR '(' • ';' ';' ')' sentencia
-  126                       | FOR '(' • expresion ';' ';' ')' sentencia
-  127                       | FOR '(' • ';' expresion ';' ')' sentencia
-  128                       | FOR '(' • ';' ';' expresion ')' sentencia
-  129                       | FOR '(' • expresion ';' expresion ';' ')' sentencia
-  130                       | FOR '(' • expresion ';' ';' expresion ')' sentencia
-  131                       | FOR '(' • ';' expresion ';' expresion ')' sentencia
-  132                       | FOR '(' • expresion ';' expresion ';' expresion ')' sentencia
+  126 sentencia_de_iteracion: FOR '(' • ';' ';' ')' sentencia
+  127                       | FOR '(' • expresion ';' ';' ')' sentencia
+  128                       | FOR '(' • ';' expresion ';' ')' sentencia
+  129                       | FOR '(' • ';' ';' expresion ')' sentencia
+  130                       | FOR '(' • expresion ';' expresion ';' ')' sentencia
+  131                       | FOR '(' • expresion ';' ';' expresion ')' sentencia
+  132                       | FOR '(' • ';' expresion ';' expresion ')' sentencia
+  133                       | FOR '(' • expresion ';' expresion ';' expresion ')' sentencia
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -3682,36 +3685,36 @@ Estado 185
 
 Estado 186
 
-  133 sentencia_de_salto: GOTO IDENTIFICADOR • ';'
+  134 sentencia_de_salto: GOTO IDENTIFICADOR • ';'
 
     ';'  desplazar e ir al estado 269
 
 
 Estado 187
 
-  134 sentencia_de_salto: CONTINUE ';' •
-
-    $default  reduce usando la regla 134 (sentencia_de_salto)
-
-
-Estado 188
-
-  135 sentencia_de_salto: BREAK ';' •
+  135 sentencia_de_salto: CONTINUE ';' •
 
     $default  reduce usando la regla 135 (sentencia_de_salto)
 
 
-Estado 189
+Estado 188
 
-  136 sentencia_de_salto: RETURN ';' •
+  136 sentencia_de_salto: BREAK ';' •
 
     $default  reduce usando la regla 136 (sentencia_de_salto)
 
 
+Estado 189
+
+  137 sentencia_de_salto: RETURN ';' •
+
+    $default  reduce usando la regla 137 (sentencia_de_salto)
+
+
 Estado 190
 
-  137 sentencia_de_salto: RETURN expresion • ';'
-  139 expresion: expresion • ',' expresion_de_asignacion
+  138 sentencia_de_salto: RETURN expresion • ';'
+  140 expresion: expresion • ',' expresion_de_asignacion
 
     ','  desplazar e ir al estado 198
     ';'  desplazar e ir al estado 270
@@ -3735,15 +3738,15 @@ Estado 191
 
 Estado 192
 
-  185 expresion_de_casteo: '(' nombre_de_tipo • ')' expresion_de_casteo
+  186 expresion_de_casteo: '(' nombre_de_tipo • ')' expresion_de_casteo
 
     ')'  desplazar e ir al estado 274
 
 
 Estado 193
 
-  139 expresion: expresion • ',' expresion_de_asignacion
-  209 expresion_primaria: '(' expresion • ')'
+  140 expresion: expresion • ',' expresion_de_asignacion
+  210 expresion_primaria: '(' expresion • ')'
 
     ','  desplazar e ir al estado 198
     ')'  desplazar e ir al estado 275
@@ -3839,7 +3842,7 @@ Estado 197
 
 Estado 198
 
-  139 expresion: expresion ',' • expresion_de_asignacion
+  140 expresion: expresion ',' • expresion_de_asignacion
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -3890,7 +3893,7 @@ Estado 199
 
 Estado 200
 
-  157 expresion_logica_OR: expresion_logica_OR OPERADOR_LOGICO_OR • expresion_logica_AND
+  158 expresion_logica_OR: expresion_logica_OR OPERADOR_LOGICO_OR • expresion_logica_AND
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -3931,7 +3934,7 @@ Estado 200
 
 Estado 201
 
-  154 expresion_condicional: expresion_logica_OR '?' • expresion ':' expresion_condicional
+  155 expresion_condicional: expresion_logica_OR '?' • expresion ':' expresion_condicional
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -3976,7 +3979,7 @@ Estado 201
 
 Estado 202
 
-  159 expresion_logica_AND: expresion_logica_AND OPERADOR_LOGICO_AND • expresion_OR_inclusiva
+  160 expresion_logica_AND: expresion_logica_AND OPERADOR_LOGICO_AND • expresion_OR_inclusiva
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -4016,7 +4019,7 @@ Estado 202
 
 Estado 203
 
-  161 expresion_OR_inclusiva: expresion_OR_inclusiva '|' • expresion_XOR
+  162 expresion_OR_inclusiva: expresion_OR_inclusiva '|' • expresion_XOR
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -4055,7 +4058,7 @@ Estado 203
 
 Estado 204
 
-  163 expresion_XOR: expresion_XOR '^' • expresion_AND
+  164 expresion_XOR: expresion_XOR '^' • expresion_AND
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -4093,7 +4096,7 @@ Estado 204
 
 Estado 205
 
-  165 expresion_AND: expresion_AND '&' • expresion_de_igualdad
+  166 expresion_AND: expresion_AND '&' • expresion_de_igualdad
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -4130,7 +4133,7 @@ Estado 205
 
 Estado 206
 
-  167 expresion_de_igualdad: expresion_de_igualdad OPERADOR_DE_IGUALDAD • expresion_relacional
+  168 expresion_de_igualdad: expresion_de_igualdad OPERADOR_DE_IGUALDAD • expresion_relacional
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -4166,7 +4169,7 @@ Estado 206
 
 Estado 207
 
-  168 expresion_de_igualdad: expresion_de_igualdad OPERADOR_DE_DESIGUALDAD • expresion_relacional
+  169 expresion_de_igualdad: expresion_de_igualdad OPERADOR_DE_DESIGUALDAD • expresion_relacional
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -4202,7 +4205,7 @@ Estado 207
 
 Estado 208
 
-  171 expresion_relacional: expresion_relacional MENOR_O_IGUAL • expresion_de_desplazamiento
+  172 expresion_relacional: expresion_relacional MENOR_O_IGUAL • expresion_de_desplazamiento
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -4237,7 +4240,7 @@ Estado 208
 
 Estado 209
 
-  173 expresion_relacional: expresion_relacional MAYOR_O_IGUAL • expresion_de_desplazamiento
+  174 expresion_relacional: expresion_relacional MAYOR_O_IGUAL • expresion_de_desplazamiento
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -4272,7 +4275,7 @@ Estado 209
 
 Estado 210
 
-  170 expresion_relacional: expresion_relacional '<' • expresion_de_desplazamiento
+  171 expresion_relacional: expresion_relacional '<' • expresion_de_desplazamiento
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -4307,7 +4310,7 @@ Estado 210
 
 Estado 211
 
-  172 expresion_relacional: expresion_relacional '>' • expresion_de_desplazamiento
+  173 expresion_relacional: expresion_relacional '>' • expresion_de_desplazamiento
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -4342,7 +4345,7 @@ Estado 211
 
 Estado 212
 
-  175 expresion_de_desplazamiento: expresion_de_desplazamiento OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA • expresion_aditiva
+  176 expresion_de_desplazamiento: expresion_de_desplazamiento OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA • expresion_aditiva
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -4376,7 +4379,7 @@ Estado 212
 
 Estado 213
 
-  176 expresion_de_desplazamiento: expresion_de_desplazamiento OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA • expresion_aditiva
+  177 expresion_de_desplazamiento: expresion_de_desplazamiento OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA • expresion_aditiva
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -4410,7 +4413,7 @@ Estado 213
 
 Estado 214
 
-  178 expresion_aditiva: expresion_aditiva '+' • expresion_multiplicativa
+  179 expresion_aditiva: expresion_aditiva '+' • expresion_multiplicativa
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -4443,7 +4446,7 @@ Estado 214
 
 Estado 215
 
-  179 expresion_aditiva: expresion_aditiva '-' • expresion_multiplicativa
+  180 expresion_aditiva: expresion_aditiva '-' • expresion_multiplicativa
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -4476,7 +4479,7 @@ Estado 215
 
 Estado 216
 
-  181 expresion_multiplicativa: expresion_multiplicativa '*' • expresion_de_casteo
+  182 expresion_multiplicativa: expresion_multiplicativa '*' • expresion_de_casteo
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -4508,7 +4511,7 @@ Estado 216
 
 Estado 217
 
-  182 expresion_multiplicativa: expresion_multiplicativa '/' • expresion_de_casteo
+  183 expresion_multiplicativa: expresion_multiplicativa '/' • expresion_de_casteo
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -4540,7 +4543,7 @@ Estado 217
 
 Estado 218
 
-  183 expresion_multiplicativa: expresion_multiplicativa '%' • expresion_de_casteo
+  184 expresion_multiplicativa: expresion_multiplicativa '%' • expresion_de_casteo
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -4572,84 +4575,84 @@ Estado 218
 
 Estado 219
 
-  143 operador_de_asignacion: OPERADOR_ASIGNACION_MULTIPLICACION •
-
-    $default  reduce usando la regla 143 (operador_de_asignacion)
-
-
-Estado 220
-
-  144 operador_de_asignacion: OPERADOR_ASIGNACION_DIVISION •
+  144 operador_de_asignacion: OPERADOR_ASIGNACION_MULTIPLICACION •
 
     $default  reduce usando la regla 144 (operador_de_asignacion)
 
 
-Estado 221
+Estado 220
 
-  145 operador_de_asignacion: OPERADOR_ASIGNACION_RESTO •
+  145 operador_de_asignacion: OPERADOR_ASIGNACION_DIVISION •
 
     $default  reduce usando la regla 145 (operador_de_asignacion)
 
 
-Estado 222
+Estado 221
 
-  146 operador_de_asignacion: OPERADOR_ASIGNACION_SUMA •
+  146 operador_de_asignacion: OPERADOR_ASIGNACION_RESTO •
 
     $default  reduce usando la regla 146 (operador_de_asignacion)
 
 
-Estado 223
+Estado 222
 
-  147 operador_de_asignacion: OPERADOR_ASIGNACION_RESTA •
+  147 operador_de_asignacion: OPERADOR_ASIGNACION_SUMA •
 
     $default  reduce usando la regla 147 (operador_de_asignacion)
 
 
-Estado 224
+Estado 223
 
-  148 operador_de_asignacion: OPERADOR_ASIGNACION_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA •
+  148 operador_de_asignacion: OPERADOR_ASIGNACION_RESTA •
 
     $default  reduce usando la regla 148 (operador_de_asignacion)
 
 
-Estado 225
+Estado 224
 
-  149 operador_de_asignacion: OPERADOR_ASIGNACION_DESPLAZAMIENTO_DE_BITS_A_DERECHA •
+  149 operador_de_asignacion: OPERADOR_ASIGNACION_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA •
 
     $default  reduce usando la regla 149 (operador_de_asignacion)
 
 
-Estado 226
+Estado 225
 
-  150 operador_de_asignacion: OPERADOR_ASIGNACION_AND_BIT_A_BIT •
+  150 operador_de_asignacion: OPERADOR_ASIGNACION_DESPLAZAMIENTO_DE_BITS_A_DERECHA •
 
     $default  reduce usando la regla 150 (operador_de_asignacion)
 
 
-Estado 227
+Estado 226
 
-  151 operador_de_asignacion: OPERADOR_ASIGNACION_XOR_BIT_A_BIT •
+  151 operador_de_asignacion: OPERADOR_ASIGNACION_AND_BIT_A_BIT •
 
     $default  reduce usando la regla 151 (operador_de_asignacion)
 
 
-Estado 228
+Estado 227
 
-  152 operador_de_asignacion: OPERADOR_ASIGNACION_OR_BIT_A_BIT •
+  152 operador_de_asignacion: OPERADOR_ASIGNACION_XOR_BIT_A_BIT •
 
     $default  reduce usando la regla 152 (operador_de_asignacion)
 
 
+Estado 228
+
+  153 operador_de_asignacion: OPERADOR_ASIGNACION_OR_BIT_A_BIT •
+
+    $default  reduce usando la regla 153 (operador_de_asignacion)
+
+
 Estado 229
 
-  142 operador_de_asignacion: '=' •
+  143 operador_de_asignacion: '=' •
 
-    $default  reduce usando la regla 142 (operador_de_asignacion)
+    $default  reduce usando la regla 143 (operador_de_asignacion)
 
 
 Estado 230
 
-  141 expresion_de_asignacion: expresion_unaria operador_de_asignacion • expresion_de_asignacion
+  142 expresion_de_asignacion: expresion_unaria operador_de_asignacion • expresion_de_asignacion
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -4693,36 +4696,36 @@ Estado 230
 
 Estado 231
 
-  189 expresion_unaria: operador_unario expresion_de_casteo •
+  190 expresion_unaria: operador_unario expresion_de_casteo •
 
-    $default  reduce usando la regla 189 (expresion_unaria)
+    $default  reduce usando la regla 190 (expresion_unaria)
 
 
 Estado 232
 
-  204 expresion_posfija: expresion_posfija INCREMENTO •
-
-    $default  reduce usando la regla 204 (expresion_posfija)
-
-
-Estado 233
-
-  205 expresion_posfija: expresion_posfija DECREMENTO •
+  205 expresion_posfija: expresion_posfija INCREMENTO •
 
     $default  reduce usando la regla 205 (expresion_posfija)
 
 
+Estado 233
+
+  206 expresion_posfija: expresion_posfija DECREMENTO •
+
+    $default  reduce usando la regla 206 (expresion_posfija)
+
+
 Estado 234
 
-  203 expresion_posfija: expresion_posfija OPERADOR_FLECHA • IDENTIFICADOR
+  204 expresion_posfija: expresion_posfija OPERADOR_FLECHA • IDENTIFICADOR
 
     IDENTIFICADOR  desplazar e ir al estado 298
 
 
 Estado 235
 
-  200 expresion_posfija: expresion_posfija '(' • ')'
-  201                  | expresion_posfija '(' • lista_de_expresiones_de_argumentos ')'
+  201 expresion_posfija: expresion_posfija '(' • ')'
+  202                  | expresion_posfija '(' • lista_de_expresiones_de_argumentos ')'
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -4768,7 +4771,7 @@ Estado 235
 
 Estado 236
 
-  199 expresion_posfija: expresion_posfija '[' • expresion ']'
+  200 expresion_posfija: expresion_posfija '[' • expresion ']'
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -4813,7 +4816,7 @@ Estado 236
 
 Estado 237
 
-  202 expresion_posfija: expresion_posfija '.' • IDENTIFICADOR
+  203 expresion_posfija: expresion_posfija '.' • IDENTIFICADOR
 
     IDENTIFICADOR  desplazar e ir al estado 303
 
@@ -5142,7 +5145,7 @@ Estado 259
 
 Estado 260
 
-  191 expresion_unaria: SIZEOF '(' nombre_de_tipo • ')'
+  192 expresion_unaria: SIZEOF '(' nombre_de_tipo • ')'
 
     ')'  desplazar e ir al estado 317
 
@@ -5221,8 +5224,9 @@ Estado 262
 
 Estado 263
 
-  121 sentencia_de_seleccion: IF '(' expresion • ')' sentencia IF '(' expresion ')' sentencia ELSE sentencia
-  139 expresion: expresion • ',' expresion_de_asignacion
+  121 sentencia_de_seleccion: IF '(' expresion • ')' sentencia
+  122                       | IF '(' expresion • ')' sentencia ELSE sentencia
+  140 expresion: expresion • ',' expresion_de_asignacion
 
     ','  desplazar e ir al estado 198
     ')'  desplazar e ir al estado 319
@@ -5230,8 +5234,8 @@ Estado 263
 
 Estado 264
 
-  122 sentencia_de_seleccion: SWITCH '(' expresion • ')' sentencia
-  139 expresion: expresion • ',' expresion_de_asignacion
+  123 sentencia_de_seleccion: SWITCH '(' expresion • ')' sentencia
+  140 expresion: expresion • ',' expresion_de_asignacion
 
     ','  desplazar e ir al estado 198
     ')'  desplazar e ir al estado 320
@@ -5239,8 +5243,8 @@ Estado 264
 
 Estado 265
 
-  123 sentencia_de_iteracion: WHILE '(' expresion • ')' sentencia
-  139 expresion: expresion • ',' expresion_de_asignacion
+  124 sentencia_de_iteracion: WHILE '(' expresion • ')' sentencia
+  140 expresion: expresion • ',' expresion_de_asignacion
 
     ','  desplazar e ir al estado 198
     ')'  desplazar e ir al estado 321
@@ -5248,17 +5252,17 @@ Estado 265
 
 Estado 266
 
-  124 sentencia_de_iteracion: DO sentencia WHILE • '(' expresion ')' ';'
+  125 sentencia_de_iteracion: DO sentencia WHILE • '(' expresion ')' ';'
 
     '('  desplazar e ir al estado 322
 
 
 Estado 267
 
-  125 sentencia_de_iteracion: FOR '(' ';' • ';' ')' sentencia
-  127                       | FOR '(' ';' • expresion ';' ')' sentencia
-  128                       | FOR '(' ';' • ';' expresion ')' sentencia
-  131                       | FOR '(' ';' • expresion ';' expresion ')' sentencia
+  126 sentencia_de_iteracion: FOR '(' ';' • ';' ')' sentencia
+  128                       | FOR '(' ';' • expresion ';' ')' sentencia
+  129                       | FOR '(' ';' • ';' expresion ')' sentencia
+  132                       | FOR '(' ';' • expresion ';' expresion ')' sentencia
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -5304,11 +5308,11 @@ Estado 267
 
 Estado 268
 
-  126 sentencia_de_iteracion: FOR '(' expresion • ';' ';' ')' sentencia
-  129                       | FOR '(' expresion • ';' expresion ';' ')' sentencia
-  130                       | FOR '(' expresion • ';' ';' expresion ')' sentencia
-  132                       | FOR '(' expresion • ';' expresion ';' expresion ')' sentencia
-  139 expresion: expresion • ',' expresion_de_asignacion
+  127 sentencia_de_iteracion: FOR '(' expresion • ';' ';' ')' sentencia
+  130                       | FOR '(' expresion • ';' expresion ';' ')' sentencia
+  131                       | FOR '(' expresion • ';' ';' expresion ')' sentencia
+  133                       | FOR '(' expresion • ';' expresion ';' expresion ')' sentencia
+  140 expresion: expresion • ',' expresion_de_asignacion
 
     ','  desplazar e ir al estado 198
     ';'  desplazar e ir al estado 325
@@ -5316,16 +5320,16 @@ Estado 268
 
 Estado 269
 
-  133 sentencia_de_salto: GOTO IDENTIFICADOR ';' •
+  134 sentencia_de_salto: GOTO IDENTIFICADOR ';' •
 
-    $default  reduce usando la regla 133 (sentencia_de_salto)
+    $default  reduce usando la regla 134 (sentencia_de_salto)
 
 
 Estado 270
 
-  137 sentencia_de_salto: RETURN expresion ';' •
+  138 sentencia_de_salto: RETURN expresion ';' •
 
-    $default  reduce usando la regla 137 (sentencia_de_salto)
+    $default  reduce usando la regla 138 (sentencia_de_salto)
 
 
 Estado 271
@@ -5393,7 +5397,7 @@ Estado 273
 
 Estado 274
 
-  185 expresion_de_casteo: '(' nombre_de_tipo ')' • expresion_de_casteo
+  186 expresion_de_casteo: '(' nombre_de_tipo ')' • expresion_de_casteo
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -5425,9 +5429,9 @@ Estado 274
 
 Estado 275
 
-  209 expresion_primaria: '(' expresion ')' •
+  210 expresion_primaria: '(' expresion ')' •
 
-    $default  reduce usando la regla 209 (expresion_primaria)
+    $default  reduce usando la regla 210 (expresion_primaria)
 
 
 Estado 276
@@ -5439,25 +5443,25 @@ Estado 276
 
 Estado 277
 
-  139 expresion: expresion ',' expresion_de_asignacion •
+  140 expresion: expresion ',' expresion_de_asignacion •
 
-    $default  reduce usando la regla 139 (expresion)
+    $default  reduce usando la regla 140 (expresion)
 
 
 Estado 278
 
-  157 expresion_logica_OR: expresion_logica_OR OPERADOR_LOGICO_OR expresion_logica_AND •
-  159 expresion_logica_AND: expresion_logica_AND • OPERADOR_LOGICO_AND expresion_OR_inclusiva
+  158 expresion_logica_OR: expresion_logica_OR OPERADOR_LOGICO_OR expresion_logica_AND •
+  160 expresion_logica_AND: expresion_logica_AND • OPERADOR_LOGICO_AND expresion_OR_inclusiva
 
     OPERADOR_LOGICO_AND  desplazar e ir al estado 202
 
-    $default  reduce usando la regla 157 (expresion_logica_OR)
+    $default  reduce usando la regla 158 (expresion_logica_OR)
 
 
 Estado 279
 
-  139 expresion: expresion • ',' expresion_de_asignacion
-  154 expresion_condicional: expresion_logica_OR '?' expresion • ':' expresion_condicional
+  140 expresion: expresion • ',' expresion_de_asignacion
+  155 expresion_condicional: expresion_logica_OR '?' expresion • ':' expresion_condicional
 
     ','  desplazar e ir al estado 198
     ':'  desplazar e ir al estado 327
@@ -5465,69 +5469,53 @@ Estado 279
 
 Estado 280
 
-  159 expresion_logica_AND: expresion_logica_AND OPERADOR_LOGICO_AND expresion_OR_inclusiva •
-  161 expresion_OR_inclusiva: expresion_OR_inclusiva • '|' expresion_XOR
+  160 expresion_logica_AND: expresion_logica_AND OPERADOR_LOGICO_AND expresion_OR_inclusiva •
+  162 expresion_OR_inclusiva: expresion_OR_inclusiva • '|' expresion_XOR
 
     '|'  desplazar e ir al estado 203
 
-    $default  reduce usando la regla 159 (expresion_logica_AND)
+    $default  reduce usando la regla 160 (expresion_logica_AND)
 
 
 Estado 281
 
-  161 expresion_OR_inclusiva: expresion_OR_inclusiva '|' expresion_XOR •
-  163 expresion_XOR: expresion_XOR • '^' expresion_AND
+  162 expresion_OR_inclusiva: expresion_OR_inclusiva '|' expresion_XOR •
+  164 expresion_XOR: expresion_XOR • '^' expresion_AND
 
     '^'  desplazar e ir al estado 204
 
-    $default  reduce usando la regla 161 (expresion_OR_inclusiva)
+    $default  reduce usando la regla 162 (expresion_OR_inclusiva)
 
 
 Estado 282
 
-  163 expresion_XOR: expresion_XOR '^' expresion_AND •
-  165 expresion_AND: expresion_AND • '&' expresion_de_igualdad
+  164 expresion_XOR: expresion_XOR '^' expresion_AND •
+  166 expresion_AND: expresion_AND • '&' expresion_de_igualdad
 
     '&'  desplazar e ir al estado 205
 
-    $default  reduce usando la regla 163 (expresion_XOR)
+    $default  reduce usando la regla 164 (expresion_XOR)
 
 
 Estado 283
 
-  165 expresion_AND: expresion_AND '&' expresion_de_igualdad •
-  167 expresion_de_igualdad: expresion_de_igualdad • OPERADOR_DE_IGUALDAD expresion_relacional
-  168                      | expresion_de_igualdad • OPERADOR_DE_DESIGUALDAD expresion_relacional
+  166 expresion_AND: expresion_AND '&' expresion_de_igualdad •
+  168 expresion_de_igualdad: expresion_de_igualdad • OPERADOR_DE_IGUALDAD expresion_relacional
+  169                      | expresion_de_igualdad • OPERADOR_DE_DESIGUALDAD expresion_relacional
 
     OPERADOR_DE_IGUALDAD     desplazar e ir al estado 206
     OPERADOR_DE_DESIGUALDAD  desplazar e ir al estado 207
 
-    $default  reduce usando la regla 165 (expresion_AND)
+    $default  reduce usando la regla 166 (expresion_AND)
 
 
 Estado 284
 
-  167 expresion_de_igualdad: expresion_de_igualdad OPERADOR_DE_IGUALDAD expresion_relacional •
-  170 expresion_relacional: expresion_relacional • '<' expresion_de_desplazamiento
-  171                     | expresion_relacional • MENOR_O_IGUAL expresion_de_desplazamiento
-  172                     | expresion_relacional • '>' expresion_de_desplazamiento
-  173                     | expresion_relacional • MAYOR_O_IGUAL expresion_de_desplazamiento
-
-    MENOR_O_IGUAL  desplazar e ir al estado 208
-    MAYOR_O_IGUAL  desplazar e ir al estado 209
-    '<'            desplazar e ir al estado 210
-    '>'            desplazar e ir al estado 211
-
-    $default  reduce usando la regla 167 (expresion_de_igualdad)
-
-
-Estado 285
-
-  168 expresion_de_igualdad: expresion_de_igualdad OPERADOR_DE_DESIGUALDAD expresion_relacional •
-  170 expresion_relacional: expresion_relacional • '<' expresion_de_desplazamiento
-  171                     | expresion_relacional • MENOR_O_IGUAL expresion_de_desplazamiento
-  172                     | expresion_relacional • '>' expresion_de_desplazamiento
-  173                     | expresion_relacional • MAYOR_O_IGUAL expresion_de_desplazamiento
+  168 expresion_de_igualdad: expresion_de_igualdad OPERADOR_DE_IGUALDAD expresion_relacional •
+  171 expresion_relacional: expresion_relacional • '<' expresion_de_desplazamiento
+  172                     | expresion_relacional • MENOR_O_IGUAL expresion_de_desplazamiento
+  173                     | expresion_relacional • '>' expresion_de_desplazamiento
+  174                     | expresion_relacional • MAYOR_O_IGUAL expresion_de_desplazamiento
 
     MENOR_O_IGUAL  desplazar e ir al estado 208
     MAYOR_O_IGUAL  desplazar e ir al estado 209
@@ -5537,47 +5525,27 @@ Estado 285
     $default  reduce usando la regla 168 (expresion_de_igualdad)
 
 
+Estado 285
+
+  169 expresion_de_igualdad: expresion_de_igualdad OPERADOR_DE_DESIGUALDAD expresion_relacional •
+  171 expresion_relacional: expresion_relacional • '<' expresion_de_desplazamiento
+  172                     | expresion_relacional • MENOR_O_IGUAL expresion_de_desplazamiento
+  173                     | expresion_relacional • '>' expresion_de_desplazamiento
+  174                     | expresion_relacional • MAYOR_O_IGUAL expresion_de_desplazamiento
+
+    MENOR_O_IGUAL  desplazar e ir al estado 208
+    MAYOR_O_IGUAL  desplazar e ir al estado 209
+    '<'            desplazar e ir al estado 210
+    '>'            desplazar e ir al estado 211
+
+    $default  reduce usando la regla 169 (expresion_de_igualdad)
+
+
 Estado 286
 
-  171 expresion_relacional: expresion_relacional MENOR_O_IGUAL expresion_de_desplazamiento •
-  175 expresion_de_desplazamiento: expresion_de_desplazamiento • OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA expresion_aditiva
-  176                            | expresion_de_desplazamiento • OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA expresion_aditiva
-
-    OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA  desplazar e ir al estado 212
-    OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA    desplazar e ir al estado 213
-
-    $default  reduce usando la regla 171 (expresion_relacional)
-
-
-Estado 287
-
-  173 expresion_relacional: expresion_relacional MAYOR_O_IGUAL expresion_de_desplazamiento •
-  175 expresion_de_desplazamiento: expresion_de_desplazamiento • OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA expresion_aditiva
-  176                            | expresion_de_desplazamiento • OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA expresion_aditiva
-
-    OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA  desplazar e ir al estado 212
-    OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA    desplazar e ir al estado 213
-
-    $default  reduce usando la regla 173 (expresion_relacional)
-
-
-Estado 288
-
-  170 expresion_relacional: expresion_relacional '<' expresion_de_desplazamiento •
-  175 expresion_de_desplazamiento: expresion_de_desplazamiento • OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA expresion_aditiva
-  176                            | expresion_de_desplazamiento • OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA expresion_aditiva
-
-    OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA  desplazar e ir al estado 212
-    OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA    desplazar e ir al estado 213
-
-    $default  reduce usando la regla 170 (expresion_relacional)
-
-
-Estado 289
-
-  172 expresion_relacional: expresion_relacional '>' expresion_de_desplazamiento •
-  175 expresion_de_desplazamiento: expresion_de_desplazamiento • OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA expresion_aditiva
-  176                            | expresion_de_desplazamiento • OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA expresion_aditiva
+  172 expresion_relacional: expresion_relacional MENOR_O_IGUAL expresion_de_desplazamiento •
+  176 expresion_de_desplazamiento: expresion_de_desplazamiento • OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA expresion_aditiva
+  177                            | expresion_de_desplazamiento • OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA expresion_aditiva
 
     OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA  desplazar e ir al estado 212
     OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA    desplazar e ir al estado 213
@@ -5585,23 +5553,47 @@ Estado 289
     $default  reduce usando la regla 172 (expresion_relacional)
 
 
+Estado 287
+
+  174 expresion_relacional: expresion_relacional MAYOR_O_IGUAL expresion_de_desplazamiento •
+  176 expresion_de_desplazamiento: expresion_de_desplazamiento • OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA expresion_aditiva
+  177                            | expresion_de_desplazamiento • OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA expresion_aditiva
+
+    OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA  desplazar e ir al estado 212
+    OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA    desplazar e ir al estado 213
+
+    $default  reduce usando la regla 174 (expresion_relacional)
+
+
+Estado 288
+
+  171 expresion_relacional: expresion_relacional '<' expresion_de_desplazamiento •
+  176 expresion_de_desplazamiento: expresion_de_desplazamiento • OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA expresion_aditiva
+  177                            | expresion_de_desplazamiento • OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA expresion_aditiva
+
+    OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA  desplazar e ir al estado 212
+    OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA    desplazar e ir al estado 213
+
+    $default  reduce usando la regla 171 (expresion_relacional)
+
+
+Estado 289
+
+  173 expresion_relacional: expresion_relacional '>' expresion_de_desplazamiento •
+  176 expresion_de_desplazamiento: expresion_de_desplazamiento • OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA expresion_aditiva
+  177                            | expresion_de_desplazamiento • OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA expresion_aditiva
+
+    OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA  desplazar e ir al estado 212
+    OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA    desplazar e ir al estado 213
+
+    $default  reduce usando la regla 173 (expresion_relacional)
+
+
 Estado 290
 
-  175 expresion_de_desplazamiento: expresion_de_desplazamiento OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA expresion_aditiva •
-  178 expresion_aditiva: expresion_aditiva • '+' expresion_multiplicativa
-  179                  | expresion_aditiva • '-' expresion_multiplicativa
-
-    '+'  desplazar e ir al estado 214
-    '-'  desplazar e ir al estado 215
-
-    $default  reduce usando la regla 175 (expresion_de_desplazamiento)
-
-
-Estado 291
-
-  176 expresion_de_desplazamiento: expresion_de_desplazamiento OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA expresion_aditiva •
-  178 expresion_aditiva: expresion_aditiva • '+' expresion_multiplicativa
-  179                  | expresion_aditiva • '-' expresion_multiplicativa
+  176 expresion_de_desplazamiento: expresion_de_desplazamiento OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA expresion_aditiva •
+  179 expresion_aditiva: expresion_aditiva • '+' expresion_multiplicativa
+  180                  | expresion_aditiva • '-' expresion_multiplicativa
 
     '+'  desplazar e ir al estado 214
     '-'  desplazar e ir al estado 215
@@ -5609,26 +5601,24 @@ Estado 291
     $default  reduce usando la regla 176 (expresion_de_desplazamiento)
 
 
+Estado 291
+
+  177 expresion_de_desplazamiento: expresion_de_desplazamiento OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA expresion_aditiva •
+  179 expresion_aditiva: expresion_aditiva • '+' expresion_multiplicativa
+  180                  | expresion_aditiva • '-' expresion_multiplicativa
+
+    '+'  desplazar e ir al estado 214
+    '-'  desplazar e ir al estado 215
+
+    $default  reduce usando la regla 177 (expresion_de_desplazamiento)
+
+
 Estado 292
 
-  178 expresion_aditiva: expresion_aditiva '+' expresion_multiplicativa •
-  181 expresion_multiplicativa: expresion_multiplicativa • '*' expresion_de_casteo
-  182                         | expresion_multiplicativa • '/' expresion_de_casteo
-  183                         | expresion_multiplicativa • '%' expresion_de_casteo
-
-    '*'  desplazar e ir al estado 216
-    '/'  desplazar e ir al estado 217
-    '%'  desplazar e ir al estado 218
-
-    $default  reduce usando la regla 178 (expresion_aditiva)
-
-
-Estado 293
-
-  179 expresion_aditiva: expresion_aditiva '-' expresion_multiplicativa •
-  181 expresion_multiplicativa: expresion_multiplicativa • '*' expresion_de_casteo
-  182                         | expresion_multiplicativa • '/' expresion_de_casteo
-  183                         | expresion_multiplicativa • '%' expresion_de_casteo
+  179 expresion_aditiva: expresion_aditiva '+' expresion_multiplicativa •
+  182 expresion_multiplicativa: expresion_multiplicativa • '*' expresion_de_casteo
+  183                         | expresion_multiplicativa • '/' expresion_de_casteo
+  184                         | expresion_multiplicativa • '%' expresion_de_casteo
 
     '*'  desplazar e ir al estado 216
     '/'  desplazar e ir al estado 217
@@ -5637,59 +5627,73 @@ Estado 293
     $default  reduce usando la regla 179 (expresion_aditiva)
 
 
+Estado 293
+
+  180 expresion_aditiva: expresion_aditiva '-' expresion_multiplicativa •
+  182 expresion_multiplicativa: expresion_multiplicativa • '*' expresion_de_casteo
+  183                         | expresion_multiplicativa • '/' expresion_de_casteo
+  184                         | expresion_multiplicativa • '%' expresion_de_casteo
+
+    '*'  desplazar e ir al estado 216
+    '/'  desplazar e ir al estado 217
+    '%'  desplazar e ir al estado 218
+
+    $default  reduce usando la regla 180 (expresion_aditiva)
+
+
 Estado 294
 
-  181 expresion_multiplicativa: expresion_multiplicativa '*' expresion_de_casteo •
-
-    $default  reduce usando la regla 181 (expresion_multiplicativa)
-
-
-Estado 295
-
-  182 expresion_multiplicativa: expresion_multiplicativa '/' expresion_de_casteo •
+  182 expresion_multiplicativa: expresion_multiplicativa '*' expresion_de_casteo •
 
     $default  reduce usando la regla 182 (expresion_multiplicativa)
 
 
-Estado 296
+Estado 295
 
-  183 expresion_multiplicativa: expresion_multiplicativa '%' expresion_de_casteo •
+  183 expresion_multiplicativa: expresion_multiplicativa '/' expresion_de_casteo •
 
     $default  reduce usando la regla 183 (expresion_multiplicativa)
 
 
+Estado 296
+
+  184 expresion_multiplicativa: expresion_multiplicativa '%' expresion_de_casteo •
+
+    $default  reduce usando la regla 184 (expresion_multiplicativa)
+
+
 Estado 297
 
-  141 expresion_de_asignacion: expresion_unaria operador_de_asignacion expresion_de_asignacion •
+  142 expresion_de_asignacion: expresion_unaria operador_de_asignacion expresion_de_asignacion •
 
-    $default  reduce usando la regla 141 (expresion_de_asignacion)
+    $default  reduce usando la regla 142 (expresion_de_asignacion)
 
 
 Estado 298
 
-  203 expresion_posfija: expresion_posfija OPERADOR_FLECHA IDENTIFICADOR •
+  204 expresion_posfija: expresion_posfija OPERADOR_FLECHA IDENTIFICADOR •
 
-    $default  reduce usando la regla 203 (expresion_posfija)
+    $default  reduce usando la regla 204 (expresion_posfija)
 
 
 Estado 299
 
-  200 expresion_posfija: expresion_posfija '(' ')' •
+  201 expresion_posfija: expresion_posfija '(' ')' •
 
-    $default  reduce usando la regla 200 (expresion_posfija)
+    $default  reduce usando la regla 201 (expresion_posfija)
 
 
 Estado 300
 
-  210 lista_de_expresiones_de_argumentos: expresion_de_asignacion •
+  211 lista_de_expresiones_de_argumentos: expresion_de_asignacion •
 
-    $default  reduce usando la regla 210 (lista_de_expresiones_de_argumentos)
+    $default  reduce usando la regla 211 (lista_de_expresiones_de_argumentos)
 
 
 Estado 301
 
-  201 expresion_posfija: expresion_posfija '(' lista_de_expresiones_de_argumentos • ')'
-  211 lista_de_expresiones_de_argumentos: lista_de_expresiones_de_argumentos • ',' expresion_de_asignacion
+  202 expresion_posfija: expresion_posfija '(' lista_de_expresiones_de_argumentos • ')'
+  212 lista_de_expresiones_de_argumentos: lista_de_expresiones_de_argumentos • ',' expresion_de_asignacion
 
     ','  desplazar e ir al estado 328
     ')'  desplazar e ir al estado 329
@@ -5697,8 +5701,8 @@ Estado 301
 
 Estado 302
 
-  139 expresion: expresion • ',' expresion_de_asignacion
-  199 expresion_posfija: expresion_posfija '[' expresion • ']'
+  140 expresion: expresion • ',' expresion_de_asignacion
+  200 expresion_posfija: expresion_posfija '[' expresion • ']'
 
     ','  desplazar e ir al estado 198
     ']'  desplazar e ir al estado 330
@@ -5706,9 +5710,9 @@ Estado 302
 
 Estado 303
 
-  202 expresion_posfija: expresion_posfija '.' IDENTIFICADOR •
+  203 expresion_posfija: expresion_posfija '.' IDENTIFICADOR •
 
-    $default  reduce usando la regla 202 (expresion_posfija)
+    $default  reduce usando la regla 203 (expresion_posfija)
 
 
 Estado 304
@@ -5916,9 +5920,9 @@ Estado 316
 
 Estado 317
 
-  191 expresion_unaria: SIZEOF '(' nombre_de_tipo ')' •
+  192 expresion_unaria: SIZEOF '(' nombre_de_tipo ')' •
 
-    $default  reduce usando la regla 191 (expresion_unaria)
+    $default  reduce usando la regla 192 (expresion_unaria)
 
 
 Estado 318
@@ -5930,7 +5934,8 @@ Estado 318
 
 Estado 319
 
-  121 sentencia_de_seleccion: IF '(' expresion ')' • sentencia IF '(' expresion ')' sentencia ELSE sentencia
+  121 sentencia_de_seleccion: IF '(' expresion ')' • sentencia
+  122                       | IF '(' expresion ')' • sentencia ELSE sentencia
 
     IDENTIFICADOR             desplazar e ir al estado 80
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -5995,7 +6000,7 @@ Estado 319
 
 Estado 320
 
-  122 sentencia_de_seleccion: SWITCH '(' expresion ')' • sentencia
+  123 sentencia_de_seleccion: SWITCH '(' expresion ')' • sentencia
 
     IDENTIFICADOR             desplazar e ir al estado 80
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -6060,7 +6065,7 @@ Estado 320
 
 Estado 321
 
-  123 sentencia_de_iteracion: WHILE '(' expresion ')' • sentencia
+  124 sentencia_de_iteracion: WHILE '(' expresion ')' • sentencia
 
     IDENTIFICADOR             desplazar e ir al estado 80
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -6125,7 +6130,7 @@ Estado 321
 
 Estado 322
 
-  124 sentencia_de_iteracion: DO sentencia WHILE '(' • expresion ')' ';'
+  125 sentencia_de_iteracion: DO sentencia WHILE '(' • expresion ')' ';'
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -6170,8 +6175,8 @@ Estado 322
 
 Estado 323
 
-  125 sentencia_de_iteracion: FOR '(' ';' ';' • ')' sentencia
-  128                       | FOR '(' ';' ';' • expresion ')' sentencia
+  126 sentencia_de_iteracion: FOR '(' ';' ';' • ')' sentencia
+  129                       | FOR '(' ';' ';' • expresion ')' sentencia
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -6217,9 +6222,9 @@ Estado 323
 
 Estado 324
 
-  127 sentencia_de_iteracion: FOR '(' ';' expresion • ';' ')' sentencia
-  131                       | FOR '(' ';' expresion • ';' expresion ')' sentencia
-  139 expresion: expresion • ',' expresion_de_asignacion
+  128 sentencia_de_iteracion: FOR '(' ';' expresion • ';' ')' sentencia
+  132                       | FOR '(' ';' expresion • ';' expresion ')' sentencia
+  140 expresion: expresion • ',' expresion_de_asignacion
 
     ','  desplazar e ir al estado 198
     ';'  desplazar e ir al estado 344
@@ -6227,10 +6232,10 @@ Estado 324
 
 Estado 325
 
-  126 sentencia_de_iteracion: FOR '(' expresion ';' • ';' ')' sentencia
-  129                       | FOR '(' expresion ';' • expresion ';' ')' sentencia
-  130                       | FOR '(' expresion ';' • ';' expresion ')' sentencia
-  132                       | FOR '(' expresion ';' • expresion ';' expresion ')' sentencia
+  127 sentencia_de_iteracion: FOR '(' expresion ';' • ';' ')' sentencia
+  130                       | FOR '(' expresion ';' • expresion ';' ')' sentencia
+  131                       | FOR '(' expresion ';' • ';' expresion ')' sentencia
+  133                       | FOR '(' expresion ';' • expresion ';' expresion ')' sentencia
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -6276,14 +6281,14 @@ Estado 325
 
 Estado 326
 
-  185 expresion_de_casteo: '(' nombre_de_tipo ')' expresion_de_casteo •
+  186 expresion_de_casteo: '(' nombre_de_tipo ')' expresion_de_casteo •
 
-    $default  reduce usando la regla 185 (expresion_de_casteo)
+    $default  reduce usando la regla 186 (expresion_de_casteo)
 
 
 Estado 327
 
-  154 expresion_condicional: expresion_logica_OR '?' expresion ':' • expresion_condicional
+  155 expresion_condicional: expresion_logica_OR '?' expresion ':' • expresion_condicional
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -6326,7 +6331,7 @@ Estado 327
 
 Estado 328
 
-  211 lista_de_expresiones_de_argumentos: lista_de_expresiones_de_argumentos ',' • expresion_de_asignacion
+  212 lista_de_expresiones_de_argumentos: lista_de_expresiones_de_argumentos ',' • expresion_de_asignacion
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -6370,16 +6375,16 @@ Estado 328
 
 Estado 329
 
-  201 expresion_posfija: expresion_posfija '(' lista_de_expresiones_de_argumentos ')' •
+  202 expresion_posfija: expresion_posfija '(' lista_de_expresiones_de_argumentos ')' •
 
-    $default  reduce usando la regla 201 (expresion_posfija)
+    $default  reduce usando la regla 202 (expresion_posfija)
 
 
 Estado 330
 
-  199 expresion_posfija: expresion_posfija '[' expresion ']' •
+  200 expresion_posfija: expresion_posfija '[' expresion ']' •
 
-    $default  reduce usando la regla 199 (expresion_posfija)
+    $default  reduce usando la regla 200 (expresion_posfija)
 
 
 Estado 331
@@ -6433,29 +6438,32 @@ Estado 337
 
 Estado 338
 
-  121 sentencia_de_seleccion: IF '(' expresion ')' sentencia • IF '(' expresion ')' sentencia ELSE sentencia
+  121 sentencia_de_seleccion: IF '(' expresion ')' sentencia •
+  122                       | IF '(' expresion ')' sentencia • ELSE sentencia
 
-    IF  desplazar e ir al estado 351
+    ELSE  desplazar e ir al estado 351
+
+    $default  reduce usando la regla 121 (sentencia_de_seleccion)
 
 
 Estado 339
 
-  122 sentencia_de_seleccion: SWITCH '(' expresion ')' sentencia •
+  123 sentencia_de_seleccion: SWITCH '(' expresion ')' sentencia •
 
-    $default  reduce usando la regla 122 (sentencia_de_seleccion)
+    $default  reduce usando la regla 123 (sentencia_de_seleccion)
 
 
 Estado 340
 
-  123 sentencia_de_iteracion: WHILE '(' expresion ')' sentencia •
+  124 sentencia_de_iteracion: WHILE '(' expresion ')' sentencia •
 
-    $default  reduce usando la regla 123 (sentencia_de_iteracion)
+    $default  reduce usando la regla 124 (sentencia_de_iteracion)
 
 
 Estado 341
 
-  124 sentencia_de_iteracion: DO sentencia WHILE '(' expresion • ')' ';'
-  139 expresion: expresion • ',' expresion_de_asignacion
+  125 sentencia_de_iteracion: DO sentencia WHILE '(' expresion • ')' ';'
+  140 expresion: expresion • ',' expresion_de_asignacion
 
     ','  desplazar e ir al estado 198
     ')'  desplazar e ir al estado 352
@@ -6463,7 +6471,7 @@ Estado 341
 
 Estado 342
 
-  125 sentencia_de_iteracion: FOR '(' ';' ';' ')' • sentencia
+  126 sentencia_de_iteracion: FOR '(' ';' ';' ')' • sentencia
 
     IDENTIFICADOR             desplazar e ir al estado 80
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -6528,8 +6536,8 @@ Estado 342
 
 Estado 343
 
-  128 sentencia_de_iteracion: FOR '(' ';' ';' expresion • ')' sentencia
-  139 expresion: expresion • ',' expresion_de_asignacion
+  129 sentencia_de_iteracion: FOR '(' ';' ';' expresion • ')' sentencia
+  140 expresion: expresion • ',' expresion_de_asignacion
 
     ','  desplazar e ir al estado 198
     ')'  desplazar e ir al estado 354
@@ -6537,8 +6545,8 @@ Estado 343
 
 Estado 344
 
-  127 sentencia_de_iteracion: FOR '(' ';' expresion ';' • ')' sentencia
-  131                       | FOR '(' ';' expresion ';' • expresion ')' sentencia
+  128 sentencia_de_iteracion: FOR '(' ';' expresion ';' • ')' sentencia
+  132                       | FOR '(' ';' expresion ';' • expresion ')' sentencia
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -6584,8 +6592,8 @@ Estado 344
 
 Estado 345
 
-  126 sentencia_de_iteracion: FOR '(' expresion ';' ';' • ')' sentencia
-  130                       | FOR '(' expresion ';' ';' • expresion ')' sentencia
+  127 sentencia_de_iteracion: FOR '(' expresion ';' ';' • ')' sentencia
+  131                       | FOR '(' expresion ';' ';' • expresion ')' sentencia
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -6631,9 +6639,9 @@ Estado 345
 
 Estado 346
 
-  129 sentencia_de_iteracion: FOR '(' expresion ';' expresion • ';' ')' sentencia
-  132                       | FOR '(' expresion ';' expresion • ';' expresion ')' sentencia
-  139 expresion: expresion • ',' expresion_de_asignacion
+  130 sentencia_de_iteracion: FOR '(' expresion ';' expresion • ';' ')' sentencia
+  133                       | FOR '(' expresion ';' expresion • ';' expresion ')' sentencia
+  140 expresion: expresion • ',' expresion_de_asignacion
 
     ','  desplazar e ir al estado 198
     ';'  desplazar e ir al estado 359
@@ -6641,16 +6649,16 @@ Estado 346
 
 Estado 347
 
-  154 expresion_condicional: expresion_logica_OR '?' expresion ':' expresion_condicional •
+  155 expresion_condicional: expresion_logica_OR '?' expresion ':' expresion_condicional •
 
-    $default  reduce usando la regla 154 (expresion_condicional)
+    $default  reduce usando la regla 155 (expresion_condicional)
 
 
 Estado 348
 
-  211 lista_de_expresiones_de_argumentos: lista_de_expresiones_de_argumentos ',' expresion_de_asignacion •
+  212 lista_de_expresiones_de_argumentos: lista_de_expresiones_de_argumentos ',' expresion_de_asignacion •
 
-    $default  reduce usando la regla 211 (lista_de_expresiones_de_argumentos)
+    $default  reduce usando la regla 212 (lista_de_expresiones_de_argumentos)
 
 
 Estado 349
@@ -6669,28 +6677,86 @@ Estado 350
 
 Estado 351
 
-  121 sentencia_de_seleccion: IF '(' expresion ')' sentencia IF • '(' expresion ')' sentencia ELSE sentencia
+  122 sentencia_de_seleccion: IF '(' expresion ')' sentencia ELSE • sentencia
 
-    '('  desplazar e ir al estado 360
+    IDENTIFICADOR             desplazar e ir al estado 80
+    CADENA_DE_CARACTERES      desplazar e ir al estado 81
+    CONSTANTE_CARACTER        desplazar e ir al estado 82
+    CONSTANTE_DE_ENUMERACION  desplazar e ir al estado 83
+    CONSTANTE_REAL            desplazar e ir al estado 84
+    CONSTANTE_DECIMAL         desplazar e ir al estado 85
+    CONSTANTE_OCTAL           desplazar e ir al estado 86
+    CONSTANTE_HEXADECIMAL     desplazar e ir al estado 87
+    INCREMENTO                desplazar e ir al estado 88
+    DECREMENTO                desplazar e ir al estado 89
+    SIZEOF                    desplazar e ir al estado 90
+    CASE                      desplazar e ir al estado 91
+    DEFAULT                   desplazar e ir al estado 92
+    IF                        desplazar e ir al estado 93
+    SWITCH                    desplazar e ir al estado 94
+    WHILE                     desplazar e ir al estado 95
+    DO                        desplazar e ir al estado 96
+    FOR                       desplazar e ir al estado 97
+    GOTO                      desplazar e ir al estado 98
+    CONTINUE                  desplazar e ir al estado 99
+    BREAK                     desplazar e ir al estado 100
+    RETURN                    desplazar e ir al estado 101
+    '&'                       desplazar e ir al estado 102
+    '+'                       desplazar e ir al estado 103
+    '-'                       desplazar e ir al estado 104
+    '*'                       desplazar e ir al estado 105
+    '('                       desplazar e ir al estado 106
+    '~'                       desplazar e ir al estado 107
+    '!'                       desplazar e ir al estado 108
+    ';'                       desplazar e ir al estado 109
+    '{'                       desplazar e ir al estado 54
+
+    sentencia                    ir al estado 360
+    sentencia_de_etiqueta        ir al estado 113
+    sentencia_de_expresion       ir al estado 114
+    sentencia_compuesta          ir al estado 115
+    sentencia_de_seleccion       ir al estado 117
+    sentencia_de_iteracion       ir al estado 118
+    sentencia_de_salto           ir al estado 119
+    expresion                    ir al estado 120
+    expresion_de_asignacion      ir al estado 121
+    expresion_condicional        ir al estado 122
+    expresion_logica_OR          ir al estado 123
+    expresion_logica_AND         ir al estado 124
+    expresion_OR_inclusiva       ir al estado 125
+    expresion_XOR                ir al estado 126
+    expresion_AND                ir al estado 127
+    expresion_de_igualdad        ir al estado 128
+    expresion_relacional         ir al estado 129
+    expresion_de_desplazamiento  ir al estado 130
+    expresion_aditiva            ir al estado 131
+    expresion_multiplicativa     ir al estado 132
+    expresion_de_casteo          ir al estado 133
+    expresion_unaria             ir al estado 134
+    operador_unario              ir al estado 135
+    expresion_posfija            ir al estado 136
+    expresion_primaria           ir al estado 137
+    constante                    ir al estado 138
+    constante_entera             ir al estado 139
 
 
 Estado 352
 
-  124 sentencia_de_iteracion: DO sentencia WHILE '(' expresion ')' • ';'
+  125 sentencia_de_iteracion: DO sentencia WHILE '(' expresion ')' • ';'
 
     ';'  desplazar e ir al estado 361
 
 
 Estado 353
 
-  125 sentencia_de_iteracion: FOR '(' ';' ';' ')' sentencia •
+  126 sentencia_de_iteracion: FOR '(' ';' ';' ')' sentencia •
 
-    $default  reduce usando la regla 125 (sentencia_de_iteracion)
+    $default  reduce usando la regla 126 (sentencia_de_iteracion)
 
 
 Estado 354
 
-  128 sentencia_de_iteracion: FOR '(' ';' ';' expresion ')' • sentencia
+  129 sentencia_de_iteracion: FOR '(' ';' ';' expresion ')' • sentencia
 
     IDENTIFICADOR             desplazar e ir al estado 80
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -6755,7 +6821,7 @@ Estado 354
 
 Estado 355
 
-  127 sentencia_de_iteracion: FOR '(' ';' expresion ';' ')' • sentencia
+  128 sentencia_de_iteracion: FOR '(' ';' expresion ';' ')' • sentencia
 
     IDENTIFICADOR             desplazar e ir al estado 80
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -6820,8 +6886,8 @@ Estado 355
 
 Estado 356
 
-  131 sentencia_de_iteracion: FOR '(' ';' expresion ';' expresion • ')' sentencia
-  139 expresion: expresion • ',' expresion_de_asignacion
+  132 sentencia_de_iteracion: FOR '(' ';' expresion ';' expresion • ')' sentencia
+  140 expresion: expresion • ',' expresion_de_asignacion
 
     ','  desplazar e ir al estado 198
     ')'  desplazar e ir al estado 364
@@ -6829,7 +6895,7 @@ Estado 356
 
 Estado 357
 
-  126 sentencia_de_iteracion: FOR '(' expresion ';' ';' ')' • sentencia
+  127 sentencia_de_iteracion: FOR '(' expresion ';' ';' ')' • sentencia
 
     IDENTIFICADOR             desplazar e ir al estado 80
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -6894,8 +6960,8 @@ Estado 357
 
 Estado 358
 
-  130 sentencia_de_iteracion: FOR '(' expresion ';' ';' expresion • ')' sentencia
-  139 expresion: expresion • ',' expresion_de_asignacion
+  131 sentencia_de_iteracion: FOR '(' expresion ';' ';' expresion • ')' sentencia
+  140 expresion: expresion • ',' expresion_de_asignacion
 
     ','  desplazar e ir al estado 198
     ')'  desplazar e ir al estado 366
@@ -6903,8 +6969,8 @@ Estado 358
 
 Estado 359
 
-  129 sentencia_de_iteracion: FOR '(' expresion ';' expresion ';' • ')' sentencia
-  132                       | FOR '(' expresion ';' expresion ';' • expresion ')' sentencia
+  130 sentencia_de_iteracion: FOR '(' expresion ';' expresion ';' • ')' sentencia
+  133                       | FOR '(' expresion ';' expresion ';' • expresion ')' sentencia
 
     IDENTIFICADOR             desplazar e ir al estado 150
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -6950,9 +7016,37 @@ Estado 359
 
 Estado 360
 
-  121 sentencia_de_seleccion: IF '(' expresion ')' sentencia IF '(' • expresion ')' sentencia ELSE sentencia
+  122 sentencia_de_seleccion: IF '(' expresion ')' sentencia ELSE sentencia •
 
-    IDENTIFICADOR             desplazar e ir al estado 150
+    $default  reduce usando la regla 122 (sentencia_de_seleccion)
+
+
+Estado 361
+
+  125 sentencia_de_iteracion: DO sentencia WHILE '(' expresion ')' ';' •
+
+    $default  reduce usando la regla 125 (sentencia_de_iteracion)
+
+
+Estado 362
+
+  129 sentencia_de_iteracion: FOR '(' ';' ';' expresion ')' sentencia •
+
+    $default  reduce usando la regla 129 (sentencia_de_iteracion)
+
+
+Estado 363
+
+  128 sentencia_de_iteracion: FOR '(' ';' expresion ';' ')' sentencia •
+
+    $default  reduce usando la regla 128 (sentencia_de_iteracion)
+
+
+Estado 364
+
+  132 sentencia_de_iteracion: FOR '(' ';' expresion ';' expresion ')' • sentencia
+
+    IDENTIFICADOR             desplazar e ir al estado 80
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
     CONSTANTE_CARACTER        desplazar e ir al estado 82
     CONSTANTE_DE_ENUMERACION  desplazar e ir al estado 83
@@ -6963,6 +7057,17 @@ Estado 360
     INCREMENTO                desplazar e ir al estado 88
     DECREMENTO                desplazar e ir al estado 89
     SIZEOF                    desplazar e ir al estado 90
+    CASE                      desplazar e ir al estado 91
+    DEFAULT                   desplazar e ir al estado 92
+    IF                        desplazar e ir al estado 93
+    SWITCH                    desplazar e ir al estado 94
+    WHILE                     desplazar e ir al estado 95
+    DO                        desplazar e ir al estado 96
+    FOR                       desplazar e ir al estado 97
+    GOTO                      desplazar e ir al estado 98
+    CONTINUE                  desplazar e ir al estado 99
+    BREAK                     desplazar e ir al estado 100
+    RETURN                    desplazar e ir al estado 101
     '&'                       desplazar e ir al estado 102
     '+'                       desplazar e ir al estado 103
     '-'                       desplazar e ir al estado 104
@@ -6970,8 +7075,17 @@ Estado 360
     '('                       desplazar e ir al estado 106
     '~'                       desplazar e ir al estado 107
     '!'                       desplazar e ir al estado 108
+    ';'                       desplazar e ir al estado 109
+    '{'                       desplazar e ir al estado 54
 
-    expresion                    ir al estado 369
+    sentencia                    ir al estado 369
+    sentencia_de_etiqueta        ir al estado 113
+    sentencia_de_expresion       ir al estado 114
+    sentencia_compuesta          ir al estado 115
+    sentencia_de_seleccion       ir al estado 117
+    sentencia_de_iteracion       ir al estado 118
+    sentencia_de_salto           ir al estado 119
+    expresion                    ir al estado 120
     expresion_de_asignacion      ir al estado 121
     expresion_condicional        ir al estado 122
     expresion_logica_OR          ir al estado 123
@@ -6993,30 +7107,16 @@ Estado 360
     constante_entera             ir al estado 139
 
 
-Estado 361
+Estado 365
 
-  124 sentencia_de_iteracion: DO sentencia WHILE '(' expresion ')' ';' •
-
-    $default  reduce usando la regla 124 (sentencia_de_iteracion)
-
-
-Estado 362
-
-  128 sentencia_de_iteracion: FOR '(' ';' ';' expresion ')' sentencia •
-
-    $default  reduce usando la regla 128 (sentencia_de_iteracion)
-
-
-Estado 363
-
-  127 sentencia_de_iteracion: FOR '(' ';' expresion ';' ')' sentencia •
+  127 sentencia_de_iteracion: FOR '(' expresion ';' ';' ')' sentencia •
 
     $default  reduce usando la regla 127 (sentencia_de_iteracion)
 
 
-Estado 364
+Estado 366
 
-  131 sentencia_de_iteracion: FOR '(' ';' expresion ';' expresion ')' • sentencia
+  131 sentencia_de_iteracion: FOR '(' expresion ';' ';' expresion ')' • sentencia
 
     IDENTIFICADOR             desplazar e ir al estado 80
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -7079,16 +7179,9 @@ Estado 364
     constante_entera             ir al estado 139
 
 
-Estado 365
+Estado 367
 
-  126 sentencia_de_iteracion: FOR '(' expresion ';' ';' ')' sentencia •
-
-    $default  reduce usando la regla 126 (sentencia_de_iteracion)
-
-
-Estado 366
-
-  130 sentencia_de_iteracion: FOR '(' expresion ';' ';' expresion ')' • sentencia
+  130 sentencia_de_iteracion: FOR '(' expresion ';' expresion ';' ')' • sentencia
 
     IDENTIFICADOR             desplazar e ir al estado 80
     CADENA_DE_CARACTERES      desplazar e ir al estado 81
@@ -7151,321 +7244,103 @@ Estado 366
     constante_entera             ir al estado 139
 
 
-Estado 367
-
-  129 sentencia_de_iteracion: FOR '(' expresion ';' expresion ';' ')' • sentencia
-
-    IDENTIFICADOR             desplazar e ir al estado 80
-    CADENA_DE_CARACTERES      desplazar e ir al estado 81
-    CONSTANTE_CARACTER        desplazar e ir al estado 82
-    CONSTANTE_DE_ENUMERACION  desplazar e ir al estado 83
-    CONSTANTE_REAL            desplazar e ir al estado 84
-    CONSTANTE_DECIMAL         desplazar e ir al estado 85
-    CONSTANTE_OCTAL           desplazar e ir al estado 86
-    CONSTANTE_HEXADECIMAL     desplazar e ir al estado 87
-    INCREMENTO                desplazar e ir al estado 88
-    DECREMENTO                desplazar e ir al estado 89
-    SIZEOF                    desplazar e ir al estado 90
-    CASE                      desplazar e ir al estado 91
-    DEFAULT                   desplazar e ir al estado 92
-    IF                        desplazar e ir al estado 93
-    SWITCH                    desplazar e ir al estado 94
-    WHILE                     desplazar e ir al estado 95
-    DO                        desplazar e ir al estado 96
-    FOR                       desplazar e ir al estado 97
-    GOTO                      desplazar e ir al estado 98
-    CONTINUE                  desplazar e ir al estado 99
-    BREAK                     desplazar e ir al estado 100
-    RETURN                    desplazar e ir al estado 101
-    '&'                       desplazar e ir al estado 102
-    '+'                       desplazar e ir al estado 103
-    '-'                       desplazar e ir al estado 104
-    '*'                       desplazar e ir al estado 105
-    '('                       desplazar e ir al estado 106
-    '~'                       desplazar e ir al estado 107
-    '!'                       desplazar e ir al estado 108
-    ';'                       desplazar e ir al estado 109
-    '{'                       desplazar e ir al estado 54
-
-    sentencia                    ir al estado 372
-    sentencia_de_etiqueta        ir al estado 113
-    sentencia_de_expresion       ir al estado 114
-    sentencia_compuesta          ir al estado 115
-    sentencia_de_seleccion       ir al estado 117
-    sentencia_de_iteracion       ir al estado 118
-    sentencia_de_salto           ir al estado 119
-    expresion                    ir al estado 120
-    expresion_de_asignacion      ir al estado 121
-    expresion_condicional        ir al estado 122
-    expresion_logica_OR          ir al estado 123
-    expresion_logica_AND         ir al estado 124
-    expresion_OR_inclusiva       ir al estado 125
-    expresion_XOR                ir al estado 126
-    expresion_AND                ir al estado 127
-    expresion_de_igualdad        ir al estado 128
-    expresion_relacional         ir al estado 129
-    expresion_de_desplazamiento  ir al estado 130
-    expresion_aditiva            ir al estado 131
-    expresion_multiplicativa     ir al estado 132
-    expresion_de_casteo          ir al estado 133
-    expresion_unaria             ir al estado 134
-    operador_unario              ir al estado 135
-    expresion_posfija            ir al estado 136
-    expresion_primaria           ir al estado 137
-    constante                    ir al estado 138
-    constante_entera             ir al estado 139
-
-
 Estado 368
 
-  132 sentencia_de_iteracion: FOR '(' expresion ';' expresion ';' expresion • ')' sentencia
-  139 expresion: expresion • ',' expresion_de_asignacion
+  133 sentencia_de_iteracion: FOR '(' expresion ';' expresion ';' expresion • ')' sentencia
+  140 expresion: expresion • ',' expresion_de_asignacion
 
     ','  desplazar e ir al estado 198
-    ')'  desplazar e ir al estado 373
+    ')'  desplazar e ir al estado 372
 
 
 Estado 369
 
-  121 sentencia_de_seleccion: IF '(' expresion ')' sentencia IF '(' expresion • ')' sentencia ELSE sentencia
-  139 expresion: expresion • ',' expresion_de_asignacion
+  132 sentencia_de_iteracion: FOR '(' ';' expresion ';' expresion ')' sentencia •
 
-    ','  desplazar e ir al estado 198
-    ')'  desplazar e ir al estado 374
+    $default  reduce usando la regla 132 (sentencia_de_iteracion)
 
 
 Estado 370
 
-  131 sentencia_de_iteracion: FOR '(' ';' expresion ';' expresion ')' sentencia •
+  131 sentencia_de_iteracion: FOR '(' expresion ';' ';' expresion ')' sentencia •
 
     $default  reduce usando la regla 131 (sentencia_de_iteracion)
 
 
 Estado 371
 
-  130 sentencia_de_iteracion: FOR '(' expresion ';' ';' expresion ')' sentencia •
+  130 sentencia_de_iteracion: FOR '(' expresion ';' expresion ';' ')' sentencia •
 
     $default  reduce usando la regla 130 (sentencia_de_iteracion)
 
 
 Estado 372
 
-  129 sentencia_de_iteracion: FOR '(' expresion ';' expresion ';' ')' sentencia •
+  133 sentencia_de_iteracion: FOR '(' expresion ';' expresion ';' expresion ')' • sentencia
 
-    $default  reduce usando la regla 129 (sentencia_de_iteracion)
+    IDENTIFICADOR             desplazar e ir al estado 80
+    CADENA_DE_CARACTERES      desplazar e ir al estado 81
+    CONSTANTE_CARACTER        desplazar e ir al estado 82
+    CONSTANTE_DE_ENUMERACION  desplazar e ir al estado 83
+    CONSTANTE_REAL            desplazar e ir al estado 84
+    CONSTANTE_DECIMAL         desplazar e ir al estado 85
+    CONSTANTE_OCTAL           desplazar e ir al estado 86
+    CONSTANTE_HEXADECIMAL     desplazar e ir al estado 87
+    INCREMENTO                desplazar e ir al estado 88
+    DECREMENTO                desplazar e ir al estado 89
+    SIZEOF                    desplazar e ir al estado 90
+    CASE                      desplazar e ir al estado 91
+    DEFAULT                   desplazar e ir al estado 92
+    IF                        desplazar e ir al estado 93
+    SWITCH                    desplazar e ir al estado 94
+    WHILE                     desplazar e ir al estado 95
+    DO                        desplazar e ir al estado 96
+    FOR                       desplazar e ir al estado 97
+    GOTO                      desplazar e ir al estado 98
+    CONTINUE                  desplazar e ir al estado 99
+    BREAK                     desplazar e ir al estado 100
+    RETURN                    desplazar e ir al estado 101
+    '&'                       desplazar e ir al estado 102
+    '+'                       desplazar e ir al estado 103
+    '-'                       desplazar e ir al estado 104
+    '*'                       desplazar e ir al estado 105
+    '('                       desplazar e ir al estado 106
+    '~'                       desplazar e ir al estado 107
+    '!'                       desplazar e ir al estado 108
+    ';'                       desplazar e ir al estado 109
+    '{'                       desplazar e ir al estado 54
+
+    sentencia                    ir al estado 373
+    sentencia_de_etiqueta        ir al estado 113
+    sentencia_de_expresion       ir al estado 114
+    sentencia_compuesta          ir al estado 115
+    sentencia_de_seleccion       ir al estado 117
+    sentencia_de_iteracion       ir al estado 118
+    sentencia_de_salto           ir al estado 119
+    expresion                    ir al estado 120
+    expresion_de_asignacion      ir al estado 121
+    expresion_condicional        ir al estado 122
+    expresion_logica_OR          ir al estado 123
+    expresion_logica_AND         ir al estado 124
+    expresion_OR_inclusiva       ir al estado 125
+    expresion_XOR                ir al estado 126
+    expresion_AND                ir al estado 127
+    expresion_de_igualdad        ir al estado 128
+    expresion_relacional         ir al estado 129
+    expresion_de_desplazamiento  ir al estado 130
+    expresion_aditiva            ir al estado 131
+    expresion_multiplicativa     ir al estado 132
+    expresion_de_casteo          ir al estado 133
+    expresion_unaria             ir al estado 134
+    operador_unario              ir al estado 135
+    expresion_posfija            ir al estado 136
+    expresion_primaria           ir al estado 137
+    constante                    ir al estado 138
+    constante_entera             ir al estado 139
 
 
 Estado 373
 
-  132 sentencia_de_iteracion: FOR '(' expresion ';' expresion ';' expresion ')' • sentencia
+  133 sentencia_de_iteracion: FOR '(' expresion ';' expresion ';' expresion ')' sentencia •
 
-    IDENTIFICADOR             desplazar e ir al estado 80
-    CADENA_DE_CARACTERES      desplazar e ir al estado 81
-    CONSTANTE_CARACTER        desplazar e ir al estado 82
-    CONSTANTE_DE_ENUMERACION  desplazar e ir al estado 83
-    CONSTANTE_REAL            desplazar e ir al estado 84
-    CONSTANTE_DECIMAL         desplazar e ir al estado 85
-    CONSTANTE_OCTAL           desplazar e ir al estado 86
-    CONSTANTE_HEXADECIMAL     desplazar e ir al estado 87
-    INCREMENTO                desplazar e ir al estado 88
-    DECREMENTO                desplazar e ir al estado 89
-    SIZEOF                    desplazar e ir al estado 90
-    CASE                      desplazar e ir al estado 91
-    DEFAULT                   desplazar e ir al estado 92
-    IF                        desplazar e ir al estado 93
-    SWITCH                    desplazar e ir al estado 94
-    WHILE                     desplazar e ir al estado 95
-    DO                        desplazar e ir al estado 96
-    FOR                       desplazar e ir al estado 97
-    GOTO                      desplazar e ir al estado 98
-    CONTINUE                  desplazar e ir al estado 99
-    BREAK                     desplazar e ir al estado 100
-    RETURN                    desplazar e ir al estado 101
-    '&'                       desplazar e ir al estado 102
-    '+'                       desplazar e ir al estado 103
-    '-'                       desplazar e ir al estado 104
-    '*'                       desplazar e ir al estado 105
-    '('                       desplazar e ir al estado 106
-    '~'                       desplazar e ir al estado 107
-    '!'                       desplazar e ir al estado 108
-    ';'                       desplazar e ir al estado 109
-    '{'                       desplazar e ir al estado 54
-
-    sentencia                    ir al estado 375
-    sentencia_de_etiqueta        ir al estado 113
-    sentencia_de_expresion       ir al estado 114
-    sentencia_compuesta          ir al estado 115
-    sentencia_de_seleccion       ir al estado 117
-    sentencia_de_iteracion       ir al estado 118
-    sentencia_de_salto           ir al estado 119
-    expresion                    ir al estado 120
-    expresion_de_asignacion      ir al estado 121
-    expresion_condicional        ir al estado 122
-    expresion_logica_OR          ir al estado 123
-    expresion_logica_AND         ir al estado 124
-    expresion_OR_inclusiva       ir al estado 125
-    expresion_XOR                ir al estado 126
-    expresion_AND                ir al estado 127
-    expresion_de_igualdad        ir al estado 128
-    expresion_relacional         ir al estado 129
-    expresion_de_desplazamiento  ir al estado 130
-    expresion_aditiva            ir al estado 131
-    expresion_multiplicativa     ir al estado 132
-    expresion_de_casteo          ir al estado 133
-    expresion_unaria             ir al estado 134
-    operador_unario              ir al estado 135
-    expresion_posfija            ir al estado 136
-    expresion_primaria           ir al estado 137
-    constante                    ir al estado 138
-    constante_entera             ir al estado 139
-
-
-Estado 374
-
-  121 sentencia_de_seleccion: IF '(' expresion ')' sentencia IF '(' expresion ')' • sentencia ELSE sentencia
-
-    IDENTIFICADOR             desplazar e ir al estado 80
-    CADENA_DE_CARACTERES      desplazar e ir al estado 81
-    CONSTANTE_CARACTER        desplazar e ir al estado 82
-    CONSTANTE_DE_ENUMERACION  desplazar e ir al estado 83
-    CONSTANTE_REAL            desplazar e ir al estado 84
-    CONSTANTE_DECIMAL         desplazar e ir al estado 85
-    CONSTANTE_OCTAL           desplazar e ir al estado 86
-    CONSTANTE_HEXADECIMAL     desplazar e ir al estado 87
-    INCREMENTO                desplazar e ir al estado 88
-    DECREMENTO                desplazar e ir al estado 89
-    SIZEOF                    desplazar e ir al estado 90
-    CASE                      desplazar e ir al estado 91
-    DEFAULT                   desplazar e ir al estado 92
-    IF                        desplazar e ir al estado 93
-    SWITCH                    desplazar e ir al estado 94
-    WHILE                     desplazar e ir al estado 95
-    DO                        desplazar e ir al estado 96
-    FOR                       desplazar e ir al estado 97
-    GOTO                      desplazar e ir al estado 98
-    CONTINUE                  desplazar e ir al estado 99
-    BREAK                     desplazar e ir al estado 100
-    RETURN                    desplazar e ir al estado 101
-    '&'                       desplazar e ir al estado 102
-    '+'                       desplazar e ir al estado 103
-    '-'                       desplazar e ir al estado 104
-    '*'                       desplazar e ir al estado 105
-    '('                       desplazar e ir al estado 106
-    '~'                       desplazar e ir al estado 107
-    '!'                       desplazar e ir al estado 108
-    ';'                       desplazar e ir al estado 109
-    '{'                       desplazar e ir al estado 54
-
-    sentencia                    ir al estado 376
-    sentencia_de_etiqueta        ir al estado 113
-    sentencia_de_expresion       ir al estado 114
-    sentencia_compuesta          ir al estado 115
-    sentencia_de_seleccion       ir al estado 117
-    sentencia_de_iteracion       ir al estado 118
-    sentencia_de_salto           ir al estado 119
-    expresion                    ir al estado 120
-    expresion_de_asignacion      ir al estado 121
-    expresion_condicional        ir al estado 122
-    expresion_logica_OR          ir al estado 123
-    expresion_logica_AND         ir al estado 124
-    expresion_OR_inclusiva       ir al estado 125
-    expresion_XOR                ir al estado 126
-    expresion_AND                ir al estado 127
-    expresion_de_igualdad        ir al estado 128
-    expresion_relacional         ir al estado 129
-    expresion_de_desplazamiento  ir al estado 130
-    expresion_aditiva            ir al estado 131
-    expresion_multiplicativa     ir al estado 132
-    expresion_de_casteo          ir al estado 133
-    expresion_unaria             ir al estado 134
-    operador_unario              ir al estado 135
-    expresion_posfija            ir al estado 136
-    expresion_primaria           ir al estado 137
-    constante                    ir al estado 138
-    constante_entera             ir al estado 139
-
-
-Estado 375
-
-  132 sentencia_de_iteracion: FOR '(' expresion ';' expresion ';' expresion ')' sentencia •
-
-    $default  reduce usando la regla 132 (sentencia_de_iteracion)
-
-
-Estado 376
-
-  121 sentencia_de_seleccion: IF '(' expresion ')' sentencia IF '(' expresion ')' sentencia • ELSE sentencia
-
-    ELSE  desplazar e ir al estado 377
-
-
-Estado 377
-
-  121 sentencia_de_seleccion: IF '(' expresion ')' sentencia IF '(' expresion ')' sentencia ELSE • sentencia
-
-    IDENTIFICADOR             desplazar e ir al estado 80
-    CADENA_DE_CARACTERES      desplazar e ir al estado 81
-    CONSTANTE_CARACTER        desplazar e ir al estado 82
-    CONSTANTE_DE_ENUMERACION  desplazar e ir al estado 83
-    CONSTANTE_REAL            desplazar e ir al estado 84
-    CONSTANTE_DECIMAL         desplazar e ir al estado 85
-    CONSTANTE_OCTAL           desplazar e ir al estado 86
-    CONSTANTE_HEXADECIMAL     desplazar e ir al estado 87
-    INCREMENTO                desplazar e ir al estado 88
-    DECREMENTO                desplazar e ir al estado 89
-    SIZEOF                    desplazar e ir al estado 90
-    CASE                      desplazar e ir al estado 91
-    DEFAULT                   desplazar e ir al estado 92
-    IF                        desplazar e ir al estado 93
-    SWITCH                    desplazar e ir al estado 94
-    WHILE                     desplazar e ir al estado 95
-    DO                        desplazar e ir al estado 96
-    FOR                       desplazar e ir al estado 97
-    GOTO                      desplazar e ir al estado 98
-    CONTINUE                  desplazar e ir al estado 99
-    BREAK                     desplazar e ir al estado 100
-    RETURN                    desplazar e ir al estado 101
-    '&'                       desplazar e ir al estado 102
-    '+'                       desplazar e ir al estado 103
-    '-'                       desplazar e ir al estado 104
-    '*'                       desplazar e ir al estado 105
-    '('                       desplazar e ir al estado 106
-    '~'                       desplazar e ir al estado 107
-    '!'                       desplazar e ir al estado 108
-    ';'                       desplazar e ir al estado 109
-    '{'                       desplazar e ir al estado 54
-
-    sentencia                    ir al estado 378
-    sentencia_de_etiqueta        ir al estado 113
-    sentencia_de_expresion       ir al estado 114
-    sentencia_compuesta          ir al estado 115
-    sentencia_de_seleccion       ir al estado 117
-    sentencia_de_iteracion       ir al estado 118
-    sentencia_de_salto           ir al estado 119
-    expresion                    ir al estado 120
-    expresion_de_asignacion      ir al estado 121
-    expresion_condicional        ir al estado 122
-    expresion_logica_OR          ir al estado 123
-    expresion_logica_AND         ir al estado 124
-    expresion_OR_inclusiva       ir al estado 125
-    expresion_XOR                ir al estado 126
-    expresion_AND                ir al estado 127
-    expresion_de_igualdad        ir al estado 128
-    expresion_relacional         ir al estado 129
-    expresion_de_desplazamiento  ir al estado 130
-    expresion_aditiva            ir al estado 131
-    expresion_multiplicativa     ir al estado 132
-    expresion_de_casteo          ir al estado 133
-    expresion_unaria             ir al estado 134
-    operador_unario              ir al estado 135
-    expresion_posfija            ir al estado 136
-    expresion_primaria           ir al estado 137
-    constante                    ir al estado 138
-    constante_entera             ir al estado 139
-
-
-Estado 378
-
-  121 sentencia_de_seleccion: IF '(' expresion ')' sentencia IF '(' expresion ')' sentencia ELSE sentencia •
-
-    $default  reduce usando la regla 121 (sentencia_de_seleccion)
+    $default  reduce usando la regla 133 (sentencia_de_iteracion)

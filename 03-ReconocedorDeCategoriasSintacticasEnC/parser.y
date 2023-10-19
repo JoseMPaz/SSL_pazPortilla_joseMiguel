@@ -56,8 +56,9 @@ extern int yyerror (char const*s);
 %left '~' '!'
 %left '[' ']'
 //Mayor Precedencia
-%nonassoc THEN
+%nonassoc LOWER_THAN_ELSE
 %nonassoc ELSE
+
 
 %define parse.error verbose
 
@@ -84,7 +85,7 @@ definicion_de_funcion//3 COMPLETO
 
 declaracion//4 COMPLETO
 	:	especificadores_de_declaracion ';'
-	|	especificadores_de_declaracion lista_de_declaradores_inicial ';'
+	|	especificadores_de_declaracion lista_de_declaradores_inicial ';' { printf("tipoDato: %s\n", $<sval>1); }
 	;
 	
 lista_de_declaraciones//5 COMPLETO
@@ -95,7 +96,7 @@ lista_de_declaraciones//5 COMPLETO
 especificadores_de_declaracion//6 COMPLETO
 	:	especificador_de_clase_de_almacenamiento
 	|	especificador_de_clase_de_almacenamiento especificadores_de_declaracion
-	|	especificador_de_tipo							{ printf("Tipo: %s\n", $<sval>1); }
+	|	especificador_de_tipo							//{ printf("Tipo: %s\n", $<sval>1); }
 	|	especificador_de_tipo especificadores_de_declaracion	
 	|	calificador_de_tipo
 	|	calificador_de_tipo especificadores_de_declaracion
@@ -145,13 +146,13 @@ lista_de_declaraciones_struct//12 COMPLETO
 	;
 
 lista_de_declaradores_inicial://13 COMPLETO
-		declarador_inicial
+		declarador_inicial	 
 	|	lista_de_declaradores_inicial ',' declarador_inicial
 	;
 
 declarador_inicial//14 COMPLETO
 	:	declarador
-	|	declarador '=' inicializador	{ printf("Variable: %s\n", $<sval>1); }
+	|	declarador '=' inicializador	{ printf("Variable: %-10s\t", $<sval>1); }
 	;
 
 declaracion_struct//15 COMPLETO
@@ -202,7 +203,7 @@ declarador_directo//23 COMPLETO
 	|	'(' declarador ')'
 	|	declarador_directo '[' ']'
 	|	declarador_directo '[' expresion_constante ']'
-	|	declarador_directo '(' lista_de_tipos_de_parametros ')' { printf("Funcion: %s\n", $<sval>1); }
+	|	declarador_directo '(' lista_de_tipos_de_parametros ')' { printf("Funcion: %-10s\t", $<sval>1); }
 	|	declarador_directo '(' ')'
 	|	declarador_directo '(' lista_de_identificadores ')'
 	;
@@ -230,7 +231,7 @@ lista_de_parametros//27 COMPLETO
 	;
 	
 declaracion_de_parametro//28 COMPLETO
-	:	especificadores_de_declaracion declarador { printf("Parametro: %s\n", $<sval>2); }
+	:	especificadores_de_declaracion declarador { printf("Parametro: %-10s\t TipoDato: %s\n", $<sval>2, $<sval>1); }
 	|	especificadores_de_declaracion	
 	|	especificadores_de_declaracion declarador_abstracto
 	;
@@ -305,8 +306,8 @@ lista_de_sentencias//40 COMPLETO
 	;
 
 sentencia_de_seleccion//41 COMPLETO
-	:	IF '(' expresion ')' sentencia %prec THEN
-		IF '(' expresion ')' sentencia ELSE sentencia
+	:	IF '(' expresion ')' sentencia %prec LOWER_THAN_ELSE
+	|	IF '(' expresion ')' sentencia ELSE sentencia 
 	|	SWITCH '(' expresion ')' sentencia
 	;
 	
@@ -338,7 +339,6 @@ expresion//44 COMPLETO
 
 expresion_de_asignacion//45 COMPLETO
 	:	expresion_condicional	
-	//|	expresion_unaria '=' expresion_de_asignacion
 	|	expresion_unaria operador_de_asignacion expresion_de_asignacion
 	;
 	

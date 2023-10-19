@@ -9,11 +9,14 @@ SOURCES = scanner.l parser.y misFunciones.c
 HEADERS = misFunciones.h
 OBJECTS = lex.yy.c parser.tab.c misFunciones.o
 
+
 # Nombre del ejecutable
-TARGET = tp3.exe
+TARGET = tp3.exe 
+
+all: $(TARGET) clean
 
 # Regla principal para la construcción del ejecutable
-$(TARGET): $(OBJECTS)
+$(TARGET): $(OBJECTS) 
 	$(CC) $(CFLAGS) -o $(TARGET) $(OBJECTS) -lm
 
 # Regla para generar el archivo lex.yy.c a partir de scanner.l
@@ -30,7 +33,7 @@ misFunciones.o: misFunciones.c $(HEADERS)
 
 # Limpieza de archivos generados
 clean:
-	rm -f $(TARGET) $(OBJECTS) lex.yy.c parser.tab.c parser.tab.h
+	rm -f $(OBJECTS) lex.yy.c parser.tab.c parser.tab.h
 
 # Regla phony para que "clean" no sea confundido con un archivo llamado "clean"
 .PHONY: clean

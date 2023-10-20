@@ -25,6 +25,7 @@ comentario_multilineas									\/\*([^*]|(\*+[^*/]))*\*+\/
 %option yylineno
 
 %%
+
 {comentario_de_una_linea}								;
 {comentario_multilineas}								;
 {directiva_de_preprocesamiento}						;
@@ -52,7 +53,7 @@ comentario_multilineas									\/\*([^*]|(\*+[^*/]))*\*+\/
 "<<"															{ hay_un_caracter_no_reconocido = FALSE; return OPERADOR_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA; }
 ">>"															{ hay_un_caracter_no_reconocido = FALSE; return OPERADOR_DESPLAZAMIENTO_DE_BITS_A_DERECHA; }
 "+"															{ hay_un_caracter_no_reconocido = FALSE; return '+'; }
-"-"															{ hay_un_caracter_no_reconocido = FALSE; return '-'; }
+
 "*"															{ hay_un_caracter_no_reconocido = FALSE; return '*'; }
 "/"															{ hay_un_caracter_no_reconocido = FALSE; return '/'; }
 "%"															{ hay_un_caracter_no_reconocido = FALSE; return '%'; }
@@ -66,7 +67,7 @@ comentario_multilineas									\/\*([^*]|(\*+[^*/]))*\*+\/
 "."															{ hay_un_caracter_no_reconocido = FALSE; return '.'; }
 "..."															{ hay_un_caracter_no_reconocido = FALSE; return ELIPSIS; }
 "->"															{ hay_un_caracter_no_reconocido = FALSE; return OPERADOR_FLECHA; }	
-"="															{ hay_un_caracter_no_reconocido = FALSE; return '='; }
+
 "void"														{ hay_un_caracter_no_reconocido = FALSE; strcpy (yylval.sval, yytext); return VOID;}
 "char"														{ hay_un_caracter_no_reconocido = FALSE; strcpy (yylval.sval, yytext);return CHAR;}
 "short"														{ hay_un_caracter_no_reconocido = FALSE; strcpy (yylval.sval, yytext);return SHORT;}
@@ -99,13 +100,15 @@ comentario_multilineas									\/\*([^*]|(\*+[^*/]))*\*+\/
 "*="															{ hay_un_caracter_no_reconocido = FALSE; return OPERADOR_ASIGNACION_MULTIPLICACION;}
 "/="															{ hay_un_caracter_no_reconocido = FALSE; return OPERADOR_ASIGNACION_DIVISION;}
 "%="															{ hay_un_caracter_no_reconocido = FALSE; return OPERADOR_ASIGNACION_RESTO;}
-"+="															{ hay_un_caracter_no_reconocido = FALSE; return OPERADOR_ASIGNACION_SUMA;}
+"\+="															{ hay_un_caracter_no_reconocido = FALSE; return OPERADOR_ASIGNACION_SUMA;}
 "-="															{ hay_un_caracter_no_reconocido = FALSE; return OPERADOR_ASIGNACION_RESTA;}
 "<<="															{ hay_un_caracter_no_reconocido = FALSE; return OPERADOR_ASIGNACION_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA;}
 ">>="															{ hay_un_caracter_no_reconocido = FALSE; return OPERADOR_ASIGNACION_DESPLAZAMIENTO_DE_BITS_A_DERECHA;}
 "&="															{ hay_un_caracter_no_reconocido = FALSE; return OPERADOR_ASIGNACION_AND_BIT_A_BIT;}
 "^="															{ hay_un_caracter_no_reconocido = FALSE; return OPERADOR_ASIGNACION_XOR_BIT_A_BIT;}
 "\|="															{ hay_un_caracter_no_reconocido = FALSE; return OPERADOR_ASIGNACION_OR_BIT_A_BIT;}
+"="															{ hay_un_caracter_no_reconocido = FALSE; return '='; }
+"-"															{ hay_un_caracter_no_reconocido = FALSE; return '-'; }
 {cadena_de_caracteres}				 					{ hay_un_caracter_no_reconocido = FALSE; 
 																	strcpy (yylval.sval, yytext);return CADENA_DE_CARACTERES; }
 {constante_decimal}										{ hay_un_caracter_no_reconocido = FALSE; 

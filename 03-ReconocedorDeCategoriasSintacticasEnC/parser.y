@@ -48,7 +48,7 @@ extern nodo_cadena_entero_t * no_reconocidas;
 
 //Menor Precedencia
 %left ','
-%right '='
+%right '=' OPERADOR_ASIGNACION_SUMA OPERADOR_ASIGNACION_RESTA
 %right '?' ':'
 %left OPERADOR_LOGICO_OR
 %left OPERADOR_LOGICO_AND
@@ -66,7 +66,7 @@ extern nodo_cadena_entero_t * no_reconocidas;
 %nonassoc ELSE
 
 
-//%define parse.error verbose
+%define parse.error verbose
 
 %start unidad_de_traduccion
 
@@ -159,7 +159,7 @@ lista_de_declaradores_inicial://13 COMPLETO
 
 declarador_inicial//14 COMPLETO
 	:	declarador							
-	|	declarador '=' inicializador	
+	|	declarador operador_de_asignacion inicializador	
 	;
 
 declaracion_struct//15 COMPLETO

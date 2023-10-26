@@ -1,7 +1,7 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
-#include "misFunciones.h"
+#include "lista_cadena_entero.h"
 extern int yylex();
 extern FILE * yyin;
 extern int yyerror (char const*s);

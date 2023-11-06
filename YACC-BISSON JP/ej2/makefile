@@ -5,17 +5,15 @@ LEX = flex
 YACC = bison 
 
 # Archivos fuente y objeto
-SOURCES = scanner.l parser.y lista_cadena_entero.c simbolo.c
-OBJECTS = lex.yy.c parser.tab.c lista_cadena_entero.o simbolo.o
-
+SOURCES = scanner.l parser.y misFunciones.c
+HEADERS = misFunciones.h
+OBJECTS = lex.yy.c parser.tab.c misFunciones.o
 
 # Nombre del ejecutable
-TARGET = tpi.exe 
-
-all: $(TARGET) clean
+TARGET = ej2.exe
 
 # Regla principal para la construcción del ejecutable
-$(TARGET): $(OBJECTS) 
+$(TARGET): $(OBJECTS)
 	$(CC) $(CFLAGS) -o $(TARGET) $(OBJECTS) -lm
 
 # Regla para generar el archivo lex.yy.c a partir de scanner.l
@@ -24,17 +22,15 @@ lex.yy.c: scanner.l parser.tab.h
 
 # Regla para generar el archivo parser.tab.c y parser.tab.h a partir de parser.y
 parser.tab.c parser.tab.h: parser.y
-	$(YACC) -d -v parser.y
+	$(YACC) -d parser.y
 
 # Regla para compilar el archivo de funciones
-lista_cadena_entero.o: lista_cadena_entero.c lista_cadena_entero.h
-	$(CC) $(CFLAGS) -c lista_cadena_entero.c
-	
-simbolo.o: simbolo.c simbolo.h
-	$(CC) $(CFLAGS) -c simbolo.c
+misFunciones.o: misFunciones.c $(HEADERS)
+	$(CC) $(CFLAGS) -c misFunciones.c
+
 # Limpieza de archivos generados
 clean:
-	rm -f $(OBJECTS) lex.yy.c parser.tab.c parser.tab.h *.output
+	rm -f $(TARGET) $(OBJECTS) lex.yy.c parser.tab.c parser.tab.h
 
 # Regla phony para que "clean" no sea confundido con un archivo llamado "clean"
 .PHONY: clean

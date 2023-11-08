@@ -9,6 +9,7 @@ typedef struct
 {
 	char nombre_funcion[200];
 	char tipo_dato_devuelto[200];
+	nodo_parametro_t * parametros;
 }funcion_t;
 
 typedef struct nodo_funcion_t

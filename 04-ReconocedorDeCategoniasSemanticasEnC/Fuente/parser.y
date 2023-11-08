@@ -17,6 +17,9 @@ extern nodo_cadena_entero_t * no_reconocidas;
 #define ETIQUETA_NUMERO_DE_LINEA "Numero de linea: "
 #define CABECERA_PALABRAS_O_CARACTERES_NO_RECONOCIDOS "ERRORES LEXICOS"
 
+nodo_parametro_t * parametros = NULL;
+parametro_t parametro;
+
 %}
 
 //Se comento alguna variante del error-verbose para que no haya conflicto con las diferentes versiones de bison
@@ -94,7 +97,7 @@ declaracion_externa
 definicion_de_funcion
 	:	declarador sentencia_compuesta 
 	|	declarador lista_de_declaraciones sentencia_compuesta 
-	|	especificadores_de_declaracion declarador sentencia_compuesta //{printf("Definicion: %s\nTipo de dato: %s\n", $<sval>2, $<sval>1);}
+	|	especificadores_de_declaracion declarador sentencia_compuesta {printf("Definicion de funcion: %s\tTipo de dato que devuelve: %s\n", $<sval>2, $<sval>1);}
 	|	especificadores_de_declaracion declarador lista_de_declaraciones sentencia_compuesta  //{printf("Dato:%s\n", $<sval>1);}
 	;
 
@@ -166,8 +169,8 @@ lista_de_declaradores_inicial
 	;
 
 declarador_inicial
-	:	declarador										 //{printf("Declaracion: %s\n", $<sval>1);}		
-	|	declarador operador_de_asignacion inicializador//	  {printf("Declaracion: %s\n", $<sval>1);}	
+	:	declarador										// {printf("Declaracion: %s\n", $<sval>1);}//Para declaracion de funcion o variable sin asignacion
+	|	declarador operador_de_asignacion inicializador	 // {printf("Declaracion: %s\n", $<sval>1);}	
 	;
 
 declaracion_struct
@@ -218,8 +221,8 @@ declarador_directo
 	|	'(' declarador ')'		
 	|	declarador_directo '[' ']'
 	|	declarador_directo '[' expresion_constante ']'
-	|	declarador_directo '(' lista_de_tipos_de_parametros ')' 
-	|	declarador_directo '(' ')'								
+	|	declarador_directo '(' lista_de_tipos_de_parametros ')' 	{printf("Declaracion funcion: %s\n", $<sval>1);}
+	|	declarador_directo '(' ')'											{printf("Declaracion funcion: %s\n", $<sval>1);}
 	|	declarador_directo '(' lista_de_identificadores ')'
 	;
 
@@ -246,8 +249,16 @@ lista_de_parametros
 	;
 	
 declaracion_de_parametro
-	:	especificadores_de_declaracion declarador //{printf("Parametro: %s\nTipo de dato: %s\n", $<sval>2, $<sval>1);}
-	|	especificadores_de_declaracion		//{printf("Tipo de dato: %s\n", $<sval>1);}	  
+	:	especificadores_de_declaracion declarador	{	strcpy(parametro.nombre_parametro, $<sval>2); 
+																	strcpy(parametro.tipo_dato, $<sval>1);
+																	agregar_parametro_sin_repeticion (&parametros, parametro);	
+																}
+	 /*{printf("Parametro: %s\tTipo de dato parametro: %s\n", $<sval>2, $<sval>1);}//Sirve para declaracion o definicion de funciones*/
+	|	especificadores_de_declaracion				{	strcpy(parametro.nombre_parametro, ""); 
+																	strcpy(parametro.tipo_dato, $<sval>1);
+																	agregar_parametro_sin_repeticion (&parametros, parametro);	
+																}
+	/*{printf("Solo Tipo de dato parametro: %s\n", $<sval>1);}//Sirve para definicion y declaracion de funciones con argumento void o solo tipo de datos sin parametro*/
 	|	especificadores_de_declaracion declarador_abstracto
 	;
 		
@@ -508,9 +519,11 @@ int main (int argc, const char * argv[])
 	yyin = fopen (argv[1], "r");
 	
 	yyparse ();
+	
+	imprimir_parametros(parametros,"funcion");
   
 	/*Imprime y luego elimina la lista de las palabras reservadas*/
-	imprimir_cadena_entero	(	no_reconocidas	, ETIQUETA_PALABRAS_O_CARACTERES_NO_RECONOCIDOS, 
+	imprimir_errores_lexicos	(	no_reconocidas	, ETIQUETA_PALABRAS_O_CARACTERES_NO_RECONOCIDOS, 
 									ETIQUETA_NUMERO_DE_LINEA	,	CABECERA_PALABRAS_O_CARACTERES_NO_RECONOCIDOS	);
 	eliminar_lista_cadena_entero	(	no_reconocidas	);
 	fclose (yyin);

@@ -62,7 +62,7 @@ void agregar_cadena_entero_al_final_con_repeticion_y_bandera (nodo_cadena_entero
 
 
 // IMPRIMO TODA LA LISTA CON SU INFO, PARA ESO LA RECORRO 
-void imprimir_cadena_entero (nodo_cadena_entero_t * lista, char etiqueta_cadena[], char etiqueta_entero[], char cabecera[])
+void imprimir_errores_lexicos (nodo_cadena_entero_t * lista, char etiqueta_cadena[], char etiqueta_entero[], char cabecera[])
 {
 	nodo_cadena_entero_t * temporal;
 	

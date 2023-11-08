@@ -1,5 +1,5 @@
-#include "simbolo.h"
-
+#include "variables.h"
+/*
 estado_t agregar_simbolo (nodo_simbolo_t * simbolos[], char nombre[], char tipo[], tipo_de_estructuta_t tipo_de_estructuta)
 {
 	nodo_simbolo_t * temporal = buscar_simbolo (simbolos[tipo_de_estructuta], nombre,tipo);
@@ -43,4 +43,4 @@ void agregar_simbolo_al_final(nodo_simbolo_t * simbolos, nodo_simbolo_t * nuevo_
 		temporal->sig = nuevo_nodo;			
 	}
 	return;
-}
+}*/

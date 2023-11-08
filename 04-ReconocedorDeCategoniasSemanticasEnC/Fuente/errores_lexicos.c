@@ -1,4 +1,4 @@
-#include "lista_cadena_entero.h"
+#include "errores_lexicos.h"
 
 
 // AGREGO LA CADENA A LA LISTA AL FINAL, PASO POR PARAMETROS LA LISTA Y EL DATO A AGREGAR 

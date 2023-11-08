@@ -1,5 +1,5 @@
-#ifndef _LISTA_CADENA_ENTERO_H_
-#define _LISTA_CADENA_ENTERO_H_
+#ifndef _ERRORES_LEXICOS_H_
+#define _ERRORES_LEXICOS_H_
 
 #include <stdio.h>
 #include <stdlib.h>

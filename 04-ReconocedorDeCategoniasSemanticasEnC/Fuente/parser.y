@@ -1,28 +1,26 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
-#include "lista_cadena_entero.h"
-#include "simbolo.h"
+#include "errores_lexicos.h"
+#include "variables.h"
+#include "funciones.h"
+
 extern int yylex();
 extern FILE * yyin;
 extern int yyerror (char const*s);
 extern int yylineno;
 extern nodo_cadena_entero_t * no_reconocidas;
 //tabla_de_simbolos: [0]:Definicion de funciones [1]:declaracion de variables
-simbolo_t * tabla_de_simbolos[2] = {	NULL, NULL	};
+//simbolo_t * tabla_de_simbolos[2] = {	NULL, NULL	};
 
 #define ETIQUETA_PALABRAS_O_CARACTERES_NO_RECONOCIDOS "Palabra o caracter no reconocido: "
 #define ETIQUETA_NUMERO_DE_LINEA "Numero de linea: "
 #define CABECERA_PALABRAS_O_CARACTERES_NO_RECONOCIDOS "ERRORES LEXICOS"
-typedef struct 
-{
-	char nombre[200];
-	double valor;
-}parametro_t;
+
 %}
 
 //Se comento alguna variante del error-verbose para que no haya conflicto con las diferentes versiones de bison
-%define parse.error verbose
+%define parse.error verbose//En windows se debe escribir %error-verbose
 
 // %define parse.error verbose // Para versiones de bison mayores a 3.0
 
@@ -57,9 +55,6 @@ typedef struct
 %token OPERADOR_ASIGNACION_SUMA OPERADOR_ASIGNACION_RESTA
 %token OPERADOR_ASIGNACION_DESPLAZAMIENTO_DE_BITS_A_IZQUIERDA OPERADOR_ASIGNACION_DESPLAZAMIENTO_DE_BITS_A_DERECHA
 %token OPERADOR_ASIGNACION_AND_BIT_A_BIT OPERADOR_ASIGNACION_XOR_BIT_A_BIT OPERADOR_ASIGNACION_OR_BIT_A_BIT
-
-
-
 
 
 //Menor Precedencia
@@ -242,7 +237,7 @@ lista_de_calificadores_de_tipo
 	
 lista_de_tipos_de_parametros
 	:	lista_de_parametros 	
-	|	lista_de_parametros ',' ELIPSIS {printf("Tipo de dato: %s\n", $<sval>1);}
+	|	lista_de_parametros ',' ELIPSIS //{printf("Tipo de dato: %s\n", $<sval>1);}
 	;
 
 lista_de_parametros
@@ -252,7 +247,7 @@ lista_de_parametros
 	
 declaracion_de_parametro
 	:	especificadores_de_declaracion declarador //{printf("Parametro: %s\nTipo de dato: %s\n", $<sval>2, $<sval>1);}
-	|	especificadores_de_declaracion		{printf("Tipo de dato: %s\n", $<sval>1);}	  
+	|	especificadores_de_declaracion		//{printf("Tipo de dato: %s\n", $<sval>1);}	  
 	|	especificadores_de_declaracion declarador_abstracto
 	;
 		
@@ -512,12 +507,12 @@ int main (int argc, const char * argv[])
 	}
 	yyin = fopen (argv[1], "r");
 	
-  yyparse ();
+	yyparse ();
   
-  /*Imprime y luego elimina la lista de las palabras reservadas*/
-	imprimir_cadena_entero(no_reconocidas, ETIQUETA_PALABRAS_O_CARACTERES_NO_RECONOCIDOS, 
-									ETIQUETA_NUMERO_DE_LINEA,CABECERA_PALABRAS_O_CARACTERES_NO_RECONOCIDOS);
-	eliminar_lista_cadena_entero(no_reconocidas);
+	/*Imprime y luego elimina la lista de las palabras reservadas*/
+	imprimir_cadena_entero	(	no_reconocidas	, ETIQUETA_PALABRAS_O_CARACTERES_NO_RECONOCIDOS, 
+									ETIQUETA_NUMERO_DE_LINEA	,	CABECERA_PALABRAS_O_CARACTERES_NO_RECONOCIDOS	);
+	eliminar_lista_cadena_entero	(	no_reconocidas	);
 	fclose (yyin);
 	return 0;
 }

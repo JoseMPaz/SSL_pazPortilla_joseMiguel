@@ -1,6 +1,6 @@
 %{
 #include "parser.tab.h"
-#include "lista_cadena_entero.h"
+#include "errores_lexicos.h"
 int yyerror (char const *s);
 
 cadena_entero_t cadena_entero;

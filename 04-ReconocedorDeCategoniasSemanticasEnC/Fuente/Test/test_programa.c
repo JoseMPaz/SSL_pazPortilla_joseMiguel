@@ -11,15 +11,13 @@ long main (void)
 {
 	float var = 7 && 2;
 	double pi;
-	char mu, epsion;
+	char mu, epsilon;
 	getchar();
-	
 }
 
 signed integrar(int m)
 {
 	a = 3;
-
 }
 
 double derivar(int h, float i)

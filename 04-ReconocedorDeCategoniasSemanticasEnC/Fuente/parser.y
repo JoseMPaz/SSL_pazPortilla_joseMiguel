@@ -261,8 +261,8 @@ declaracion_de_parametro
 		printf("Parametro: %-10s\tTipo de dato parametro: %s\n", $<sval>2, $<sval>1);
 	 	strcpy(parametro.nombre_parametro, $<sval>2); 
 		strcpy(parametro.tipo_dato, $<sval>1);
-		if (agregar_parametro_sin_repeticion (&parametros, parametro) == REDEFINICION_DE_PARAMETRO)
-			fprintf (stderr, "%s\n", "Ocurrio una redefinicion de un parametro");
+		agregar_parametro_al_final (&parametros, parametro);
+
 	}//Sirve para declaracion o definicion de funciones*/
 	
 	|	especificadores_de_declaracion				
@@ -535,6 +535,7 @@ int main (int argc, const char * argv[])
 	
 	imprimir_parametros(parametros,"funcion");
 	printf ("%s%d\n", "Cantidad de parametros: ", cantidad_de_parametros(parametros));
+	validar_que_los_parametros_se_llamen_distinto (parametros);
 	eliminar_parametros(parametros);
 	
   

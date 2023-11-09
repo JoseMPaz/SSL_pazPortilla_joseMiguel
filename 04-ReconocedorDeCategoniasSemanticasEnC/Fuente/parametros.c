@@ -1,15 +1,27 @@
 #include "parametros.h"
 
-estado_parametro_t agregar_parametro_sin_repeticion (nodo_parametro_t ** parametros, parametro_t parametro)
+estado_parametro_t validar_que_los_parametros_se_llamen_distinto (nodo_parametro_t * parametros)
 {
-	nodo_parametro_t * temporal = buscar_parametro (*parametros, parametro);
+	nodo_parametro_t * parametro;
+	nodo_parametro_t * sublista;
 	
-	if (temporal == NULL)//Si aun no fue agregado
+	if (cantidad_de_parametros (parametros) >= 2)
 	{
-		agregar_parametro_al_final (parametros, parametro);
-		return OK;
+		parametro = parametros; 
+		sublista = parametros->sig;
+		while (sublista != NULL)
+		{
+			if (buscar_parametro (sublista,parametro->info) == SI)
+			{
+				printf ("%s%s\n", "Hay parametros con igual nombre: ", parametro->info.nombre_parametro);
+				return REDEFINICION_DE_PARAMETRO;
+			}
+			parametro = sublista;
+			sublista = sublista->sig;
+		}
 	}
-	return REDEFINICION_DE_PARAMETRO;
+	
+	return OK;
 }
 
 void agregar_parametro_al_final (nodo_parametro_t ** parametros, parametro_t parametro)
@@ -35,14 +47,22 @@ void agregar_parametro_al_final (nodo_parametro_t ** parametros, parametro_t par
 	return;
 }
 
-nodo_parametro_t * buscar_parametro (nodo_parametro_t * parametros, parametro_t parametro)
+//Espera que la lista de parametros no este vacia
+repeticion_t buscar_parametro (nodo_parametro_t * parametros, parametro_t parametro)
 {
 	nodo_parametro_t * temporal = parametros;
+	
+	
+	if (strcmp (parametro.nombre_parametro,"") == 0)
+		return NO;
 	
 	for(	;temporal != NULL && strcmp( temporal->info.nombre_parametro, parametro.nombre_parametro) != 0; temporal = temporal->sig)
 		;	
 		
-	return temporal;
+	if (temporal == NULL)
+		return NO;
+		
+	return SI;
 }
 
 void eliminar_parametros (nodo_parametro_t * parametros)
@@ -74,7 +94,7 @@ void imprimir_parametros (nodo_parametro_t * parametros, char nombre_funcion[])
 int cantidad_de_parametros (nodo_parametro_t * parametros)
 {
 	int contador = 0;
-	nodo_parametro_t * temporal = parametros;
+	nodo_parametro_t * temporal;
 	
 	
 	for (temporal = parametros; temporal != NULL; temporal = temporal->sig)

@@ -71,3 +71,14 @@ void imprimir_parametros (nodo_parametro_t * parametros, char nombre_funcion[])
 	return;
 }
 
+int cantidad_de_parametros (nodo_parametro_t * parametros)
+{
+	int contador = 0;
+	nodo_parametro_t * temporal = parametros;
+	
+	
+	for (temporal = parametros; temporal != NULL; temporal = temporal->sig)
+		 contador++;
+	return contador;
+}
+

@@ -67,8 +67,7 @@ void agregar_ordenado (nodo_cadena_entero_t ** lista, cadena_entero_t dato, int 
 void agregar_cadena_entero_ordenado_sin_repeticion (nodo_cadena_entero_t ** lista, 
 																	cadena_entero_t cadena_entero, 
 																	void (*accion)(nodo_cadena_entero_t * aux), 
-																	int (*criterio)(cadena_entero_t dato1,
-																	cadena_entero_t dato2));
+																	int (*criterio)(cadena_entero_t dato1,	cadena_entero_t dato2));
 int strcmp_insensible (const char *s1, const char *s2);
 void imprimir_palabra_reservada (nodo_cadena_entero_t * lista);
 void imprimir_comentarios (nodo_cadena_entero_t * lista);

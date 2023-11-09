@@ -1,8 +1,5 @@
 #include "lista_cadena_entero.h"
 
-
-
-
 // AGREGO LA CADENA A LA LISTA AL FINAL, PASO POR PARAMETROS LA LISTA Y EL DATO A AGREGAR 
 void agregar_cadena_entero_al_final_con_repeticion (nodo_cadena_entero_t ** lista, cadena_entero_t cadena_entero)
 {

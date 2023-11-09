@@ -29,5 +29,5 @@ void agregar_parametro_al_final (nodo_parametro_t ** parametros, parametro_t par
 nodo_parametro_t * buscar_parametro (nodo_parametro_t * parametros, parametro_t parametro);	
 void eliminar_parametros (nodo_parametro_t * parametros);		
 void imprimir_parametros (nodo_parametro_t * parametros, char nombre_funcion[]);
-									
+int cantidad_de_parametros (nodo_parametro_t * parametros);						
 #endif

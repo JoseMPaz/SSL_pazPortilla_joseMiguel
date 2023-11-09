@@ -66,7 +66,7 @@ void imprimir_parametros (nodo_parametro_t * parametros, char nombre_funcion[])
 	
 	printf ("\n%-20s%-20s%s%s\n", "############### ", "Parametros de funcion: ", nombre_funcion, " ###############");
 	for (temporal = parametros; temporal != NULL; temporal = temporal->sig)
-		 printf ("%s%-20s\t%-3s%s\n","Nombre de parametro: " ,temporal->info.nombre_parametro, "Tipo dato de parametro: ", temporal->info.tipo_dato);
+		 printf ("%s%-10s\t%-3s%s\n","Nombre de parametro: " ,temporal->info.nombre_parametro, "Tipo dato de parametro: ", temporal->info.tipo_dato);
 	
 	return;
 }

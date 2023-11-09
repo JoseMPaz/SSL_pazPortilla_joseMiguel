@@ -97,13 +97,13 @@ declaracion_externa
 definicion_de_funcion
 	:	declarador sentencia_compuesta 
 	|	declarador lista_de_declaraciones sentencia_compuesta 
-	|	especificadores_de_declaracion declarador sentencia_compuesta {printf("Definicion de funcion: %s\tTipo de dato que devuelve: %s\n", $<sval>2, $<sval>1);}
+	|	especificadores_de_declaracion declarador sentencia_compuesta //{printf("Definicion Funcion: %10s\tTipo de dato que devuelve: %s\n", $<sval>2, $<sval>1);}
 	|	especificadores_de_declaracion declarador lista_de_declaraciones sentencia_compuesta  //{printf("Dato:%s\n", $<sval>1);}
 	;
 
 declaracion
 	:	especificadores_de_declaracion ';'										 //{printf("Tipo de dato: %s\n", $<sval>1);}
-	|	especificadores_de_declaracion lista_de_declaradores_inicial ';' //{printf("Tipo de dato: %s\n", $<sval>1);}
+	|	especificadores_de_declaracion lista_de_declaradores_inicial ';'// {printf("Tipo de dato: %s\n", $<sval>1);}
 	;
 	
 lista_de_declaraciones
@@ -164,7 +164,7 @@ lista_de_declaraciones_struct
 	;
 
 lista_de_declaradores_inicial
-	:	declarador_inicial	 
+	:	declarador_inicial	 //{printf("\tDeclaracion: %s\t", $<sval>1);}
 	|	lista_de_declaradores_inicial ',' declarador_inicial 
 	;
 
@@ -221,8 +221,15 @@ declarador_directo
 	|	'(' declarador ')'		
 	|	declarador_directo '[' ']'
 	|	declarador_directo '[' expresion_constante ']'
-	|	declarador_directo '(' lista_de_tipos_de_parametros ')' 	{printf("Declaracion funcion: %s\n", $<sval>1);}
-	|	declarador_directo '(' ')'											{printf("Declaracion funcion: %s\n", $<sval>1);}
+	|	declarador_directo '(' lista_de_tipos_de_parametros ')' 	//{printf("Funcion: %-10s\t", $<sval>1);}
+	|	declarador_directo '(' ')'											
+	{ 
+		printf("Parametro: %-10s\tTipo de dato parametro: %s\n", "", "void");
+		strcpy(parametro.nombre_parametro, ""); 
+		strcpy(parametro.tipo_dato, "void");
+		agregar_parametro_al_final (&parametros, parametro);
+	}
+	/*printf("Funcion: %-10s\t", $<sval>1);*/
 	|	declarador_directo '(' lista_de_identificadores ')'
 	;
 
@@ -249,17 +256,22 @@ lista_de_parametros
 	;
 	
 declaracion_de_parametro
-	:	especificadores_de_declaracion declarador	{	strcpy(parametro.nombre_parametro, $<sval>2); 
-																	strcpy(parametro.tipo_dato, $<sval>1);
-																	agregar_parametro_sin_repeticion (&parametros, parametro);	
-																}
-	 /*{printf("Parametro: %s\tTipo de dato parametro: %s\n", $<sval>2, $<sval>1);}//Sirve para declaracion o definicion de funciones*/
-	|	especificadores_de_declaracion				{	strcpy(parametro.nombre_parametro, ""); 
-																	strcpy(parametro.tipo_dato, $<sval>1);
-																	agregar_parametro_sin_repeticion (&parametros, parametro);	
-																}
-	/*{printf("Solo Tipo de dato parametro: %s\n", $<sval>1);}//Sirve para definicion y declaracion de funciones con argumento void o solo tipo de datos sin parametro*/
-	|	especificadores_de_declaracion declarador_abstracto
+	:	especificadores_de_declaracion declarador	
+	{
+		printf("Parametro: %-10s\tTipo de dato parametro: %s\n", $<sval>2, $<sval>1);
+	 	strcpy(parametro.nombre_parametro, $<sval>2); 
+		strcpy(parametro.tipo_dato, $<sval>1);
+		agregar_parametro_al_final (&parametros, parametro);	
+	}//Sirve para declaracion o definicion de funciones*/
+	
+	|	especificadores_de_declaracion				
+	{	
+		printf("Parametro: %-10s\tTipo de dato parametro: %s\n", "", $<sval>1);
+		strcpy(parametro.nombre_parametro, ""); 
+		strcpy(parametro.tipo_dato, $<sval>1); 
+		agregar_parametro_al_final (&parametros, parametro);
+	}//Sirve para definicion y declaracion de funciones con argumento void o solo tipo de datos sin parametro
+	|	especificadores_de_declaracion declarador_abstracto	//{printf("Parametro: %-10s\tTipo de dato parametro: %s\n", "Ninguno3", $<sval>1);}
 	;
 		
 lista_de_identificadores
@@ -521,6 +533,8 @@ int main (int argc, const char * argv[])
 	yyparse ();
 	
 	imprimir_parametros(parametros,"funcion");
+	eliminar_parametros(parametros);
+	
   
 	/*Imprime y luego elimina la lista de las palabras reservadas*/
 	imprimir_errores_lexicos	(	no_reconocidas	, ETIQUETA_PALABRAS_O_CARACTERES_NO_RECONOCIDOS, 

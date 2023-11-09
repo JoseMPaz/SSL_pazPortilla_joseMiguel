@@ -4,18 +4,19 @@
 signed sumar(int a);
 double dividir();
 int resto(void);
-int restar(char c, unsigned );
-char multiplicar(signed e, short f, long g);
+int restar(char , unsigned );
+char multiplicar(signed e, short , long g);
 
 long main (void)
 {
 	float var = 7 && 2;
 	double pi;
 	char mu, epsion;
+	getchar();
 	
 }
 
-signed integrar(int g)
+signed integrar(int m)
 {
 	a = 3;
 

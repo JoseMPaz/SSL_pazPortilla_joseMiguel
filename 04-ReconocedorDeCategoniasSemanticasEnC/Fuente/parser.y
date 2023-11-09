@@ -97,13 +97,13 @@ declaracion_externa
 definicion_de_funcion
 	:	declarador sentencia_compuesta 
 	|	declarador lista_de_declaraciones sentencia_compuesta 
-	|	especificadores_de_declaracion declarador sentencia_compuesta //{printf("Definicion Funcion: %10s\tTipo de dato que devuelve: %s\n", $<sval>2, $<sval>1);}
+	|	especificadores_de_declaracion declarador sentencia_compuesta {printf("Definicion: %10s\tTipo de dato2: %s\n", $<sval>2, $<sval>1);}
 	|	especificadores_de_declaracion declarador lista_de_declaraciones sentencia_compuesta  //{printf("Dato:%s\n", $<sval>1);}
 	;
 
 declaracion
-	:	especificadores_de_declaracion ';'										 //{printf("Tipo de dato: %s\n", $<sval>1);}
-	|	especificadores_de_declaracion lista_de_declaradores_inicial ';'// {printf("Tipo de dato: %s\n", $<sval>1);}
+	:	especificadores_de_declaracion ';'										 
+	|	especificadores_de_declaracion lista_de_declaradores_inicial ';' {printf("Tipo de dato1: %s\n", $<sval>1);}
 	;
 	
 lista_de_declaraciones
@@ -169,8 +169,8 @@ lista_de_declaradores_inicial
 	;
 
 declarador_inicial
-	:	declarador										// {printf("Declaracion: %s\n", $<sval>1);}//Para declaracion de funcion o variable sin asignacion
-	|	declarador operador_de_asignacion inicializador	 // {printf("Declaracion: %s\n", $<sval>1);}	
+	:	declarador										 {printf("Declaracion1: %s\n", $<sval>1);}//Para declaracion de funcion o variable sin asignacion
+	|	declarador operador_de_asignacion inicializador	  {printf("Declaracion2: %s\n", $<sval>1);}	
 	;
 
 declaracion_struct

@@ -11,7 +11,7 @@ long main (void)
 {
 	float var = 7 && 2;
 	double pi;
-	char mu, epsilon;
+	char mu, epsilon,alfa;
 	getchar();
 }
 

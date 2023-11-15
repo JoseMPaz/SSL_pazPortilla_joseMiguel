@@ -20,8 +20,8 @@ typedef struct nodo_parametro_t
 
 typedef enum 
 {
-	NO = 0, 
-	SI = 1
+	SIN_REPETICION = 0, 
+	CON_REPETICION = 1
 }repeticion_t;
 
 typedef enum
@@ -36,5 +36,9 @@ repeticion_t buscar_parametro (nodo_parametro_t * parametros, parametro_t parame
 void eliminar_parametros (nodo_parametro_t * parametros);		
 void imprimir_parametros (nodo_parametro_t * parametros, char nombre_funcion[]);
 int cantidad_de_parametros (nodo_parametro_t * parametros);		
-estado_parametro_t validar_que_los_parametros_se_llamen_distinto (nodo_parametro_t * parametros);			
+estado_parametro_t rutina_semantica_validacion_de_parametros (nodo_parametro_t * parametros);		
+void copiar_parametros (nodo_parametro_t ** parametros_destino, nodo_parametro_t * parametros_origen);	
+int rutina_semantica_cantidad_y_tipos_de_parametros (nodo_parametro_t * parametros, nodo_parametro_t * argumentos);
+int tipos_de_parametros_iguales (nodo_parametro_t * p1, nodo_parametro_t * p2);
+
 #endif

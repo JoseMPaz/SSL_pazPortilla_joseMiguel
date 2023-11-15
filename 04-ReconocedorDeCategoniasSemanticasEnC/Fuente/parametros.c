@@ -1,6 +1,6 @@
 #include "parametros.h"
 
-estado_parametro_t validar_que_los_parametros_se_llamen_distinto (nodo_parametro_t * parametros)
+estado_parametro_t rutina_semantica_validacion_de_parametros (nodo_parametro_t * parametros)
 {
 	nodo_parametro_t * parametro;
 	nodo_parametro_t * sublista;
@@ -11,7 +11,7 @@ estado_parametro_t validar_que_los_parametros_se_llamen_distinto (nodo_parametro
 		sublista = parametros->sig;
 		while (sublista != NULL)
 		{
-			if (buscar_parametro (sublista,parametro->info) == SI)
+			if (buscar_parametro (sublista,parametro->info) == CON_REPETICION)
 			{
 				printf ("%s%s\n", "Hay parametros con igual nombre: ", parametro->info.nombre_parametro);
 				return REDEFINICION_DE_PARAMETRO;
@@ -54,15 +54,15 @@ repeticion_t buscar_parametro (nodo_parametro_t * parametros, parametro_t parame
 	
 	
 	if (strcmp (parametro.nombre_parametro,"") == 0)
-		return NO;
+		return SIN_REPETICION;
 	
 	for(	;temporal != NULL && strcmp( temporal->info.nombre_parametro, parametro.nombre_parametro) != 0; temporal = temporal->sig)
 		;	
 		
 	if (temporal == NULL)
-		return NO;
+		return SIN_REPETICION;
 		
-	return SI;
+	return CON_REPETICION;
 }
 
 void eliminar_parametros (nodo_parametro_t * parametros)
@@ -84,9 +84,21 @@ void imprimir_parametros (nodo_parametro_t * parametros, char nombre_funcion[])
 {
 	nodo_parametro_t * temporal;
 	
-	printf ("\n%-20s%-20s%s%s\n", "############### ", "Parametros de funcion: ", nombre_funcion, " ###############");
+	printf ("%-20s%-20s%s%s\n", "**************** ", "Parametros de funcion: ", nombre_funcion, " ****************");
 	for (temporal = parametros; temporal != NULL; temporal = temporal->sig)
-		 printf ("%s%-10s\t%-3s%s\n","Nombre de parametro: " ,temporal->info.nombre_parametro, "Tipo dato de parametro: ", temporal->info.tipo_dato);
+	{
+		if (!(strcmp(temporal->info.nombre_parametro,"")))
+		{
+			printf("%s%-10s\t%-3s%s\n","Nombre de parametro: -" ,temporal->info.nombre_parametro, "Tipo dato de parametro: ", 
+					temporal->info.tipo_dato);
+		}
+		else
+		{
+			printf ("%s%-10s\t%-3s%s\n","Nombre de parametro: " ,temporal->info.nombre_parametro, "Tipo dato de parametro: ", 
+						temporal->info.tipo_dato);	
+		}
+	}
+	
 	
 	return;
 }
@@ -96,9 +108,47 @@ int cantidad_de_parametros (nodo_parametro_t * parametros)
 	int contador = 0;
 	nodo_parametro_t * temporal;
 	
-	
 	for (temporal = parametros; temporal != NULL; temporal = temporal->sig)
 		 contador++;
 	return contador;
+}
+
+void copiar_parametros (nodo_parametro_t ** parametros_destino, nodo_parametro_t * parametros_origen)
+{
+	nodo_parametro_t * temporal = parametros_origen;
+	
+	for (	;	temporal != NULL ; temporal = temporal->sig)
+	{
+		agregar_parametro_al_final (parametros_destino, temporal->info);
+	}
+
+	return;
+}
+
+int rutina_semantica_cantidad_y_tipos_de_parametros (nodo_parametro_t * parametros, nodo_parametro_t * argumentos)
+{
+	int estado = 0; 
+	
+	if (cantidad_de_parametros (parametros) != cantidad_de_parametros (argumentos))
+		estado = 1;
+	
+	if (tipos_de_parametros_iguales (parametros,argumentos) == 1)
+		estado = 2;
+		
+	return estado;
+}
+
+//longitud de p1 y p2 debe coincidir
+int tipos_de_parametros_iguales (nodo_parametro_t * p1, nodo_parametro_t * p2)
+{
+	nodo_parametro_t * q1 = p1, * q2 = p2;
+	
+	for ( ; q1 != NULL; q1 = q1->sig, q2 = q2->sig)
+	{
+		if (strcmp (q1->info.tipo_dato, q2->info.tipo_dato) != 0)//Son distinto los tipos de dato
+			return 1;
+	}
+	
+	return 0;
 }
 

@@ -1,46 +1,66 @@
 #include "variables.h"
-/*
-estado_t agregar_simbolo (nodo_simbolo_t * simbolos[], char nombre[], char tipo[], tipo_de_estructuta_t tipo_de_estructuta)
+
+void agregar_variable_al_final (nodo_variable_t ** variables, variable_t variable)
 {
-	nodo_simbolo_t * temporal = buscar_simbolo (simbolos[tipo_de_estructuta], nombre,tipo);
+	nodo_variable_t * nuevo_nodo, * ultimo_nodo;
 	
-	if (temporal == NULL)//Si no fue agregado
+	nuevo_nodo = (nodo_variable_t *) malloc (sizeof(nodo_variable_t));
+	nuevo_nodo->info = variable;
+	nuevo_nodo->sig = NULL;
+	
+	if(*variables == NULL)//Si la lista esta vacia
 	{
-		temporal = (nodo_simbolo_t *) malloc (sizeof(nodo_simbolo_t));
-		
-		strcpy (temporal->info.nombre, nombre);
-		strcpy (temporal->info.tipo, tipo);
-		temporal->info.parametros = NULL;
-		temporal->sig = NULL;
-		//agregar_simbolo_al_final(simbolo[tipo_de_estructuta],temporal);
-		return YA_FUE_AGREGADO;//Retorna TRUE si logra agregar una nueva estructura
+		*variables = nuevo_nodo;
 	}
-	
-	return NO_FUE_AGREGADO;
+	else
+	{
+		//Se recorre la lista hasta el utimo nodo
+		for (ultimo_nodo = *variables; ultimo_nodo->sig != NULL; ultimo_nodo = ultimo_nodo->sig)
+			; 
+		ultimo_nodo->sig = nuevo_nodo;//El ultimo nodo apunta al nuevo nodo
+	}
+	return;
 }
 
-nodo_simbolo_t * buscar_simbolo (nodo_simbolo_t * simbolos, char nombre[], char tipo[])
+void imprimir_variables (nodo_variable_t * variables)
 {
-	nodo_simbolo_t * temporal;
+	nodo_variable_t * temporal;
 	
-	for (temporal = simbolos; temporal != NULL; temporal = temporal->sig)
-		if (!strcmp (temporal->info.nombre,nombre))
-			return temporal;
-			
+	printf ("\n%-20s%-20s%s\n\n", "############### ", "VARIABLES", " ###############");
+	
+	for (temporal = variables; temporal != NULL; temporal = temporal->sig)
+		printf ("%s%-10s\t%-3s%-10s\t%-3s%s\n",	"Nombre de variable: " ,temporal->info.nombre_variable, "Tipo dato de variable: ", 
+														temporal->info.tipo_dato, "Ambito: ", temporal->info.ambito);	
+	
+	return;
+}
+
+void eliminar_variables (nodo_variable_t * valiables)
+{
+	nodo_variable_t * nodo_actual = valiables, * nodo_siguiente = NULL;
+
+	while (nodo_actual != NULL)
+	{
+		nodo_siguiente = nodo_actual->sig;
+		free(nodo_actual);
+		nodo_actual = nodo_siguiente;	
+	}
+	
+	return;
+}
+
+nodo_variable_t * buscar_variable (nodo_variable_t * variables, char nombre_variable[])
+{
+	nodo_variable_t * temporal = variables;
+	
+	//recorre la lista hasta el final, pero si el nombre de la variable ya fue agregada deja de recorrer
+	for(	;temporal != NULL && strcmp ( temporal->info.nombre_variable,nombre_variable) != 0/*Son distintos*/; temporal = temporal->sig)
+		;	
+		
+	if (temporal != NULL)
+		return temporal;
+		
 	return NULL;
 }
 
-void agregar_simbolo_al_final(nodo_simbolo_t * simbolos, nodo_simbolo_t * nuevo_nodo)
-{
-	nodo_simbolo_t * temporal;
 
-	if (simbolos == NULL)
-		simbolos = nuevo_nodo;
-	else
-	{
-		for (temporal = simbolos; temporal->sig != NULL; temporal = temporal->sig)
-			;
-		temporal->sig = nuevo_nodo;			
-	}
-	return;
-}*/

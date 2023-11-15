@@ -1,31 +1,32 @@
 %{
 #include "parser.tab.h"
-#include "errores_lexicos.h"
-int yyerror (char const *s);
+#include "errores.h"
 
-cadena_entero_t cadena_entero;
+void yyerror(const char *s);
+
+error_t error;
 bool_t hay_un_caracter_no_reconocido = FALSE;
-nodo_cadena_entero_t * no_reconocidas = NULL;
+nodo_error_t * errores_lexicos = NULL;
 %}
 
-constante_decimal										[1-9][0-9]*
-identificador											[a-zA-Z_][a-zA-Z0-9_]*
-cadena_de_caracteres									\"[^\n"]*\"
-constante_caracter										\'.\'
-constante_real											[0-9]*[.][0-9]+([eE][+-]?[0-9]+)?|[0-9]+[eE][+-]?[0-9]+ 
-constante_octal											0[0-7]* 
-constante_hexadecimal									0[xX][0-9A-Fa-f]+
-constante_de_enumeracion								[A-Z_][A-Z0-9_]*
-directiva_de_preprocesamiento							\#(include|define|ifndef|ifdef)(.*)|\#endif
-comentario_de_una_linea									\/\/.*
-comentario_multilineas									\/\*([^*]|(\*+[^*/]))*\*+\/
+constante_decimal							[1-9][0-9]*
+identificador								[a-zA-Z_][a-zA-Z0-9_]*
+cadena_de_caracteres						\"[^\n"]*\"
+constante_caracter							\'.\'
+constante_real								[0-9]*[.][0-9]+([eE][+-]?[0-9]+)?|[0-9]+[eE][+-]?[0-9]+ 
+constante_octal								0[0-7]* 
+constante_hexadecimal						0[xX][0-9A-Fa-f]+
+constante_de_enumeracion					[A-Z_][A-Z0-9_]*
+directiva_de_preprocesamiento				\#(include|define|ifndef|ifdef)(.*)|\#endif
+comentario_de_una_linea						\/\/.*
+comentario_multilineas						\/\*([^*]|(\*+[^*/]))*\*+\/
 
 %option noyywrap
 %option yylineno
 
 %%
 
-[*/%<>~=!,;(){}+?:.^]				{ 
+[*/%<>~=!,;(){}+?:.^]						{ 
 												hay_un_caracter_no_reconocido = FALSE; 
 												return yytext[0]; 
 											}
@@ -55,13 +56,13 @@ comentario_multilineas									\/\*([^*]|(\*+[^*/]))*\*+\/
 											}
 															
 															
-"\|\|"									{ 
+"\|\|"										{ 
 												hay_un_caracter_no_reconocido = FALSE; 
 												return OPERADOR_LOGICO_OR; 
 											}
 															
 															
-"\&\&"									{ 
+"\&\&"										{ 
 												hay_un_caracter_no_reconocido = FALSE; 
 												return OPERADOR_LOGICO_AND; 
 											}
@@ -180,7 +181,7 @@ comentario_multilineas									\/\*([^*]|(\*+[^*/]))*\*+\/
 											}
 
 
-"-"										{ 
+"-"											{ 
 												hay_un_caracter_no_reconocido = FALSE; 
 												return '-'; 
 											}
@@ -198,39 +199,39 @@ comentario_multilineas									\/\*([^*]|(\*+[^*/]))*\*+\/
 											}
 
 
-"case"									{	
+"case"										{	
 												hay_un_caracter_no_reconocido = FALSE; 
-												yylval.nro_linea_inicio = yylineno; 
+												yylval.s.nro_linea_inicio = yylineno; 
 												return CASE; 
 											}
 
 
-"default"								{	
+"default"									{	
 												hay_un_caracter_no_reconocido = FALSE; 
-												yylval.nro_linea_inicio = yylineno; 
+												yylval.s.nro_linea_inicio = yylineno; 
 												return DEFAULT; 
 											}
 
 
-"volatile"								{	
+"volatile"									{	
 												hay_un_caracter_no_reconocido = FALSE; 
 												return VOLATILE;
 											}
 
 
-"const"									{	
+"const"										{	
 												hay_un_caracter_no_reconocido = FALSE; 
 												return CONST;
 											}	
 
 
-"auto"									{	
+"auto"										{	
 												hay_un_caracter_no_reconocido = FALSE; 
 												return AUTO;
 											}
 
 
-"register"								{	
+"register"									{	
 												hay_un_caracter_no_reconocido = FALSE; 
 												return REGISTER;
 											}
@@ -248,7 +249,7 @@ comentario_multilineas									\/\*([^*]|(\*+[^*/]))*\*+\/
 											}
 
 
-"typedef"								{	
+"typedef"									{	
 												hay_un_caracter_no_reconocido = FALSE; 
 												return TYPEDEF;
 											}
@@ -256,96 +257,96 @@ comentario_multilineas									\/\*([^*]|(\*+[^*/]))*\*+\/
 
 "struct"									{
 												hay_un_caracter_no_reconocido = FALSE; 
-												strcpy (yylval.sval, yytext); 
-												yylval.nro_linea_inicio = yylineno; 
+												strcpy (yylval.s.sval, yytext); 
+												yylval.s.nro_linea_inicio = yylineno; 
 												return STRUCT;
 											}
 																
 																
-"union"									{	
+"union"										{	
 												hay_un_caracter_no_reconocido = FALSE; 
-												strcpy (yylval.sval, yytext); 
-												yylval.nro_linea_inicio = yylineno; 
+												strcpy (yylval.s.sval, yytext); 
+												yylval.s.nro_linea_inicio = yylineno; 
 												return UNION;
 											}
 																
 																
-"enum"									{	
+"enum"										{	
 												hay_un_caracter_no_reconocido = FALSE; 
 												return ENUM;}
 
 
-"void"									{	
+"void"										{	
 												hay_un_caracter_no_reconocido = FALSE; 
-												strcpy (yylval.sval, yytext); 
+												strcpy (yylval.s.sval, yytext); 
 												return VOID;
 											}
 											
 											
-"char"									{	
+"char"										{	
 												hay_un_caracter_no_reconocido = FALSE; 
-												strcpy (yylval.sval, yytext); 
+												strcpy (yylval.s.sval, yytext); 
 												return CHAR;
 											}
 
 
-"short"									{	
+"short"										{	
 												hay_un_caracter_no_reconocido = FALSE; 
-												strcpy (yylval.sval, yytext); 
+												strcpy (yylval.s.sval, yytext); 
 												return SHORT;
 											}
 
 
 "int"										{	
 												hay_un_caracter_no_reconocido = FALSE; 
-												strcpy (yylval.sval, yytext); 
+												strcpy (yylval.s.sval, yytext); 
 												return INT;
 											}
 
 
-"long"									{	
-													hay_un_caracter_no_reconocido = FALSE; 
-													strcpy (yylval.sval, yytext); 
-													return LONG;
+"long"										{	
+												hay_un_caracter_no_reconocido = FALSE; 
+												strcpy (yylval.s.sval, yytext); 
+												return LONG;
 											}
 
 
-"float"									{	
+"float"										{	
 												hay_un_caracter_no_reconocido = FALSE; 
-												strcpy (yylval.sval, yytext); 
+												strcpy (yylval.s.sval, yytext); 
 												return FLOAT;
 											}
 
 
 "double"									{	
 												hay_un_caracter_no_reconocido = FALSE; 
-												strcpy (yylval.sval, yytext); 
+												strcpy (yylval.s.sval, yytext); 
 												return DOUBLE;
 											}
 
 
 "signed"									{	
 												hay_un_caracter_no_reconocido = FALSE; 
-												strcpy (yylval.sval, yytext); 
+												strcpy (yylval.s.sval, yytext); 
 												return SIGNED;
 											}
 
 
-"unsigned"								{	
+"unsigned"									{	
 												hay_un_caracter_no_reconocido = FALSE; 
-												strcpy (yylval.sval, yytext); 
+												strcpy (yylval.s.sval, yytext); 
 												return UNSIGNED;
 											}
 
 
 "if"										{ 	
 												hay_un_caracter_no_reconocido = FALSE; 
-												yylval.nro_linea_inicio = yylineno; 
+												yylval.s.nro_linea_inicio = yylineno; 
 												return IF;
 											}
 
 
-"else"									{ 	
+"else"										{ 	
 												hay_un_caracter_no_reconocido = FALSE; 
 												return ELSE;
 											}
@@ -353,45 +354,45 @@ comentario_multilineas									\/\*([^*]|(\*+[^*/]))*\*+\/
 
 "switch"									{ 	
 												hay_un_caracter_no_reconocido = FALSE; 
-												yylval.nro_linea_inicio = yylineno; 
+												yylval.s.nro_linea_inicio = yylineno; 
 												return SWITCH;
 											}
 
 
 "for"										{ 	
 												hay_un_caracter_no_reconocido = FALSE; 
-												yylval.nro_linea_inicio = yylineno; 
+												yylval.s.nro_linea_inicio = yylineno; 
 												return FOR;
 											}
 
 
-"while"									{ 	
+"while"										{ 	
 												hay_un_caracter_no_reconocido = FALSE; 
-												yylval.nro_linea_inicio = yylineno; 
+												yylval.s.nro_linea_inicio = yylineno; 
 												return WHILE;
 											}
 
 
 "do"										{ 	
 												hay_un_caracter_no_reconocido = FALSE; 
-												yylval.nro_linea_inicio = yylineno; 
+												yylval.s.nro_linea_inicio = yylineno; 
 												return DO;
 											}
 
 
-"goto"									{ 	
+"goto"										{ 	
 												hay_un_caracter_no_reconocido = FALSE; 
 												return GOTO;
 											}
 
 
-"continue"								{ 	
+"continue"									{ 	
 												hay_un_caracter_no_reconocido = FALSE; 
 												return CONTINUE;
 											}
 
 
-"break"									{ 	
+"break"										{ 	
 												hay_un_caracter_no_reconocido = FALSE; 
 												return BREAK;
 											}
@@ -399,71 +400,83 @@ comentario_multilineas									\/\*([^*]|(\*+[^*/]))*\*+\/
 
 "return"									{ 	
 												hay_un_caracter_no_reconocido = FALSE; 
-												yylval.nro_linea_inicio = yylineno; 
+												yylval.s.nro_linea_inicio = yylineno; 
 												return RETURN;
 											}
 
 
-{constante_de_enumeracion}			{	
+{constante_de_enumeracion}					{	
 												hay_un_caracter_no_reconocido = FALSE;
-												strcpy (yylval.sval, yytext); 
+												strcpy (yylval.s.sval, yytext); 
 												return CONSTANTE_DECIMAL; 
 											}
 											
 											
-{comentario_de_una_linea}			;
+{comentario_de_una_linea}					;
 
 
-{comentario_multilineas}			;
+{comentario_multilineas}					;
 
 
-{directiva_de_preprocesamiento}	;
+{directiva_de_preprocesamiento}				;
 
 
-{identificador}						{	
+{identificador}								{	
 												hay_un_caracter_no_reconocido = FALSE; 
-												strcpy (yylval.sval, yytext); 
+												strcpy (yylval.s.sval, yytext); 
+												yylval.s.tipo = 2; 
 												return IDENTIFICADOR; 
 											}
 											
 											
-{cadena_de_caracteres}				{	
+{cadena_de_caracteres}						{	
 												hay_un_caracter_no_reconocido = FALSE; 
-												yylval.dval = (int) strtol (yytext, NULL, 10); 
+												yylval.s.dval = (int) strtol (yytext, NULL, 10); 
+												yylval.s.tipo = 0; 
 												return CADENA_DE_CARACTERES; 
 											}
 											
 											
-{constante_decimal}					{	
+{constante_decimal}							{	
 												hay_un_caracter_no_reconocido = FALSE; 
-												yylval.dval = (int) strtol (yytext, NULL, 10); 
+												yylval.s.dval = (int) strtol (yytext, NULL, 0); 
+												yylval.s.tipo = 1; 
+												strcpy(yylval.s.sval, "-");
 												return CONSTANTE_DECIMAL; 
 											}
 											
 											
-{constante_octal}						{	hay_un_caracter_no_reconocido = FALSE;
-												yylval.dval = (int) strtol(yytext, NULL, 8); 
+{constante_octal}							{		
+												hay_un_caracter_no_reconocido = FALSE;
+												yylval.s.dval = (int) strtol(yytext, NULL, 8); 
+												yylval.s.tipo = 1; 
+												strcpy(yylval.s.sval, "-");
 												return CONSTANTE_OCTAL; 
 											}
 											
 											
-{constante_hexadecimal}				{
+{constante_hexadecimal}						{
 												hay_un_caracter_no_reconocido = FALSE;
-												yylval.dval = (int) strtol(yytext, NULL, 16); 
+												yylval.s.dval = (int) strtol(yytext, NULL, 16); 
+												yylval.s.tipo = 1; 
+												strcpy(yylval.s.sval, "-");
 												return CONSTANTE_HEXADECIMAL; 
 											}
 											
 											
-{constante_caracter}					{	
+{constante_caracter}						{	
 												hay_un_caracter_no_reconocido = FALSE; 
-												strcpy (yylval.sval, yytext); 
+												strcpy (yylval.s.sval, yytext); 
+												yylval.s.tipo = 0; 
 												return CONSTANTE_CARACTER; 
 											}
 											
 											
-{constante_real}						{	
+{constante_real}							{	
 												hay_un_caracter_no_reconocido = FALSE; 
-												yylval.dval = strtod (yytext,NULL); 
+												yylval.s.dval = atof(yytext); 
+												yylval.s.tipo = 1; 
+												strcpy(yylval.s.sval, "-");
 												return CONSTANTE_REAL; 
 											}
 											
@@ -474,17 +487,15 @@ comentario_multilineas									\/\*([^*]|(\*+[^*/]))*\*+\/
 											
 											
 .											{	
-												strcpy (cadena_entero.cadena, yytext);
-												cadena_entero.entero = yylineno;
-												agregar_cadena_entero_al_final_con_repeticion_y_bandera (	&no_reconocidas,	cadena_entero,
-																															 	&hay_un_caracter_no_reconocido);
+												strcpy (error.cadena, yytext);
+												error.nro_linea = yylineno;
+												agregar_error_al_final_con_repeticion_y_bandera (&errores_lexicos, error,
+																								&hay_un_caracter_no_reconocido);
 												hay_un_caracter_no_reconocido = TRUE; 
 											}
 																
 %%
 
-int yyerror (char const *s)
-{
-	puts(s);
-	return 1;
+void yyerror(const char *s){
+	printf("Error en la linea %d: %s\n", yylineno, s);
 }

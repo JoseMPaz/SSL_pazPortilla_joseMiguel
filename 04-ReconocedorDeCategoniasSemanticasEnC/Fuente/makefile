@@ -5,8 +5,8 @@ LEX = flex
 YACC = bison 
 
 # Archivos fuente y objeto
-SOURCES = scanner.l parser.y errores_lexicos.c variables.c funciones.c parametros.c
-OBJECTS = lex.yy.c parser.tab.c errores_lexicos.o variables.o funciones.o parametros.o
+SOURCES = scanner.l parser.y errores.c variables.c funciones.c parametros.c identificador.c operaciones.c
+OBJECTS = lex.yy.c parser.tab.c errores.o variables.o funciones.o parametros.o identificador.o operaciones.o
 
 
 # Nombre del ejecutable
@@ -27,8 +27,8 @@ parser.tab.c parser.tab.h: parser.y
 	$(YACC) -d -v parser.y
 
 # Regla para compilar el archivo de funciones
-errores_lexicos.o: errores_lexicos.c errores_lexicos.h
-	$(CC) $(CFLAGS) -c errores_lexicos.c
+errores.o: errores.c errores.h
+	$(CC) $(CFLAGS) -c errores.c
 	
 variables.o: variables.c variables.h
 	$(CC) $(CFLAGS) -c variables.c
@@ -39,6 +39,12 @@ funciones.o: funciones.c funciones.h
 parametros.o: parametros.c parametros.h
 	$(CC) $(CFLAGS) -c parametros.c
 
+identificador.o: identificador.c identificador.h
+	$(CC) $(CFLAGS) -c identificador.c
+
+operaciones.o: operaciones.c operaciones.h
+	$(CC) $(CFLAGS) -c operaciones.c
+	
 # Limpieza de archivos generados
 clean:
 	rm -f $(OBJECTS) lex.yy.c parser.tab.c parser.tab.h *.output
